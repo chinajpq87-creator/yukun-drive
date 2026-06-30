@@ -1,0 +1,44 @@
+---
+export interface Props {
+  title?: string;
+  subtitle?: string;
+  primaryLabel?: string;
+  primaryHref?: string;
+  secondaryLabel?: string;
+  secondaryHref?: string;
+  variant?: 'dark' | 'brand';
+}
+
+const {
+  title = 'Ready to Power Your Product?',
+  subtitle = 'Tell us about your project. Our engineering team will recommend the optimal micro drive configuration — typically within 24 hours.',
+  primaryLabel = 'Request Engineering Consultation',
+  primaryHref = '/contact',
+  secondaryLabel,
+  secondaryHref,
+  variant = 'dark',
+} = Astro.props;
+---
+
+<section class={`section-padding ${variant === 'brand' ? 'gradient-brand' : 'gradient-dark'}`}>
+  <div class="max-w-3xl mx-auto text-center">
+    <h2 class="text-3xl font-bold mb-4">{title}</h2>
+    <p class="text-lg text-[var(--color-text-secondary)] mb-8">{subtitle}</p>
+    <div class="flex flex-col sm:flex-row justify-center gap-4">
+      <a
+        href={primaryHref}
+        class="inline-flex items-center justify-center px-8 py-3.5 text-base font-semibold text-white bg-[var(--color-brand)] hover:bg-[var(--color-brand-light)] rounded-lg transition-colors shadow-lg shadow-[var(--color-brand)]/20"
+      >
+        {primaryLabel} →
+      </a>
+      {secondaryLabel && secondaryHref && (
+        <a
+          href={secondaryHref}
+          class="inline-flex items-center justify-center px-8 py-3.5 text-base font-medium text-[var(--color-text-primary)] border border-[var(--color-border-default)] hover:border-[var(--color-brand)] hover:bg-[var(--color-bg-card)] rounded-lg transition-colors"
+        >
+          {secondaryLabel}
+        </a>
+      )}
+    </div>
+  </div>
+</section>

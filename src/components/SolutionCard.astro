@@ -1,0 +1,51 @@
+---
+export interface Props {
+  title: string;
+  slug: string;
+  description?: string;
+  industries?: string[];
+  icon?: string;
+}
+
+const icons: Record<string, string> = {
+  'Medical Devices': '🏥',
+  'Medical': '🏥',
+  'Smart Lock': '🔐',
+  'Smart Home': '🏠',
+  'EV Charging': '⚡',
+  'Electric Vehicle': '⚡',
+  'Automotive': '🚗',
+  'Industrial': '🏭',
+  'Industrial Automation': '🏭',
+  'Environmental': '🌿',
+  'Environmental Monitoring': '🌿',
+  'Robotics': '🤖',
+  'Water Treatment': '💧',
+  'Water': '💧',
+};
+
+const { title, slug, description, industries, icon } = Astro.props;
+const emoji = icon || (industries?.[0] ? icons[industries[0]] || '📐' : '📐');
+---
+
+<a
+  href={`/solutions/${slug}`}
+  class="group block bg-[var(--color-bg-card)] border border-[var(--color-border-default)] hover:border-[var(--color-brand)] rounded-xl p-6 transition-all duration-300 hover:shadow-lg hover:shadow-[var(--color-brand)]/5"
+>
+  <div class="text-3xl mb-4">{emoji}</div>
+  <h3 class="font-semibold text-[var(--color-text-primary)] group-hover:text-[var(--color-brand-light)] transition-colors mb-2">
+    {title}
+  </h3>
+  {description && (
+    <p class="text-sm text-[var(--color-text-secondary)] line-clamp-3 mb-3">{description}</p>
+  )}
+  {industries && industries.length > 0 && (
+    <div class="flex flex-wrap gap-1.5">
+      {industries.slice(0, 3).map((i) => (
+        <span class="text-xs px-2 py-0.5 bg-[var(--color-bg-elevated)] text-[var(--color-text-muted)] rounded-full">
+          {i}
+        </span>
+      ))}
+    </div>
+  )}
+</a>

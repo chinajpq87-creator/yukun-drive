@@ -1,0 +1,116 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CTA from '../../components/CTA.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+  const solutions = await getCollection('solutions');
+  return solutions.map((s) => ({ params: { slug: s.data.slug } }));
+}
+
+const { slug } = Astro.params;
+const solutions = await getCollection('solutions');
+const solution = solutions.find((s) => s.data.slug === slug);
+if (!solution) return Astro.redirect('/solutions');
+
+const { data, body } = solution;
+const allProducts = await getCollection('products');
+const relatedProducts = allProducts.filter((p) =>
+  p.data.related_solutions?.includes(slug)
+);
+---
+
+<BaseLayout title={data.meta_title} description={data.meta_description}>
+  <!-- Breadcrumb -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+    <nav class="flex text-sm text-[var(--color-text-muted)]">
+      <a href="/" class="hover:text-[var(--color-text-primary)]">Home</a>
+      <span class="mx-2">›</span>
+      <a href="/solutions" class="hover:text-[var(--color-text-primary)]">Solutions</a>
+      <span class="mx-2">›</span>
+      <span class="text-[var(--color-text-primary)]">{data.title?.split('|')[0]?.trim()}</span>
+    </nav>
+  </div>
+
+  <!-- Hero -->
+  <section class="section-padding pt-4">
+    <div class="max-w-7xl mx-auto">
+      <div class="max-w-3xl">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">{data.title?.split('|')[0]?.trim()}</h1>
+        <p class="text-xl text-[var(--color-text-secondary)] mb-6">{data.meta_description}</p>
+        {data.target_industries && data.target_industries.length > 0 && (
+          <div class="flex flex-wrap gap-2 mb-8">
+            {data.target_industries.map((ind: string) => (
+              <span class="text-xs px-3 py-1 bg-[var(--color-bg-elevated)] text-[var(--color-brand-light)] rounded-full font-medium">
+                {ind}
+              </span>
+            ))}
+          </div>
+        )}
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="/contact" class="inline-flex items-center justify-center px-8 py-3.5 text-base font-semibold text-white bg-[var(--color-brand)] hover:bg-[var(--color-brand-light)] rounded-lg transition-colors">
+            Discuss This Application →
+          </a>
+          <a href="#related-products" class="inline-flex items-center justify-center px-8 py-3.5 text-base font-medium text-[var(--color-text-primary)] border border-[var(--color-border-default)] hover:border-[var(--color-brand)] rounded-lg transition-colors">
+            View Recommended Products ↓
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Content Body -->
+  <section class="section-padding pt-0 bg-[var(--color-bg-secondary)] border-y border-[var(--color-border-default)]">
+    <article class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="prose prose-invert prose-lg max-w-none
+        [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:mt-12 [&_h2]:mb-4 [&_h2]:text-[var(--color-text-primary)]
+        [&_h3]:text-xl [&_h3]:font-semibold [&_h3]:mt-8 [&_h3]:mb-3 [&_h3]:text-[var(--color-text-primary)]
+        [&_p]:text-[var(--color-text-secondary)] [&_p]:leading-relaxed
+        [&_strong]:text-[var(--color-text-primary)] [&_strong]:font-semibold
+        [&_ul]:text-[var(--color-text-secondary)] [&_li]:my-1
+        [&_hr]:border-[var(--color-border-default)] [&_hr]:my-8
+        [&_blockquote]:border-l-[var(--color-brand)] [&_blockquote]:bg-[var(--color-bg-card)] [&_blockquote]:text-[var(--color-text-secondary)]
+      ">
+        {body}
+      </div>
+    </article>
+  </section>
+
+  <!-- Related Products -->
+  {relatedProducts.length > 0 && (
+    <section id="related-products" class="section-padding">
+      <div class="max-w-7xl mx-auto">
+        <h2 class="text-2xl font-bold mb-8">Recommended Products for This Solution</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {relatedProducts.map((p) => (
+            <a
+              href={`/products/${p.data.slug}`}
+              class="group block bg-[var(--color-bg-card)] border border-[var(--color-border-default)] hover:border-[var(--color-brand)] rounded-xl p-6 transition-all duration-300"
+            >
+              <div class="flex items-center gap-3 mb-3">
+                <span class="text-2xl">⚙️</span>
+                <div>
+                  <h3 class="font-semibold text-[var(--color-text-primary)] group-hover:text-[var(--color-brand-light)] transition-colors">
+                    {p.data.title?.split('|')[0]?.trim()}
+                  </h3>
+                  <span class="text-xs text-[var(--color-text-muted)] tech-mono">{p.data.product_code}</span>
+                </div>
+              </div>
+              <p class="text-sm text-[var(--color-text-secondary)] line-clamp-2">{p.data.meta_description}</p>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- CTA -->
+  <CTA
+    title="Need a Custom Configuration?"
+    subtitle="Our engineering team will help you select the optimal motor, gear ratio, and custom options for your specific application."
+    primaryLabel="Request Engineering Consultation →"
+    primaryHref="/contact"
+    secondaryLabel="Request Evaluation Samples"
+    secondaryHref="/contact"
+  />
+</BaseLayout>

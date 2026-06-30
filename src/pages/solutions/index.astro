@@ -1,0 +1,55 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const solutions = await getCollection('solutions');
+---
+
+<BaseLayout title="Solutions — Micro Drive Applications | Yukun" description="Explore our micro drive solutions organized by application — medical devices, smart locks, EV charging, robotics, and more.">
+  <section class="section-padding">
+    <div class="max-w-7xl mx-auto">
+      <div class="mb-12">
+        <h1 class="text-4xl font-bold mb-4">Solutions by Application</h1>
+        <p class="text-lg text-[var(--color-text-secondary)] max-w-2xl">
+          We organize our micro drive solutions by what you're building, not by SKU.
+          Each solution includes recommended products, selection guides, and customization options.
+        </p>
+      </div>
+
+      {solutions.length === 0 ? (
+        <div class="text-center py-20">
+          <p class="text-[var(--color-text-muted)] text-lg">Solution pages coming soon.</p>
+          <a href="/contact" class="inline-block mt-4 text-[var(--color-brand-light)] hover:text-[var(--color-brand)] font-medium">
+            Contact us for your specific application →
+          </a>
+        </div>
+      ) : (
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {solutions.map((s) => (
+            <a
+              href={`/solutions/${s.data.slug}`}
+              class="group block bg-[var(--color-bg-card)] border border-[var(--color-border-default)] hover:border-[var(--color-brand)] rounded-xl p-6 transition-all duration-300"
+            >
+              <div class="text-3xl mb-4">📐</div>
+              <h2 class="text-lg font-semibold text-[var(--color-text-primary)] group-hover:text-[var(--color-brand-light)] transition-colors mb-2">
+                {s.data.title?.split('|')[0]?.trim()}
+              </h2>
+              <p class="text-sm text-[var(--color-text-secondary)] line-clamp-3 mb-4">
+                {s.data.meta_description}
+              </p>
+              {s.data.target_industries && s.data.target_industries.length > 0 && (
+                <div class="flex flex-wrap gap-1.5">
+                  {s.data.target_industries.map((ind: string) => (
+                    <span class="text-xs px-2 py-0.5 bg-[var(--color-bg-elevated)] text-[var(--color-text-muted)] rounded-full">
+                      {ind}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,44 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Resources — Technical Library | Yukun" description="Access selection guides, datasheets, CAD models, white papers, and FAQs for micro drive selection and integration.">
+  <section class="section-padding">
+    <div class="max-w-7xl mx-auto">
+      <div class="mb-12">
+        <h1 class="text-4xl font-bold mb-4">Technical Resources</h1>
+        <p class="text-lg text-[var(--color-text-secondary)] max-w-2xl">
+          Engineer-first content to help you select, integrate, and optimize micro drive systems.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <a href="/resources/selection-guides" class="group block bg-[var(--color-bg-card)] border border-[var(--color-border-default)] hover:border-[var(--color-brand)] rounded-xl p-6 transition-all duration-300">
+          <div class="text-3xl mb-4">📖</div>
+          <h2 class="text-lg font-semibold mb-2 group-hover:text-[var(--color-brand-light)] transition-colors">Selection Guides</h2>
+          <p class="text-sm text-[var(--color-text-secondary)]">Step-by-step guides to choose the right motor, gear ratio, and configuration for your application.</p>
+        </a>
+        <a href="/resources/datasheets" class="group block bg-[var(--color-bg-card)] border border-[var(--color-border-default)] hover:border-[var(--color-brand)] rounded-xl p-6 transition-all duration-300">
+          <div class="text-3xl mb-4">📊</div>
+          <h2 class="text-lg font-semibold mb-2 group-hover:text-[var(--color-brand-light)] transition-colors">Datasheets</h2>
+          <p class="text-sm text-[var(--color-text-secondary)]">Complete technical datasheets with performance curves, dimensional drawings, and electrical specs.</p>
+        </a>
+        <a href="/resources/cad-models" class="group block bg-[var(--color-bg-card)] border border-[var(--color-border-default)] hover:border-[var(--color-brand)] rounded-xl p-6 transition-all duration-300">
+          <div class="text-3xl mb-4">🧊</div>
+          <h2 class="text-lg font-semibold mb-2 group-hover:text-[var(--color-brand-light)] transition-colors">CAD Models</h2>
+          <p class="text-sm text-[var(--color-text-secondary)]">Download 3D STEP/IGS files for integration into your mechanical design. Available within 24 hours.</p>
+        </a>
+        <a href="/resources/whitepapers" class="group block bg-[var(--color-bg-card)] border border-[var(--color-border-default)] hover:border-[var(--color-brand)] rounded-xl p-6 transition-all duration-300">
+          <div class="text-3xl mb-4">📄</div>
+          <h2 class="text-lg font-semibold mb-2 group-hover:text-[var(--color-brand-light)] transition-colors">White Papers</h2>
+          <p class="text-sm text-[var(--color-text-secondary)]">In-depth technical papers on drive system design, material selection, and reliability engineering.</p>
+        </a>
+        <a href="/resources/faq" class="group block bg-[var(--color-bg-card)] border border-[var(--color-border-default)] hover:border-[var(--color-brand)] rounded-xl p-6 transition-all duration-300">
+          <div class="text-3xl mb-4">❓</div>
+          <h2 class="text-lg font-semibold mb-2 group-hover:text-[var(--color-brand-light)] transition-colors">FAQ</h2>
+          <p class="text-sm text-[var(--color-text-secondary)]">Common questions about micro drive selection, customization, lead times, and quality.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

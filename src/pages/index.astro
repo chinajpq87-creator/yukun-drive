@@ -1,0 +1,302 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CTA from '../components/CTA.astro';
+import ProductCard from '../components/ProductCard.astro';
+import { getCollection } from 'astro:content';
+
+const products = await getCollection('products');
+
+const featuredProductSlugs = [
+  'n20-metal-spur-gear-motor',
+  'n20-worm-self-locking-gear-motor',
+  '370-worm-self-locking-gear-motor',
+  'bl-24c-slotless-bldc-motor',
+];
+
+const featuredProducts = featuredProductSlugs
+  .map((slug) => products.find((p) => p.data.slug === slug))
+  .filter(Boolean);
+
+const solutionIcons: Record<string, string> = {
+  'smart-lock-micro-motor-solution': '🔐',
+  'ev-charging-gun-actuator-solution': '⚡',
+  'medical-device-micro-drive-solution': '🏥',
+  'smart-home-automation': '🏠',
+  'industrial-automation-drive': '🏭',
+  'environmental-monitoring-pump': '🌿',
+  'robotics-joint-actuator': '🤖',
+  'water-treatment-fluid-control': '💧',
+};
+
+const solutionLabels: Record<string, string> = {
+  'smart-lock-micro-motor-solution': 'Smart Lock Drives',
+  'ev-charging-gun-actuator-solution': 'EV Charging Actuators',
+  'medical-device-micro-drive-solution': 'Medical Device Drives',
+  'smart-home-automation': 'Smart Home Automation',
+  'industrial-automation-drive': 'Industrial Automation',
+  'environmental-monitoring-pump': 'Environmental Monitoring',
+  'robotics-joint-actuator': 'Robotics & Joints',
+  'water-treatment-fluid-control': 'Water Treatment',
+};
+
+const solutionDescs: Record<string, string> = {
+  'smart-lock-micro-motor-solution': 'N20 gear motors for fingerprint locks, hotel card locks, electronic deadbolts. 200K+ cycle rated.',
+  'ev-charging-gun-actuator-solution': 'Self-locking worm gear actuators for AC/DC charging gun electronic locks. IATF 16949.',
+  'medical-device-micro-drive-solution': 'Precision micro motors for infusion pumps, surgical robots, portable diagnostics.',
+  'smart-home-automation': 'Compact drives for motorized curtains, smart valves, adjustable furniture.',
+  'industrial-automation-drive': 'Reliable drives for valve controls, dispensers, small actuators.',
+  'environmental-monitoring-pump': 'Micro pumps and motors for air/gas sampling, water quality monitoring.',
+  'robotics-joint-actuator': 'Precision gear motors for robot grippers, educational robots, servo replacements.',
+  'water-treatment-fluid-control': 'Micro pumps for dosing, sampling, and fluid handling systems.',
+};
+---
+
+<BaseLayout>
+  <!-- ═══ HERO ═══ -->
+  <section class="relative overflow-hidden gradient-dark border-b border-[var(--color-border-default)]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28">
+      <div class="max-w-3xl">
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
+          Micro Motion Solutions<br />
+          <span class="text-[var(--color-brand-light)]">for Your Product</span>
+        </h1>
+        <p class="text-lg md:text-xl text-[var(--color-text-secondary)] mb-8 max-w-2xl">
+          Precision micro drives — from concept to production. Gear motors, pumps, switches.
+          Engineer-first selection. 1-week samples.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a
+            href="/contact"
+            class="inline-flex items-center justify-center px-8 py-3.5 text-base font-semibold text-white bg-[var(--color-brand)] hover:bg-[var(--color-brand-light)] rounded-lg transition-colors shadow-lg shadow-[var(--color-brand)]/20"
+          >
+            Discuss Your Project →
+          </a>
+          <a
+            href="/solutions"
+            class="inline-flex items-center justify-center px-8 py-3.5 text-base font-medium text-[var(--color-text-primary)] border border-[var(--color-border-default)] hover:border-[var(--color-brand)] rounded-lg transition-colors"
+          >
+            Explore Solutions ↓
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="absolute top-0 right-0 w-1/2 h-full opacity-10 pointer-events-none"
+         style="background: radial-gradient(circle at center, var(--color-brand) 0%, transparent 70%);">
+    </div>
+  </section>
+
+  <!-- ═══ SOLUTIONS BY APPLICATION ═══ -->
+  <section class="section-padding">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold mb-4">Solutions by Application</h2>
+        <p class="text-lg text-[var(--color-text-secondary)] max-w-2xl mx-auto">
+          Not sure which motor you need? Start with your application. We organize our micro drive
+          solutions by what you're building — not by SKU number.
+        </p>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {Object.entries(solutionLabels).map(([slug, label]) => (
+          <a
+            href={`/solutions/${slug}`}
+            class="group block bg-[var(--color-bg-card)] border border-[var(--color-border-default)] hover:border-[var(--color-brand)] rounded-xl p-5 transition-all duration-300"
+          >
+            <div class="text-2xl mb-3">{solutionIcons[slug] || '📐'}</div>
+            <h3 class="font-semibold text-sm text-[var(--color-text-primary)] group-hover:text-[var(--color-brand-light)] transition-colors mb-1">
+              {label}
+            </h3>
+            <p class="text-xs text-[var(--color-text-muted)] line-clamp-2">
+              {solutionDescs[slug] || ''}
+            </p>
+          </a>
+        ))}
+      </div>
+      <div class="text-center mt-8">
+        <a href="/solutions" class="text-[var(--color-brand-light)] hover:text-[var(--color-brand)] font-medium transition-colors">
+          View All Solutions →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ WHY YUKUN ═══ -->
+  <section class="section-padding bg-[var(--color-bg-secondary)] border-y border-[var(--color-border-default)]">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold mb-4">Why Engineers Choose Yukun</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="text-center p-6">
+          <div class="text-4xl mb-4">⚡</div>
+          <h3 class="text-xl font-semibold mb-2">Fast Samples</h3>
+          <p class="text-[var(--color-text-secondary)]">
+            Evaluation samples ship in <strong class="text-[var(--color-text-primary)]">1 week</strong>.
+            3D CAD models in 24 hours. Don't wait months to test a motor.
+          </p>
+        </div>
+        <div class="text-center p-6">
+          <div class="text-4xl mb-4">🎯</div>
+          <h3 class="text-xl font-semibold mb-2">Solution Approach</h3>
+          <p class="text-[var(--color-text-secondary)]">
+            We organize products by <strong class="text-[var(--color-text-primary)]">your application</strong>,
+            not our factory layout. Tell us what you're building — we recommend the right drive.
+          </p>
+        </div>
+        <div class="text-center p-6">
+          <div class="text-4xl mb-4">🔧</div>
+          <h3 class="text-xl font-semibold mb-2">Custom Engineering</h3>
+          <p class="text-[var(--color-text-secondary)]">
+            Custom shaft, encoder, gear ratio, connector, mounting.
+            <strong class="text-[var(--color-text-primary)]"> Standard on every order.</strong> No "minimum customization fee."
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ PRODUCT LINES ═══ -->
+  <section class="section-padding">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold mb-4">Product Lines</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <a href="/products" class="group block bg-[var(--color-bg-card)] border border-[var(--color-border-default)] hover:border-[var(--color-brand)] rounded-xl p-6 transition-all duration-300">
+          <div class="flex items-start gap-4">
+            <span class="text-3xl">⚙️</span>
+            <div>
+              <h3 class="text-lg font-semibold mb-1 group-hover:text-[var(--color-brand-light)] transition-colors">Micro DC Gear Motors</h3>
+              <p class="text-sm text-[var(--color-text-secondary)] mb-2">N20 series (12mm) — 7 sub-series covering spur, planetary, worm, encoder, and linear configurations.</p>
+              <span class="text-xs tech-mono text-[var(--color-brand-light)]">N20 Metal Spur: from $2.80 | N20 Planetary: from $3.80 | N20 Worm: from $4.50</span>
+            </div>
+          </div>
+        </a>
+        <a href="/products" class="group block bg-[var(--color-bg-card)] border border-[var(--color-border-default)] hover:border-[var(--color-brand)] rounded-xl p-6 transition-all duration-300">
+          <div class="flex items-start gap-4">
+            <span class="text-3xl">⚡</span>
+            <div>
+              <h3 class="text-lg font-semibold mb-1 group-hover:text-[var(--color-brand-light)] transition-colors">Brushless DC Motors</h3>
+              <p class="text-sm text-[var(--color-text-secondary)] mb-2">Slotless BLDC from 17mm to 42mm. 15,000+ hour life, zero cogging, ultra-quiet.</p>
+              <span class="text-xs tech-mono text-[var(--color-brand-light)]">BL-24C 24mm BLDC: from $15.00 | Hollow Core 17mm: from $12.00</span>
+            </div>
+          </div>
+        </a>
+        <a href="/products" class="group block bg-[var(--color-bg-card)] border border-[var(--color-border-default)] hover:border-[var(--color-brand)] rounded-xl p-6 transition-all duration-300">
+          <div class="flex items-start gap-4">
+            <span class="text-3xl">💧</span>
+            <div>
+              <h3 class="text-lg font-semibold mb-1 group-hover:text-[var(--color-brand-light)] transition-colors">Micro Pumps</h3>
+              <p class="text-sm text-[var(--color-text-secondary)] mb-2">Diaphragm, peristaltic, and rotary vane micro pumps. Self-priming, chemical-resistant.</p>
+              <span class="text-xs tech-mono text-[var(--color-brand-light)]">TF30A Micro Liquid Pump | TM30A Micro Air Pump</span>
+            </div>
+          </div>
+        </a>
+        <a href="/products" class="group block bg-[var(--color-bg-card)] border border-[var(--color-border-default)] hover:border-[var(--color-brand)] rounded-xl p-6 transition-all duration-300">
+          <div class="flex items-start gap-4">
+            <span class="text-3xl">🔘</span>
+            <div>
+              <h3 class="text-lg font-semibold mb-1 group-hover:text-[var(--color-brand-light)] transition-colors">Micro Switches</h3>
+              <p class="text-sm text-[var(--color-text-secondary)] mb-2">Waterproof (IP67), automotive-grade (IATF 16949), and standard micro switches.</p>
+              <span class="text-xs tech-mono text-[var(--color-brand-light)]">IP67 Sealed Switch: from $0.50</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FEATURED PRODUCTS ═══ -->
+  {
+    featuredProducts.length > 0 && (
+      <section class="section-padding bg-[var(--color-bg-secondary)] border-y border-[var(--color-border-default)]">
+        <div class="max-w-7xl mx-auto">
+          <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold mb-4">Featured Products</h2>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {featuredProducts.map((p) => (
+              <ProductCard
+                title={p.data.title?.split('|')[0]?.trim() ?? p.data.title}
+                slug={p.data.slug}
+                description={p.data.meta_description}
+                category={p.data.category}
+                specs={p.data.product_code}
+              />
+            ))}
+          </div>
+          <div class="text-center mt-8">
+            <a href="/products" class="text-[var(--color-brand-light)] hover:text-[var(--color-brand)] font-medium transition-colors">
+              View All Products →
+            </a>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <!-- ═══ TRUST SIGNALS ═══ -->
+  <section class="section-padding">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold mb-4">Quality You Can Trust</h2>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+        <div class="p-4">
+          <div class="text-3xl font-bold text-[var(--color-brand-light)]">20+</div>
+          <div class="text-sm text-[var(--color-text-secondary)] mt-1">Years Manufacturing</div>
+        </div>
+        <div class="p-4">
+          <div class="text-3xl font-bold text-[var(--color-brand-light)]">30K</div>
+          <div class="text-sm text-[var(--color-text-secondary)] mt-1">m² Facility</div>
+        </div>
+        <div class="p-4">
+          <div class="text-3xl font-bold text-[var(--color-brand-light)]">150K+</div>
+          <div class="text-sm text-[var(--color-text-secondary)] mt-1">Units/Day Capacity</div>
+        </div>
+        <div class="p-4">
+          <div class="text-3xl font-bold text-[var(--color-brand-light)]">ISO 9001</div>
+          <div class="text-sm text-[var(--color-text-secondary)] mt-1">+ IATF 16949</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ HOW IT WORKS ═══ -->
+  <section class="section-padding bg-[var(--color-bg-secondary)] border-y border-[var(--color-border-default)]">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold mb-4">How It Works</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div class="text-center p-6">
+          <div class="w-12 h-12 rounded-full bg-[var(--color-brand)]/20 text-[var(--color-brand-light)] flex items-center justify-center text-xl font-bold mx-auto mb-4">1</div>
+          <h3 class="font-semibold mb-2">Tell Us About Your Project</h3>
+          <p class="text-sm text-[var(--color-text-secondary)]">Application, torque, speed, size, volume — as much or as little as you know.</p>
+        </div>
+        <div class="text-center p-6">
+          <div class="w-12 h-12 rounded-full bg-[var(--color-brand)]/20 text-[var(--color-brand-light)] flex items-center justify-center text-xl font-bold mx-auto mb-4">2</div>
+          <h3 class="font-semibold mb-2">We Recommend</h3>
+          <p class="text-sm text-[var(--color-text-secondary)]">Motor type, gear ratio, voltage, custom options. Typically in 24 hours.</p>
+        </div>
+        <div class="text-center p-6">
+          <div class="w-12 h-12 rounded-full bg-[var(--color-brand)]/20 text-[var(--color-brand-light)] flex items-center justify-center text-xl font-bold mx-auto mb-4">3</div>
+          <h3 class="font-semibold mb-2">Test Samples in 1 Week</h3>
+          <p class="text-sm text-[var(--color-text-secondary)]">Test in your product. Iterate if needed.</p>
+        </div>
+        <div class="text-center p-6">
+          <div class="w-12 h-12 rounded-full bg-[var(--color-brand)]/20 text-[var(--color-brand-light)] flex items-center justify-center text-xl font-bold mx-auto mb-4">4</div>
+          <h3 class="font-semibold mb-2">Scale to Production</h3>
+          <p class="text-sm text-[var(--color-text-secondary)]">Consistent quality from 100 to 100,000+ units. Global shipping.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FINAL CTA ═══ -->
+  <CTA
+    primaryLabel="Request Engineering Consultation →"
+    primaryHref="/contact"
+    secondaryLabel="Browse Solutions by Application"
+    secondaryHref="/solutions"
+  />
+</BaseLayout>

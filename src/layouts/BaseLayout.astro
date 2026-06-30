@@ -1,0 +1,52 @@
+---
+// Base layout — used by all pages
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+export interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+}
+const { title, description, image } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Fonts: Inter (body) + JetBrains Mono (tech specs) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>{title ?? 'Yukun — Micro Motion Solutions for Your Product'}</title>
+    <meta
+      name="description"
+      content={description ?? 'Precision micro drives from concept to production. Gear motors, BLDC motors, micro pumps, and switches. Engineer-first selection, 1-week samples. FOB Shenzhen.'}
+    />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title ?? 'Yukun — Micro Motion Solutions'} />
+    <meta property="og:description" content={description ?? ''} />
+    <meta property="og:type" content="website" />
+    {image && <meta property="og:image" content={image} />}
+
+    <!-- Canonical -->
+    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site).href} />
+  </head>
+  <body class="min-h-screen flex flex-col bg-[var(--color-bg-primary)] text-[var(--color-text-primary)]">
+    <Header />
+    <main class="flex-1">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

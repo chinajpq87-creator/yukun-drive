@@ -1,0 +1,129 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CTA from '../../components/CTA.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const products = await getCollection('products');
+  return products.map((p) => ({ params: { slug: p.data.slug } }));
+}
+
+const { slug } = Astro.params;
+const products = await getCollection('products');
+const product = products.find((p) => p.data.slug === slug);
+if (!product) return Astro.redirect('/products');
+
+const { data, body } = product;
+
+const allSolutions = await getCollection('solutions');
+const relatedSolutions = allSolutions.filter((s) =>
+  data.related_solutions?.includes(s.data.slug)
+);
+---
+
+<BaseLayout title={data.meta_title} description={data.meta_description}>
+  <!-- Breadcrumb -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+    <nav class="flex text-sm text-[var(--color-text-muted)]">
+      <a href="/" class="hover:text-[var(--color-text-primary)]">Home</a>
+      <span class="mx-2">›</span>
+      <a href="/products" class="hover:text-[var(--color-text-primary)]">Products</a>
+      <span class="mx-2">›</span>
+      {data.category && (
+        <>
+          <a href={`/products`} class="hover:text-[var(--color-text-primary)]">{data.category}</a>
+          <span class="mx-2">›</span>
+        </>
+      )}
+      <span class="text-[var(--color-text-primary)]">{data.product_code}</span>
+    </nav>
+  </div>
+
+  <!-- Product Hero -->
+  <section class="section-padding pt-4">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+        <div>
+          <div class="flex items-center gap-3 mb-4">
+            <span class="text-xs px-2.5 py-1 bg-[var(--color-brand)]/20 text-[var(--color-brand-light)] rounded-full font-medium">
+              {data.category}
+            </span>
+            <span class="text-xs text-[var(--color-text-muted)] tech-mono">{data.product_code}</span>
+          </div>
+          <h1 class="text-3xl md:text-4xl font-bold mb-4">{data.title?.split('|')[0]?.trim()}</h1>
+          <p class="text-lg text-[var(--color-text-secondary)] mb-6">{data.meta_description}</p>
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="/contact" class="inline-flex items-center justify-center px-8 py-3.5 text-base font-semibold text-white bg-[var(--color-brand)] hover:bg-[var(--color-brand-light)] rounded-lg transition-colors shadow-lg shadow-[var(--color-brand)]/20">
+              Request Quote →
+            </a>
+            <a href="/contact" class="inline-flex items-center justify-center px-8 py-3.5 text-base font-medium text-[var(--color-text-primary)] border border-[var(--color-border-default)] hover:border-[var(--color-brand)] rounded-lg transition-colors">
+              Request Sample →
+            </a>
+          </div>
+        </div>
+        <div class="bg-[var(--color-bg-card)] border border-[var(--color-border-default)] rounded-xl aspect-square flex items-center justify-center">
+          <div class="text-center p-8">
+            <div class="text-6xl mb-4">⚙️</div>
+            <p class="text-[var(--color-text-muted)] text-sm">{data.sub_category}</p>
+            <p class="text-[var(--color-text-muted)] text-xs mt-1">Product image coming soon</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Content Body -->
+  <section class="bg-[var(--color-bg-secondary)] border-y border-[var(--color-border-default)]">
+    <article class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="prose prose-invert prose-lg max-w-none
+        [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:mt-12 [&_h2]:mb-4 [&_h2]:text-[var(--color-text-primary)]
+        [&_h3]:text-xl [&_h3]:font-semibold [&_h3]:mt-8 [&_h3]:mb-3 [&_h3]:text-[var(--color-text-primary)]
+        [&_p]:text-[var(--color-text-secondary)] [&_p]:leading-relaxed
+        [&_strong]:text-[var(--color-text-primary)] [&_strong]:font-semibold
+        [&_table]:my-6 [&_table]:rounded-lg [&_table]:overflow-hidden
+        [&_th]:bg-[var(--color-brand)]/20 [&_th]:text-[var(--color-brand-light)]
+        [&_td]:text-[var(--color-text-secondary)]
+        [&_ul]:text-[var(--color-text-secondary)] [&_li]:my-1
+        [&_ol]:text-[var(--color-text-secondary)] [&_li]:my-1
+        [&_hr]:border-[var(--color-border-default)] [&_hr]:my-8
+        [&_blockquote]:border-l-[var(--color-brand)] [&_blockquote]:bg-[var(--color-bg-card)] [&_blockquote]:text-[var(--color-text-secondary)]
+      ">
+        {body}
+      </div>
+    </article>
+  </section>
+
+  <!-- Related Solutions -->
+  {relatedSolutions.length > 0 && (
+    <section class="section-padding">
+      <div class="max-w-7xl mx-auto">
+        <h2 class="text-2xl font-bold mb-4">Part of These Solutions</h2>
+        <p class="text-[var(--color-text-secondary)] mb-8">This product is recommended for the following application solutions:</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {relatedSolutions.map((s) => (
+            <a
+              href={`/solutions/${s.data.slug}`}
+              class="group block bg-[var(--color-bg-card)] border border-[var(--color-border-default)] hover:border-[var(--color-brand)] rounded-xl p-5 transition-all duration-300"
+            >
+              <div class="text-xl mb-2">📐</div>
+              <h3 class="font-semibold text-sm text-[var(--color-text-primary)] group-hover:text-[var(--color-brand-light)] transition-colors mb-1">
+                {s.data.title?.split('|')[0]?.trim()}
+              </h3>
+              <p class="text-xs text-[var(--color-text-muted)] line-clamp-2">{s.data.meta_description}</p>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- CTA -->
+  <CTA
+    title="Ready to Test This Product?"
+    subtitle={`Order evaluation samples of the ${data.product_code}. Ships in 1 week. Sample fee credited against your first production order.`}
+    primaryLabel="Request Quote →"
+    primaryHref="/contact"
+    secondaryLabel="Download Datasheet"
+    secondaryHref="/resources"
+  />
+</BaseLayout>

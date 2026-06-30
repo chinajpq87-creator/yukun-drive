@@ -1,0 +1,118 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ContactForm from '../components/ContactForm.tsx';
+---
+
+<BaseLayout title="Contact — Request Quote & Samples | Yukun" description="Contact Yukun for RFQ, sample requests, and engineering consultation. Typically respond within 24 hours.">
+  <section class="section-padding">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <!-- Left: Form -->
+        <div>
+          <h1 class="text-4xl font-bold mb-4">Get in Touch</h1>
+          <p class="text-lg text-[var(--color-text-secondary)] mb-8">
+            Tell us about your project. Our engineering team will respond within 24 hours.
+          </p>
+
+          <div class="flex gap-4 mb-8">
+            <button
+              id="tab-rfq"
+              class="px-5 py-2 text-sm font-medium bg-[var(--color-brand)] text-white rounded-lg transition-colors"
+            >
+              Request Quote
+            </button>
+            <button
+              id="tab-sample"
+              class="px-5 py-2 text-sm font-medium bg-[var(--color-bg-card)] text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] rounded-lg border border-[var(--color-border-default)] transition-colors"
+            >
+              Request Samples
+            </button>
+          </div>
+
+          <div id="form-rfq">
+            <ContactForm formType="rfq" client:load />
+          </div>
+          <div id="form-sample" class="hidden">
+            <ContactForm formType="sample" client:load />
+          </div>
+        </div>
+
+        <!-- Right: Contact Info -->
+        <div class="lg:pl-12">
+          <div class="sticky top-24 space-y-8">
+            <div class="bg-[var(--color-bg-card)] border border-[var(--color-border-default)] rounded-xl p-6">
+              <h3 class="text-lg font-semibold mb-4">Contact Information</h3>
+              <ul class="space-y-3 text-sm">
+                <li class="flex items-center gap-3">
+                  <span class="text-xl">📧</span>
+                  <div>
+                    <p class="text-[var(--color-text-muted)]">Email</p>
+                    <a href="mailto:info@yukun-drive.com" class="text-[var(--color-brand-light)] hover:text-[var(--color-brand)]">info@yukun-drive.com</a>
+                  </div>
+                </li>
+                <li class="flex items-center gap-3">
+                  <span class="text-xl">📱</span>
+                  <div>
+                    <p class="text-[var(--color-text-muted)]">WhatsApp</p>
+                    <p class="text-[var(--color-text-primary)]">+86 [number]</p>
+                  </div>
+                </li>
+                <li class="flex items-center gap-3">
+                  <span class="text-xl">🏭</span>
+                  <div>
+                    <p class="text-[var(--color-text-muted)]">Location</p>
+                    <p class="text-[var(--color-text-primary)]">Shenzhen, Guangdong, China</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <div class="bg-[var(--color-bg-card)] border border-[var(--color-border-default)] rounded-xl p-6">
+              <h3 class="text-lg font-semibold mb-4">What Happens Next?</h3>
+              <ol class="space-y-3 text-sm">
+                <li class="flex gap-3">
+                  <span class="flex-shrink-0 w-6 h-6 rounded-full bg-[var(--color-brand)]/20 text-[var(--color-brand-light)] flex items-center justify-center text-xs font-bold">1</span>
+                  <p class="text-[var(--color-text-secondary)]">We review your requirements and match to our product database.</p>
+                </li>
+                <li class="flex gap-3">
+                  <span class="flex-shrink-0 w-6 h-6 rounded-full bg-[var(--color-brand)]/20 text-[var(--color-brand-light)] flex items-center justify-center text-xs font-bold">2</span>
+                  <p class="text-[var(--color-text-secondary)]">Our engineer responds with a recommended configuration within 24 hours.</p>
+                </li>
+                <li class="flex gap-3">
+                  <span class="flex-shrink-0 w-6 h-6 rounded-full bg-[var(--color-brand)]/20 text-[var(--color-brand-light)] flex items-center justify-center text-xs font-bold">3</span>
+                  <p class="text-[var(--color-text-secondary)]">We ship evaluation samples within 1 week.</p>
+                </li>
+                <li class="flex gap-3">
+                  <span class="flex-shrink-0 w-6 h-6 rounded-full bg-[var(--color-brand)]/20 text-[var(--color-brand-light)] flex items-center justify-center text-xs font-bold">4</span>
+                  <p class="text-[var(--color-text-secondary)]">You test. We iterate. Then scale to production.</p>
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  // Simple tab switching
+  const tabRFQ = document.getElementById('tab-rfq');
+  const tabSample = document.getElementById('tab-sample');
+  const formRFQ = document.getElementById('form-rfq');
+  const formSample = document.getElementById('form-sample');
+
+  tabRFQ?.addEventListener('click', () => {
+    tabRFQ.className = 'px-5 py-2 text-sm font-medium bg-[var(--color-brand)] text-white rounded-lg transition-colors';
+    tabSample.className = 'px-5 py-2 text-sm font-medium bg-[var(--color-bg-card)] text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] rounded-lg border border-[var(--color-border-default)] transition-colors';
+    formRFQ?.classList.remove('hidden');
+    formSample?.classList.add('hidden');
+  });
+
+  tabSample?.addEventListener('click', () => {
+    tabSample.className = 'px-5 py-2 text-sm font-medium bg-[var(--color-brand)] text-white rounded-lg transition-colors';
+    tabRFQ.className = 'px-5 py-2 text-sm font-medium bg-[var(--color-bg-card)] text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] rounded-lg border border-[var(--color-border-default)] transition-colors';
+    formSample?.classList.remove('hidden');
+    formRFQ?.classList.add('hidden');
+  });
+</script>

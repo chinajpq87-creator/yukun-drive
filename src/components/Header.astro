@@ -1,0 +1,157 @@
+---
+// Responsive header with mobile hamburger menu
+const navItems = [
+  {
+    label: 'Solutions',
+    href: '/solutions',
+    children: [
+      { label: 'Medical Devices', href: '/solutions/medical-device-micro-drive' },
+      { label: 'Smart Lock', href: '/solutions/smart-lock-micro-motor' },
+      { label: 'EV Charging', href: '/solutions/ev-charging-gun-actuator' },
+      { label: 'Smart Home', href: '/solutions/smart-home-automation' },
+      { label: 'Industrial', href: '/solutions/industrial-automation-drive' },
+      { label: 'Environmental', href: '/solutions/environmental-monitoring-pump' },
+      { label: 'Robotics', href: '/solutions/robotics-joint-actuator' },
+      { label: 'Water Treatment', href: '/solutions/water-treatment-fluid-control' },
+    ],
+  },
+  {
+    label: 'Products',
+    href: '/products',
+    children: [
+      { label: 'Gear Motors', href: '/products/gear-motors' },
+      { label: 'DC Motors', href: '/products/dc-motors' },
+      { label: 'Pumps', href: '/products/pumps' },
+      { label: 'Switches', href: '/products/switches' },
+    ],
+  },
+  {
+    label: 'Resources',
+    href: '/resources',
+    children: [
+      { label: 'Selection Guides', href: '/resources/selection-guides' },
+      { label: 'Datasheets', href: '/resources/datasheets' },
+      { label: 'CAD Models', href: '/resources/cad-models' },
+      { label: 'FAQ', href: '/resources/faq' },
+    ],
+  },
+  { label: 'Blog', href: '/blog' },
+  { label: 'About', href: '/about' },
+  { label: 'Contact', href: '/contact' },
+];
+---
+
+<header class="sticky top-0 z-50 bg-[var(--color-bg-primary)]/95 backdrop-blur-sm border-b border-[var(--color-border-default)]">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <!-- Logo -->
+      <a href="/" class="flex items-center gap-2 font-bold text-xl tracking-tight">
+        <span class="text-[var(--color-brand-light)]">⬡</span>
+        <span>Yukun</span>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden lg:flex items-center gap-1">
+        {navItems.map((item) => (
+          <div class="relative group">
+            <a
+              href={item.href}
+              class="px-3 py-2 text-sm font-medium text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] rounded-md hover:bg-[var(--color-bg-card)] transition-colors"
+            >
+              {item.label}
+              {item.children && (
+                <span class="ml-1 text-xs opacity-50">▼</span>
+              )}
+            </a>
+            {item.children && (
+              <div class="absolute top-full left-0 mt-1 w-56 bg-[var(--color-bg-card)] border border-[var(--color-border-default)] rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                <div class="p-2">
+                  {item.children.map((child) => (
+                    <a
+                      href={child.href}
+                      class="block px-3 py-2 text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)] rounded-md transition-colors"
+                    >
+                      {child.label}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        ))}
+      </nav>
+
+      <!-- CTA Button -->
+      <div class="hidden lg:block">
+        <a
+          href="/contact"
+          class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-[var(--color-brand)] hover:bg-[var(--color-brand-light)] rounded-lg transition-colors"
+        >
+          Request Quote
+        </a>
+      </div>
+
+      <!-- Mobile hamburger -->
+      <button
+        id="mobile-menu-btn"
+        class="lg:hidden p-2 text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]"
+        aria-label="Toggle menu"
+      >
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path id="menu-icon-open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          <path id="menu-icon-close" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="hidden lg:hidden bg-[var(--color-bg-secondary)] border-t border-[var(--color-border-default)]">
+    <div class="px-4 py-3 space-y-1">
+      {navItems.map((item) => (
+        <div>
+          <a
+            href={item.href}
+            class="block px-3 py-2 text-base font-medium text-[var(--color-text-primary)] hover:bg-[var(--color-bg-card)] rounded-md"
+          >
+            {item.label}
+          </a>
+          {item.children && (
+            <div class="ml-4 space-y-1">
+              {item.children.map((child) => (
+                <a
+                  href={child.href}
+                  class="block px-3 py-1.5 text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] rounded-md"
+                >
+                  {child.label}
+                </a>
+              ))}
+            </div>
+          )}
+        </div>
+      ))}
+      <div class="pt-3">
+        <a
+          href="/contact"
+          class="block w-full text-center px-4 py-2.5 text-sm font-medium text-white bg-[var(--color-brand)] rounded-lg"
+        >
+          Request Quote
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  // Mobile menu toggle
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  const iconOpen = document.getElementById('menu-icon-open');
+  const iconClose = document.getElementById('menu-icon-close');
+
+  btn?.addEventListener('click', () => {
+    menu?.classList.toggle('hidden');
+    iconOpen?.classList.toggle('hidden');
+    iconClose?.classList.toggle('hidden');
+  });
+</script>
