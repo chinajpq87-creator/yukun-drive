@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import CTA from '../../components/CTA.astro';
+import BreadcrumbSchema from '../../components/seo/BreadcrumbSchema.astro';
+import AISummary from '../../components/seo/AISummary.astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -18,6 +20,9 @@ const allProducts = await getCollection('products');
 const relatedProducts = allProducts.filter((p) =>
   p.data.related_solutions?.includes(slug)
 );
+
+const pageUrl = new URL(`/solutions/${data.slug}`, Astro.site).href;
+const solutionTitle = data.title?.split('|')[0]?.trim() ?? data.title;
 ---
 
 <BaseLayout title={data.meta_title} description={data.meta_description}>
@@ -28,7 +33,7 @@ const relatedProducts = allProducts.filter((p) =>
       <span class="mx-2">›</span>
       <a href="/solutions" class="hover:text-[var(--color-text-primary)]">Solutions</a>
       <span class="mx-2">›</span>
-      <span class="text-[var(--color-text-primary)]">{data.title?.split('|')[0]?.trim()}</span>
+      <span class="text-[var(--color-text-primary)]">{solutionTitle}</span>
     </nav>
   </div>
 
@@ -36,7 +41,7 @@ const relatedProducts = allProducts.filter((p) =>
   <section class="section-padding pt-4">
     <div class="max-w-7xl mx-auto">
       <div class="max-w-3xl">
-        <h1 class="text-4xl md:text-5xl font-bold mb-4">{data.title?.split('|')[0]?.trim()}</h1>
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">{solutionTitle}</h1>
         <p class="text-xl text-[var(--color-text-secondary)] mb-6">{data.meta_description}</p>
         {data.target_industries && data.target_industries.length > 0 && (
           <div class="flex flex-wrap gap-2 mb-8">
@@ -62,6 +67,7 @@ const relatedProducts = allProducts.filter((p) =>
   <!-- Content Body -->
   <section class="section-padding pt-0 bg-[var(--color-bg-secondary)] border-y border-[var(--color-border-default)]">
     <article class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      {data.ai_summary && <AISummary summary={data.ai_summary} />}
       <div class="prose prose-invert prose-lg max-w-none
         [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:mt-12 [&_h2]:mb-4 [&_h2]:text-[var(--color-text-primary)]
         [&_h3]:text-xl [&_h3]:font-semibold [&_h3]:mt-8 [&_h3]:mb-3 [&_h3]:text-[var(--color-text-primary)]
@@ -112,5 +118,15 @@ const relatedProducts = allProducts.filter((p) =>
     primaryHref="/contact"
     secondaryLabel="Request Evaluation Samples"
     secondaryHref="/contact"
+  />
+
+  <!-- Structured Data -->
+  <BreadcrumbSchema
+    slot="structured-data"
+    items={[
+      { name: 'Home', url: new URL('/', Astro.site).href },
+      { name: 'Solutions', url: new URL('/solutions', Astro.site).href },
+      { name: solutionTitle, url: pageUrl },
+    ]}
   />
 </BaseLayout>

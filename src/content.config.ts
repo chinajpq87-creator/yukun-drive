@@ -16,6 +16,22 @@ const products = defineCollection({
     featured: z.boolean().default(false),
     status: z.string().default('draft'),
     image: z.string().optional(),
+    // GEO fields
+    ai_summary: z.string().optional(),
+    last_modified: z.date().optional(),
+    sku: z.string().optional(),
+    brand: z.string().default('Yukun'),
+    price: z.string().optional(),
+    price_currency: z.string().default('USD'),
+    availability: z.string().default('https://schema.org/InStock'),
+    faq: z
+      .array(
+        z.object({
+          question: z.string(),
+          answer: z.string(),
+        })
+      )
+      .optional(),
   }),
 });
 
@@ -30,6 +46,17 @@ const solutions = defineCollection({
     target_industries: z.array(z.string()).default([]),
     status: z.string().default('draft'),
     image: z.string().optional(),
+    // GEO fields
+    ai_summary: z.string().optional(),
+    last_modified: z.date().optional(),
+    faq: z
+      .array(
+        z.object({
+          question: z.string(),
+          answer: z.string(),
+        })
+      )
+      .optional(),
   }),
 });
 
@@ -44,6 +71,9 @@ const resources = defineCollection({
     resource_type: z.string(),
     related_products: z.array(z.string()).default([]),
     status: z.string().default('draft'),
+    // GEO fields
+    ai_summary: z.string().optional(),
+    last_modified: z.date().optional(),
   }),
 });
 
@@ -59,6 +89,13 @@ const blog = defineCollection({
     date: z.date().default(() => new Date()),
     status: z.string().default('draft'),
     image: z.string().optional(),
+    // GEO fields
+    ai_summary: z.string().optional(),
+    last_modified: z.date().optional(),
+    author: z.string().default('Yukun Engineering Team'),
+    author_url: z.string().optional(),
+    tags: z.array(z.string()).default([]),
+    og_image: z.string().optional(),
   }),
 });
 
@@ -71,6 +108,9 @@ const pages = defineCollection({
     meta_description: z.string(),
     slug: z.string(),
     status: z.string().default('draft'),
+    // GEO fields
+    ai_summary: z.string().optional(),
+    last_modified: z.date().optional(),
   }),
 });
 

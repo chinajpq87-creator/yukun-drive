@@ -1,0 +1,48 @@
+---
+// Article/BlogPosting JSON-LD schema — for blog detail pages
+import { SITE } from '../../utils/seo';
+
+interface Props {
+  headline: string;
+  description: string;
+  url: string;
+  datePublished: string;
+  dateModified?: string;
+  authorName?: string;
+  authorUrl?: string;
+  image?: string;
+  tags?: string[];
+}
+
+const {
+  headline, description, url, datePublished, dateModified,
+  authorName = 'Yukun Engineering Team', authorUrl,
+  image, tags,
+} = Astro.props;
+
+const schema: Record<string, unknown> = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline,
+  description,
+  url,
+  datePublished,
+  author: {
+    '@type': 'Person',
+    name: authorName,
+    ...(authorUrl ? { url: authorUrl } : {}),
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: SITE.name,
+    logo: { '@type': 'ImageObject', url: `${SITE.url}/favicon.svg` },
+  },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+};
+
+if (dateModified) schema.dateModified = dateModified;
+if (image) schema.image = image;
+if (tags?.length) schema.keywords = tags.join(', ');
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

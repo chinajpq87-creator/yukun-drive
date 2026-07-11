@@ -1,6 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import CTA from '../../components/CTA.astro';
+import ArticleSchema from '../../components/seo/ArticleSchema.astro';
+import BreadcrumbSchema from '../../components/seo/BreadcrumbSchema.astro';
+import AISummary from '../../components/seo/AISummary.astro';
 import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -14,16 +17,32 @@ const post = posts.find((p) => p.data.slug === slug);
 if (!post) return Astro.redirect('/blog');
 
 const { data, body } = post;
+
+const pageUrl = new URL(`/blog/${data.slug}`, Astro.site).href;
+const postTitle = data.title?.split('|')[0]?.trim() ?? data.title;
+const datePublished = data.date instanceof Date
+  ? data.date.toISOString()
+  : String(data.date ?? '');
+const dateModified = data.last_modified instanceof Date
+  ? data.last_modified.toISOString()
+  : data.last_modified
+    ? String(data.last_modified)
+    : undefined;
 ---
 
-<BaseLayout title={data.meta_title} description={data.meta_description}>
+<BaseLayout
+  title={data.meta_title}
+  description={data.meta_description}
+  image={data.og_image ?? data.image}
+  ogType="article"
+>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
     <nav class="flex text-sm text-[var(--color-text-muted)]">
       <a href="/" class="hover:text-[var(--color-text-primary)]">Home</a>
       <span class="mx-2">›</span>
       <a href="/blog" class="hover:text-[var(--color-text-primary)]">Blog</a>
       <span class="mx-2">›</span>
-      <span class="text-[var(--color-text-primary)]">{data.title?.split('|')[0]?.trim()}</span>
+      <span class="text-[var(--color-text-primary)]">{postTitle}</span>
     </nav>
   </div>
 
@@ -31,15 +50,16 @@ const { data, body } = post;
     <div class="max-w-3xl mx-auto">
       <div class="mb-4">
         <span class="text-xs px-2.5 py-1 bg-[var(--color-brand)]/20 text-[var(--color-brand-light)] rounded-full font-medium">{data.category}</span>
-        {data.publish_date && <span class="text-xs text-[var(--color-text-muted)] ml-3">{data.publish_date}</span>}
+        {data.date && <span class="text-xs text-[var(--color-text-muted)] ml-3">{new Date(data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>}
       </div>
-      <h1 class="text-4xl font-bold mb-4">{data.title?.split('|')[0]?.trim()}</h1>
+      <h1 class="text-4xl font-bold mb-4">{postTitle}</h1>
       <p class="text-lg text-[var(--color-text-secondary)] mb-8">{data.meta_description}</p>
     </div>
   </section>
 
   <section class="bg-[var(--color-bg-secondary)] border-y border-[var(--color-border-default)]">
     <article class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      {data.ai_summary && <AISummary summary={data.ai_summary} />}
       <div class="prose prose-invert prose-lg max-w-none
         [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:mt-10 [&_h2]:mb-4 [&_h2]:text-[var(--color-text-primary)]
         [&_h3]:text-xl [&_h3]:font-semibold [&_h3]:mt-8 [&_h3]:mb-3
@@ -63,4 +83,26 @@ const { data, body } = post;
     secondaryLabel="Browse Solutions"
     secondaryHref="/solutions"
   />
+
+  <!-- Structured Data -->
+  <Fragment slot="structured-data">
+    <ArticleSchema
+      headline={postTitle}
+      description={data.meta_description}
+      url={pageUrl}
+      datePublished={datePublished}
+      dateModified={dateModified}
+      authorName={data.author}
+      authorUrl={data.author_url}
+      image={data.og_image ?? data.image}
+      tags={data.tags}
+    />
+    <BreadcrumbSchema
+      items={[
+        { name: 'Home', url: new URL('/', Astro.site).href },
+        { name: 'Blog', url: new URL('/blog', Astro.site).href },
+        { name: postTitle, url: pageUrl },
+      ]}
+    />
+  </Fragment>
 </BaseLayout>

@@ -1,6 +1,10 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import CTA from '../../components/CTA.astro';
+import ProductSchema from '../../components/seo/ProductSchema.astro';
+import FAQSchema from '../../components/seo/FAQSchema.astro';
+import BreadcrumbSchema from '../../components/seo/BreadcrumbSchema.astro';
+import AISummary from '../../components/seo/AISummary.astro';
 import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -19,9 +23,17 @@ const allSolutions = await getCollection('solutions');
 const relatedSolutions = allSolutions.filter((s) =>
   data.related_solutions?.includes(s.data.slug)
 );
+
+const pageUrl = new URL(`/products/${data.slug}`, Astro.site).href;
+const productName = data.title?.split('|')[0]?.trim() ?? data.title;
 ---
 
-<BaseLayout title={data.meta_title} description={data.meta_description}>
+<BaseLayout
+  title={data.meta_title}
+  description={data.meta_description}
+  image={data.image}
+  ogType="product"
+>
   <!-- Breadcrumb -->
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
     <nav class="flex text-sm text-[var(--color-text-muted)]">
@@ -50,7 +62,7 @@ const relatedSolutions = allSolutions.filter((s) =>
             </span>
             <span class="text-xs text-[var(--color-text-muted)] tech-mono">{data.product_code}</span>
           </div>
-          <h1 class="text-3xl md:text-4xl font-bold mb-4">{data.title?.split('|')[0]?.trim()}</h1>
+          <h1 class="text-3xl md:text-4xl font-bold mb-4">{productName}</h1>
           <p class="text-lg text-[var(--color-text-secondary)] mb-6">{data.meta_description}</p>
           <div class="flex flex-col sm:flex-row gap-4">
             <a href="/contact" class="inline-flex items-center justify-center px-8 py-3.5 text-base font-semibold text-white bg-[var(--color-brand)] hover:bg-[var(--color-brand-light)] rounded-lg transition-colors shadow-lg shadow-[var(--color-brand)]/20">
@@ -75,6 +87,7 @@ const relatedSolutions = allSolutions.filter((s) =>
   <!-- Content Body -->
   <section class="bg-[var(--color-bg-secondary)] border-y border-[var(--color-border-default)]">
     <article class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      {data.ai_summary && <AISummary summary={data.ai_summary} />}
       <div class="prose prose-invert prose-lg max-w-none
         [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:mt-12 [&_h2]:mb-4 [&_h2]:text-[var(--color-text-primary)]
         [&_h3]:text-xl [&_h3]:font-semibold [&_h3]:mt-8 [&_h3]:mb-3 [&_h3]:text-[var(--color-text-primary)]
@@ -126,4 +139,36 @@ const relatedSolutions = allSolutions.filter((s) =>
     secondaryLabel="Download Datasheet"
     secondaryHref="/resources"
   />
+
+  <!-- Structured Data -->
+  <Fragment slot="structured-data">
+    <ProductSchema
+      name={productName}
+      description={data.meta_description}
+      image={data.image}
+      sku={data.product_code}
+      brand={data.brand}
+      category={data.sub_category}
+      price={data.price}
+      priceCurrency={data.price_currency}
+      availability={data.availability}
+      url={pageUrl}
+    />
+    <BreadcrumbSchema
+      items={[
+        { name: 'Home', url: new URL('/', Astro.site).href },
+        { name: 'Products', url: new URL('/products', Astro.site).href },
+        { name: data.category ?? 'Products', url: new URL('/products', Astro.site).href },
+        { name: data.product_code, url: pageUrl },
+      ]}
+    />
+    {data.faq?.length && (
+      <FAQSchema
+        questions={data.faq.map((f) => ({
+          question: f.question,
+          answer: f.answer,
+        }))}
+      />
+    )}
+  </Fragment>
 </BaseLayout>

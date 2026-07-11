@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import OrganizationSchema from '../components/seo/OrganizationSchema.astro';
 ---
 
 <BaseLayout title="About Yukun — Micro Motion Solutions | Yukun" description="Yukun (Shenzhen) Supply Chain Technology — your partner for precision micro drive solutions. 20+ years manufacturing, ISO 9001, 1-week samples.">
@@ -68,4 +69,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       </div>
     </div>
   </section>
+
+  <!-- Structured Data -->
+  <OrganizationSchema slot="structured-data" />
 </BaseLayout>

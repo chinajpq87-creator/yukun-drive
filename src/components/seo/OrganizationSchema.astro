@@ -1,0 +1,25 @@
+---
+// Organization JSON-LD schema — for homepage and about page
+import { SITE } from '../../utils/seo';
+---
+
+<script type="application/ld+json" set:html={JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: SITE.name,
+  legalName: SITE.legalName,
+  url: SITE.url,
+  description: SITE.description,
+  sameAs: [...SITE.sameAs],
+  logo: `${SITE.url}/favicon.svg`,
+  contactPoint: {
+    '@type': 'ContactPoint',
+    contactType: 'sales',
+    availableLanguage: ['English', 'Chinese'],
+  },
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Shenzhen',
+    addressCountry: 'CN',
+  },
+})} />

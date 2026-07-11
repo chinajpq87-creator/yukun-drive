@@ -1,0 +1,47 @@
+---
+// Product JSON-LD schema — for product detail pages
+import { SITE } from '../../utils/seo';
+
+interface Props {
+  name: string;
+  description: string;
+  image?: string;
+  sku?: string;
+  brand?: string;
+  category?: string;
+  price?: string;
+  priceCurrency?: string;
+  availability?: string;
+  url: string;
+}
+
+const {
+  name, description, image, sku, brand = 'Yukun',
+  category, price, priceCurrency = 'USD',
+  availability = 'https://schema.org/InStock', url,
+} = Astro.props;
+
+const schema: Record<string, unknown> = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name,
+  description,
+  sku: sku ?? name,
+  brand: { '@type': 'Brand', name: brand },
+  url,
+};
+
+if (image) schema.image = image;
+if (category) schema.category = category;
+
+// Include Offer even without price (Google requires offers for Product rich results)
+schema.offers = {
+  '@type': 'Offer',
+  availability,
+  priceCurrency,
+  url,
+  ...(price ? { price } : {}),
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

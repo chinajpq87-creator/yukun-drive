@@ -1,0 +1,22 @@
+---
+// GEO AI Summary block — visually rendered on content pages
+// Placed before the main content body for AI search engine targeting
+interface Props {
+  summary: string;
+}
+
+const { summary } = Astro.props;
+---
+
+<div
+  class="ai-summary border-l-4 border-[var(--color-brand)] bg-[var(--color-bg-card)] p-5 rounded-r-lg mb-8"
+  data-geo-summary="true"
+>
+  <div class="flex items-center gap-2 mb-2">
+    <span class="text-xs font-semibold text-[var(--color-brand-light)] uppercase tracking-wider">
+      🤖 AI Summary
+    </span>
+    <span class="text-[10px] px-1.5 py-0.5 bg-[var(--color-brand)]/10 text-[var(--color-text-muted)] rounded-full font-mono">GEO</span>
+  </div>
+  <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed">{summary}</p>
+</div>
