@@ -1,0 +1,23 @@
+---
+import ContactCta from '../../components/ContactCta.astro';
+import SolutionCard from '../../components/SolutionCard.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { listPublishedSolutions } from '../../services/solutions';
+
+const solutions = Astro.locals.supabase ? await listPublishedSolutions(Astro.locals.supabase) : [];
+---
+<BaseLayout title="Motion Solutions | OPC">
+  <section class="page-intro">
+    <p class="eyebrow">Solution Library</p>
+    <h1>Motion Solutions for smart products</h1>
+    <p>Explore application-led solution concepts and their recommended component architecture.</p>
+  </section>
+  {solutions.length > 0 ? (
+    <section class="solution-grid">
+      {solutions.map((solution) => <SolutionCard solution={solution} />)}
+    </section>
+  ) : (
+    <section class="empty-state"><h2>Solutions are being prepared.</h2><p>Contact us to discuss your application now.</p></section>
+  )}
+  <ContactCta />
+</BaseLayout>

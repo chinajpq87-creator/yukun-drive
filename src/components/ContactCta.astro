@@ -1,0 +1,13 @@
+---
+import { getContactEmail } from '../config/site';
+
+const contactEmail = getContactEmail(import.meta.env.PUBLIC_CONTACT_EMAIL);
+---
+<aside class="contact-cta" aria-label="Product and solution inquiry">
+  <div>
+    <p class="eyebrow">Engineering Support</p>
+    <h2>Discuss your motion challenge</h2>
+    <p>Share your product context, performance targets, and projected quantity with OPC.</p>
+  </div>
+  <a class="button button-secondary" href={`mailto:${contactEmail}`}>{contactEmail}</a>
+</aside>

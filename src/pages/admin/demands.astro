@@ -1,0 +1,9 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+const { data: demandsData } = await Astro.locals.supabase!.from('market_demands').select('*').order('created_time', { ascending: false });
+const demands = demandsData ?? [];
+---
+<AdminLayout title="Market Demands">
+  <section class="admin-section"><h1>Market Demands</h1><form class="admin-form" action="/api/admin" method="post"><input type="hidden" name="action" value="create-demand" /><label>Industry<input name="industry" required /></label><label>Application<input name="application" required /></label><label>Product name<input name="productName" required /></label><label>Customer problem<textarea name="customerProblem"></textarea></label><label>Motion requirement<textarea name="motionRequirement"></textarea></label><label>Priority<select name="priority"><option>medium</option><option>high</option><option>critical</option><option>low</option></select></label><button class="button">Create demand</button></form></section>
+  <section class="data-table"><h2>Recent entries</h2>{demands.map((demand) => <article><strong>{demand.product_name}</strong><span>{demand.industry} · {demand.application} · {demand.status}</span></article>)}</section>
+</AdminLayout>

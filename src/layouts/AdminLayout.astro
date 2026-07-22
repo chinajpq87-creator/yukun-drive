@@ -1,0 +1,17 @@
+---
+import '../styles/global.css';
+
+interface Props { title: string; }
+const { title } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width" /><title>{title} | OPC Admin</title></head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="/admin">OPC Admin</a>
+      <nav aria-label="Admin navigation"><a href="/admin/demands">Demands</a><a href="/admin/components">Components</a><a href="/admin/solutions">Solutions</a><a href="/admin/inquiries">Inquiries</a><a href="/">View site</a></nav>
+    </header>
+    <main class="admin-main"><slot /></main>
+  </body>
+</html>

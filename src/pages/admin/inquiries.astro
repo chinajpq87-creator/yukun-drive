@@ -1,0 +1,9 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+const { data: inquiriesData } = await Astro.locals.supabase!.from('customer_inquiries').select('*, motion_solutions(solution_name)').order('created_time', { ascending: false });
+const inquiries = inquiriesData ?? [];
+---
+<AdminLayout title="Customer Inquiries">
+  <section class="page-intro"><p class="eyebrow">Manual follow-up</p><h1>Customer inquiries</h1><p>Review each request and respond directly through the OPC contact channel.</p></section>
+  <section class="data-table">{inquiries.map((inquiry) => <article><div><strong>{inquiry.customer_name}</strong><span>{inquiry.email} · {inquiry.motion_solutions?.solution_name ?? 'Solution'}</span><p>{inquiry.requirement_description}</p></div><form action="/api/admin" method="post" class="inline-form"><input type="hidden" name="action" value="update-inquiry" /><input type="hidden" name="inquiryId" value={inquiry.id} /><select name="status" value={inquiry.status}><option>new</option><option>reviewing</option><option>quoted</option><option>closed</option></select><textarea name="adminNote" placeholder="Internal note">{inquiry.admin_note}</textarea><button class="button">Save</button></form></article>)}</section>
+</AdminLayout>

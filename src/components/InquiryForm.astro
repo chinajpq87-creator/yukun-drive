@@ -1,0 +1,42 @@
+---
+interface Props {
+  solutionId: string;
+  solutionName: string;
+}
+
+const { solutionId, solutionName } = Astro.props;
+---
+<form class="inquiry-form" data-inquiry-form>
+  <h2>Request support</h2>
+  <p>Tell us about your {solutionName} application. We will review it manually.</p>
+  <input name="solutionId" type="hidden" value={solutionId} />
+  <label>Your name <input name="customerName" required maxlength="120" /></label>
+  <label>Company <input name="companyName" maxlength="160" /></label>
+  <label>Country <input name="country" maxlength="100" /></label>
+  <label>Email <input name="email" type="email" required maxlength="254" /></label>
+  <label>Application <input name="application" maxlength="160" /></label>
+  <label>Required quantity <input name="requiredQuantity" type="number" min="1" step="1" /></label>
+  <label>Requirement description <textarea name="requirementDescription" required minlength="10" maxlength="4000" rows="5"></textarea></label>
+  <button class="button" type="submit">Submit inquiry</button>
+  <p class="form-message" data-form-message aria-live="polite"></p>
+</form>
+<script>
+  for (const form of document.querySelectorAll<HTMLFormElement>('[data-inquiry-form]')) {
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const message = form.querySelector<HTMLElement>('[data-form-message]');
+      const values = Object.fromEntries(new FormData(form).entries());
+      const response = await fetch('/api/inquiries', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(values),
+      });
+      if (response.ok) {
+        form.reset();
+        if (message) message.textContent = 'Thank you. We will review your inquiry manually.';
+      } else if (message) {
+        message.textContent = 'We could not submit the inquiry. Please email chinajpq@outlook.com.';
+      }
+    });
+  }
+</script>

@@ -1,0 +1,36 @@
+---
+import { getContactEmail } from '../config/site';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title = 'OPC Motion Solutions', description = 'Motion solutions for smart products.' } = Astro.props;
+const contactEmail = getContactEmail(import.meta.env.PUBLIC_CONTACT_EMAIL);
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="/">OPC Motion</a>
+      <nav aria-label="Main navigation">
+        <a href="/solutions">Solutions</a>
+        <a href="/components">Components</a>
+        <a class="contact-link" href={`mailto:${contactEmail}`}>Product &amp; Solution Inquiry</a>
+      </nav>
+    </header>
+    <main><slot /></main>
+    <footer>
+      <p>Product &amp; Solution Inquiry</p>
+      <a href={`mailto:${contactEmail}`}>{contactEmail}</a>
+    </footer>
+  </body>
+</html>

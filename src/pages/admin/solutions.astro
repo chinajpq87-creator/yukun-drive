@@ -1,0 +1,14 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+const { data: solutionsData } = await Astro.locals.supabase!.from('motion_solutions').select('*').order('created_time', { ascending: false });
+const { data: demandsData } = await Astro.locals.supabase!.from('market_demands').select('id, product_name').eq('status', 'validated');
+const { data: componentsData } = await Astro.locals.supabase!.from('components').select('id, model');
+const solutions = solutionsData ?? [];
+const demands = demandsData ?? [];
+const components = componentsData ?? [];
+---
+<AdminLayout title="Motion Solutions">
+  <section class="admin-section"><h1>Motion Solutions</h1><form class="admin-form" action="/api/admin" method="post"><input type="hidden" name="action" value="create-solution" /><label>Market demand<select name="marketId" required>{demands.map((demand) => <option value={demand.id}>{demand.product_name}</option>)}</select></label><label>Solution name<input name="solutionName" required /></label><label>Slug<input name="slug" required placeholder="smart-lock-actuator" /></label><label>Application<input name="application" required /></label><label>Motion type<input name="motionType" required /></label><label>Description<textarea name="description" required></textarea></label><button class="button">Create draft</button></form></section>
+  <section class="data-table"><h2>Solutions</h2>{solutions.map((solution) => <article><strong>{solution.solution_name}</strong><span>/{solution.slug} · {solution.status}</span></article>)}</section>
+  <section class="admin-section"><h2>Add component to a Solution BOM</h2><form class="admin-form" action="/api/admin" method="post"><input type="hidden" name="action" value="attach-component" /><label>Solution<select name="solutionId">{solutions.map((solution) => <option value={solution.id}>{solution.solution_name}</option>)}</select></label><label>Component<select name="componentId">{components.map((component) => <option value={component.id}>{component.model}</option>)}</select></label><label>Role<input name="componentRole" /></label><label>Quantity<input name="quantity" type="number" min="1" value="1" /></label><button class="button">Add to BOM</button></form></section>
+</AdminLayout>

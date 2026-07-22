@@ -1,0 +1,9 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+const { data: componentsData } = await Astro.locals.supabase!.from('components').select('*').order('created_time', { ascending: false });
+const components = componentsData ?? [];
+---
+<AdminLayout title="Components">
+  <section class="admin-section"><h1>Components</h1><form class="admin-form" action="/api/admin" method="post"><input type="hidden" name="action" value="create-component" /><label>Component type<input name="componentType" required placeholder="Gear Motor" /></label><label>Model<input name="model" required /></label><label>Applications<input name="applications" placeholder="Smart Lock, Pet Feeder" /></label><label>Specification JSON<textarea name="specification" placeholder='{"voltage":"6V"}'></textarea></label><label><input name="isPublic" type="checkbox" value="true" /> Display publicly</label><button class="button">Create component</button></form></section>
+  <section class="data-table"><h2>Component library</h2>{components.map((component) => <article><strong>{component.model}</strong><span>{component.component_type} · {component.is_public ? 'Public' : 'Private'}</span></article>)}</section>
+</AdminLayout>

@@ -1,0 +1,22 @@
+---
+import ContactCta from '../../components/ContactCta.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import type { Component } from '../../types/database';
+
+const components: Component[] = Astro.locals.supabase
+  ? ((await Astro.locals.supabase.from('components').select('*').eq('is_public', true).order('component_type')).data ?? []) as Component[]
+  : [];
+---
+<BaseLayout title="Components | OPC">
+  <section class="page-intro">
+    <p class="eyebrow">Component Library</p>
+    <h1>Products for compact motion systems</h1>
+    <p>Review core component types used across OPC Motion Solutions.</p>
+  </section>
+  <section class="component-grid">
+    {components.length > 0 ? components.map((component) => (
+      <article class="component-card"><p class="eyebrow">{component.component_type}</p><h2>{component.model}</h2><p>{component.applications?.join(', ')}</p></article>
+    )) : <article class="empty-state"><h2>Component data is being prepared.</h2></article>}
+  </section>
+  <ContactCta />
+</BaseLayout>

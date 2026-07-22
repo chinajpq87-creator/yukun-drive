@@ -1,0 +1,34 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Admin login | OPC">
+  <section class="login-panel">
+    <p class="eyebrow">Private workspace</p>
+    <h1>Administrator login</h1>
+    <form data-login-form class="inquiry-form">
+      <label>Email <input type="email" name="email" required /></label>
+      <label>Password <input type="password" name="password" required /></label>
+      <button class="button" type="submit">Sign in</button>
+      <p data-login-message class="form-message" aria-live="polite"></p>
+    </form>
+  </section>
+</BaseLayout>
+<script>
+  import { createBrowserSupabaseClient } from '../../lib/supabase/browser';
+  const form = document.querySelector<HTMLFormElement>('[data-login-form]');
+  form?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const message = form.querySelector<HTMLElement>('[data-login-message]');
+    try {
+      const client = createBrowserSupabaseClient();
+      const data = new FormData(form);
+      const { error } = await client.auth.signInWithPassword({
+        email: String(data.get('email')), password: String(data.get('password')),
+      });
+      if (error) throw error;
+      window.location.assign('/admin');
+    } catch {
+      if (message) message.textContent = 'Sign-in failed. Confirm the administrator account and project configuration.';
+    }
+  });
+</script>

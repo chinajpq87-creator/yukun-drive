@@ -1,0 +1,36 @@
+---
+import ContactCta from '../../components/ContactCta.astro';
+import InquiryForm from '../../components/InquiryForm.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getPublishedSolutionBySlug } from '../../services/solutions';
+
+const slug = Astro.params.slug ?? '';
+const solution = Astro.locals.supabase ? await getPublishedSolutionBySlug(Astro.locals.supabase, slug) : null;
+
+if (!solution) {
+  return Astro.redirect('/solutions');
+}
+---
+<BaseLayout title={solution.seo_title ?? `${solution.solution_name} | OPC`} description={solution.seo_description ?? solution.solution_description}>
+  <section class="page-intro solution-heading">
+    <p class="eyebrow">{solution.application}</p>
+    <h1>{solution.solution_name}</h1>
+    <p>{solution.solution_description}</p>
+    <span class="tag">{solution.motion_type}</span>
+  </section>
+  <section class="detail-grid">
+    <article>
+      <h2>Recommended Component Architecture</h2>
+      <ol class="component-list">
+        {solution.components.map((component) => (
+          <li>
+            <div><strong>{component.model}</strong><span>{component.component_type}</span></div>
+            <p>{component.component_role ?? 'Core component'} · Qty {component.quantity}</p>
+          </li>
+        ))}
+      </ol>
+    </article>
+    <InquiryForm solutionId={solution.id} solutionName={solution.solution_name} />
+  </section>
+  <ContactCta />
+</BaseLayout>

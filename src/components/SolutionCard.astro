@@ -1,0 +1,19 @@
+---
+interface Props {
+  solution: {
+    solution_name: string;
+    slug: string;
+    application: string;
+    motion_type: string;
+    solution_description: string;
+  };
+}
+
+const { solution } = Astro.props;
+---
+<article class="solution-card">
+  <p class="eyebrow">{solution.application}</p>
+  <h2><a href={`/solutions/${solution.slug}`}>{solution.solution_name}</a></h2>
+  <p>{solution.solution_description}</p>
+  <span class="tag">{solution.motion_type}</span>
+</article>
