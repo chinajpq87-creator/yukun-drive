@@ -10,7 +10,7 @@ export const SITE = {
   locale: 'en_US',
   twitterHandle: '@YukunDrive',
   description:
-    'Precision micro drives from concept to production. Gear motors, BLDC motors, micro pumps, and switches. Engineer-first selection, 1-week samples. FOB Shenzhen.',
+    'Product matching and supply coordination for compact motion applications, including gear motors, brushless motors, micro pumps, and switches.',
   sameAs: [
     'https://linkedin.com/company/yukun-drive',
     'https://youtube.com/@YukunDrive',

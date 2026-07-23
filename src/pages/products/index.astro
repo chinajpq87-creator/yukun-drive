@@ -2,7 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 
-const products = await getCollection('products');
+const products = await getCollection('products', ({ data }) => !data.draft);
 
 // Group by category
 const grouped = products.reduce(

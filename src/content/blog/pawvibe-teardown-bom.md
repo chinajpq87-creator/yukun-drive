@@ -5,6 +5,7 @@ meta_description: "We tear down a PawVibe smart pet ball. Inside: dual ERM vibra
 pubDate: 2026-07-23
 category: "blog"
 slug: "pawvibe-teardown-bom"
+draft: true
 ---
 
 ## Teardown: What's Inside a $30 Smart Pet Ball

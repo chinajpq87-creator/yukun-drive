@@ -6,17 +6,17 @@ import AISummary from '../../components/seo/AISummary.astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
 
 export async function getStaticPaths() {
-  const solutions = await getCollection('solutions');
+  const solutions = await getCollection('solutions', ({ data }) => !data.draft);
   return solutions.map((s) => ({ params: { slug: s.data.slug } }));
 }
 
 const { slug } = Astro.params;
-const solutions = await getCollection('solutions');
+const solutions = await getCollection('solutions', ({ data }) => !data.draft);
 const solution = solutions.find((s) => s.data.slug === slug);
 if (!solution) return Astro.redirect('/solutions');
 
 const { data, body } = solution;
-const allProducts = await getCollection('products');
+const allProducts = await getCollection('products', ({ data }) => !data.draft);
 const relatedProducts = allProducts.filter((p) =>
   p.data.related_solutions?.includes(slug)
 );

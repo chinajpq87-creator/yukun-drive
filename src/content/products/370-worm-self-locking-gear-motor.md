@@ -8,6 +8,7 @@ category: "Gear Motor"
 sub_category: "Worm Gear Motor"
 product_code: "370-W01"
 related_solutions: ["ev-charging-gun-actuator-solution", "industrial-automation-drive", "smart-lock-micro-motor-solution"]
+draft: true
 status: "⚠️待审核"
 ---
 

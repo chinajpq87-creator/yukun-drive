@@ -2,7 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 
-const solutions = await getCollection('solutions');
+const solutions = await getCollection('solutions', ({ data }) => !data.draft);
 ---
 
 <BaseLayout title="Solutions — Micro Drive Applications | Yukun" description="Explore our micro drive solutions organized by application — medical devices, smart locks, EV charging, robotics, and more.">

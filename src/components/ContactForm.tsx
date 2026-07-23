@@ -9,14 +9,22 @@ export default function ContactForm({ formType = 'rfq' }: ContactFormProps) {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const isRFQ = formType === 'rfq';
+  const accessKey = import.meta.env.PUBLIC_WEB3FORMS_ACCESS_KEY?.trim();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     setError('');
+
+    if (!accessKey) {
+      setError('Online submission is not configured. Please email chinajpq@outlook.com.');
+      setLoading(false);
+      return;
+    }
+
     const form = e.currentTarget;
     const formData = new FormData(form);
-    formData.append('access_key', 'YOUR_WEB3FORMS_ACCESS_KEY');
+    formData.append('access_key', accessKey);
     formData.append('subject', isRFQ
       ? `RFQ from ${formData.get('company') || formData.get('name')}`
       : `Sample Request from ${formData.get('company') || formData.get('name')}`);
@@ -25,13 +33,14 @@ export default function ContactForm({ formType = 'rfq' }: ContactFormProps) {
       const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: formData });
       const data = await res.json();
       if (data.success) {
+        window.gtag?.('event', 'generate_lead', { form_type: formType });
         setSubmitted(true);
         form.reset();
       } else {
-        setError('Submission failed. Please email us directly.');
+        setError('Submission failed. Please email chinajpq@outlook.com.');
       }
     } catch {
-      setError('Network error. Please try again or email us directly.');
+      setError('Network error. Please email chinajpq@outlook.com.');
     } finally {
       setLoading(false);
     }
@@ -43,10 +52,10 @@ export default function ContactForm({ formType = 'rfq' }: ContactFormProps) {
         <div className="text-5xl mb-4">✅</div>
         <h3 className="text-xl font-semibold mb-2">Thank You!</h3>
         <p className="text-[var(--color-text-secondary)] mb-4">
-          {isRFQ ? 'Your RFQ has been submitted. Our engineering team will respond within 24 hours.' : 'Your sample request has been submitted. We will confirm availability and shipping within 24 hours.'}
+          Your inquiry has been received. Product specifications, availability, lead time, and commercial terms are confirmed for each inquiry.
         </p>
         <p className="text-sm text-[var(--color-text-muted)]">
-          For urgent inquiries: <a href="mailto:info@yukun-drive.com" className="text-[var(--color-brand-light)]">info@yukun-drive.com</a>
+          You can also email: <a href="mailto:chinajpq@outlook.com" className="text-[var(--color-brand-light)]">chinajpq@outlook.com</a>
         </p>
       </div>
     );

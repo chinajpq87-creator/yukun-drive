@@ -8,6 +8,7 @@ category: "Consumer Product"
 sub_category: "Pet Interactive Toy"
 product_code: "PAW-V01"
 related_solutions: ["smart-home-automation"]
+draft: true
 status: "⚠️ Pending Review — OPC-TEST-002"
 ---
 

@@ -8,18 +8,18 @@ import AISummary from '../../components/seo/AISummary.astro';
 import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
-  const products = await getCollection('products');
+  const products = await getCollection('products', ({ data }) => !data.draft);
   return products.map((p) => ({ params: { slug: p.data.slug } }));
 }
 
 const { slug } = Astro.params;
-const products = await getCollection('products');
+const products = await getCollection('products', ({ data }) => !data.draft);
 const product = products.find((p) => p.data.slug === slug);
 if (!product) return Astro.redirect('/products');
 
 const { data, body } = product;
 
-const allSolutions = await getCollection('solutions');
+const allSolutions = await getCollection('solutions', ({ data }) => !data.draft);
 const relatedSolutions = allSolutions.filter((s) =>
   data.related_solutions?.includes(s.data.slug)
 );
@@ -65,8 +65,8 @@ const productName = data.title?.split('|')[0]?.trim() ?? data.title;
           <h1 class="text-3xl md:text-4xl font-bold mb-4">{productName}</h1>
           <p class="text-lg text-[var(--color-text-secondary)] mb-6">{data.meta_description}</p>
           <div class="flex flex-col sm:flex-row gap-4">
-            <a href="/contact" class="inline-flex items-center justify-center px-8 py-3.5 text-base font-semibold text-white bg-[var(--color-brand)] hover:bg-[var(--color-brand-light)] rounded-lg transition-colors shadow-lg shadow-[var(--color-brand)]/20">
-              Request Quote →
+            <a href="mailto:chinajpq@outlook.com" class="inline-flex items-center justify-center px-8 py-3.5 text-base font-semibold text-white bg-[var(--color-brand)] hover:bg-[var(--color-brand-light)] rounded-lg transition-colors shadow-lg shadow-[var(--color-brand)]/20">
+              Email Your Requirements →
             </a>
             <a href="/contact" class="inline-flex items-center justify-center px-8 py-3.5 text-base font-medium text-[var(--color-text-primary)] border border-[var(--color-border-default)] hover:border-[var(--color-brand)] rounded-lg transition-colors">
               Request Sample →
@@ -132,10 +132,10 @@ const productName = data.title?.split('|')[0]?.trim() ?? data.title;
 
   <!-- CTA -->
   <CTA
-    title="Ready to Test This Product?"
-    subtitle={`Order evaluation samples of the ${data.product_code}. Ships in 1 week. Sample fee credited against your first production order.`}
-    primaryLabel="Request Quote →"
-    primaryHref="/contact"
+    title="Discuss This Product"
+    subtitle="Product specifications, availability, lead time, and commercial terms are confirmed for each inquiry."
+    primaryLabel="Email Your Requirements"
+    primaryHref="mailto:chinajpq@outlook.com"
     secondaryLabel="Download Datasheet"
     secondaryHref="/resources"
   />
@@ -149,9 +149,6 @@ const productName = data.title?.split('|')[0]?.trim() ?? data.title;
       sku={data.product_code}
       brand={data.brand}
       category={data.sub_category}
-      price={data.price}
-      priceCurrency={data.price_currency}
-      availability={data.availability}
       url={pageUrl}
     />
     <BreadcrumbSchema

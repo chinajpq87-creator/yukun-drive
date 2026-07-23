@@ -9,16 +9,12 @@ interface Props {
   sku?: string;
   brand?: string;
   category?: string;
-  price?: string;
-  priceCurrency?: string;
-  availability?: string;
   url: string;
 }
 
 const {
   name, description, image, sku, brand = 'Yukun',
-  category, price, priceCurrency = 'USD',
-  availability = 'https://schema.org/InStock', url,
+  category, url,
 } = Astro.props;
 
 const schema: Record<string, unknown> = {
@@ -33,15 +29,6 @@ const schema: Record<string, unknown> = {
 
 if (image) schema.image = image;
 if (category) schema.category = category;
-
-// Include Offer even without price (Google requires offers for Product rich results)
-schema.offers = {
-  '@type': 'Offer',
-  availability,
-  priceCurrency,
-  url,
-  ...(price ? { price } : {}),
-};
 ---
 
 <script type="application/ld+json" set:html={JSON.stringify(schema)} />

@@ -15,6 +15,7 @@ const products = defineCollection({
     related_solutions: z.array(z.string()).default([]),
     featured: z.boolean().default(false),
     status: z.string().default('draft'),
+    draft: z.boolean().default(false),
     image: z.string().optional(),
     // GEO fields
     ai_summary: z.string().optional(),
@@ -45,6 +46,7 @@ const solutions = defineCollection({
     slug: z.string(),
     target_industries: z.array(z.string()).default([]),
     status: z.string().default('draft'),
+    draft: z.boolean().default(false),
     image: z.string().optional(),
     // GEO fields
     ai_summary: z.string().optional(),
@@ -71,6 +73,7 @@ const resources = defineCollection({
     resource_type: z.string(),
     related_products: z.array(z.string()).default([]),
     status: z.string().default('draft'),
+    draft: z.boolean().default(false),
     // GEO fields
     ai_summary: z.string().optional(),
     last_modified: z.date().optional(),
@@ -88,6 +91,7 @@ const blog = defineCollection({
     category: z.string().default('Technical'),
     date: z.date().default(() => new Date()),
     status: z.string().default('draft'),
+    draft: z.boolean().default(false),
     image: z.string().optional(),
     // GEO fields
     ai_summary: z.string().optional(),
@@ -108,6 +112,7 @@ const pages = defineCollection({
     meta_description: z.string(),
     slug: z.string(),
     status: z.string().default('draft'),
+    draft: z.boolean().default(false),
     // GEO fields
     ai_summary: z.string().optional(),
     last_modified: z.date().optional(),

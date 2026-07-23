@@ -5,6 +5,7 @@ meta_description: "AI-optimized video script for handheld fan teardown. Pacing m
 slug: "fan-teardown-ai-script"
 category: "Production"
 date: 2026-07-01
+draft: true
 status: "internal"
 ---
 

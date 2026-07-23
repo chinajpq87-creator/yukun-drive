@@ -5,11 +5,10 @@ export interface Props {
   description?: string;
   category?: string;
   specs?: string;
-  price?: string;
   image?: string;
 }
 
-const { title, slug, description, category, specs, price, image } = Astro.props;
+const { title, slug, description, category, specs, image } = Astro.props;
 ---
 
 <a
@@ -35,11 +34,8 @@ const { title, slug, description, category, specs, price, image } = Astro.props;
     {description && (
       <p class="text-sm text-[var(--color-text-secondary)] line-clamp-2 mb-2">{description}</p>
     )}
-    <div class="flex items-center justify-between mt-3">
+    <div class="flex items-center mt-3">
       {specs && <span class="text-xs text-[var(--color-text-muted)] tech-mono">{specs}</span>}
-      {price && (
-        <span class="text-sm font-semibold text-[var(--color-accent-green)]">FOB {price}</span>
-      )}
     </div>
   </div>
 </a>

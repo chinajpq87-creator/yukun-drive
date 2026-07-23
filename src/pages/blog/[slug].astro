@@ -7,12 +7,12 @@ import AISummary from '../../components/seo/AISummary.astro';
 import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('blog');
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
   return posts.map((p) => ({ params: { slug: p.data.slug } }));
 }
 
 const { slug } = Astro.params;
-const posts = await getCollection('blog');
+const posts = await getCollection('blog', ({ data }) => !data.draft);
 const post = posts.find((p) => p.data.slug === slug);
 if (!post) return Astro.redirect('/blog');
 
