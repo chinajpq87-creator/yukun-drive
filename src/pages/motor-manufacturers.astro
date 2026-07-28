@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ContactForm from '../components/ContactForm.tsx';
+---
+
+<BaseLayout title="Brushed DC Motor Component Matching & Supply Coordination">
+  <main>
+    <h1>Brushed DC Motor Component Matching & Supply Coordination</h1>
+    <p>
+      This page is built for brushed DC motor manufacturers. Active component scope is limited to
+      commutators, carbon brush assemblies, and terminals/contact components.
+    </p>
+    <p>
+      Typical engagement covers second-source review, BOM coordination, and custom or
+      failure-related requirement clarification.
+    </p>
+    <p>
+      Workflow: Share requirements &rarr; clarify constraints &rarr; compare suitable paths
+      &rarr; confirm project-specific commercial conditions.
+    </p>
+    <p>
+      Contact: chinajpq@outlook.com
+    </p>
+    <p>
+      Product specifications, availability, lead time, and commercial terms are confirmed for each inquiry.
+    </p>
+    <ContactForm formType="rfq" entryContent="motor-manufacturers" client:load />
+  </main>
+</BaseLayout>

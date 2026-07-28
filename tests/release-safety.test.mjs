@@ -91,6 +91,39 @@ test('contact flow is email-first and does not embed a Web3Forms key', () => {
   assert.match(form, new RegExp(publicEmail.replace('.', '\\.')));
   assert.match(form, /generate_lead/);
   assert.match(form, new RegExp(approvedDisclaimer.replaceAll('.', '\\.')));
+  assert.match(form, /entry_content/);
+  assert.match(form, /utm_source/);
+  assert.match(form, /utm_medium/);
+  assert.match(form, /utm_campaign/);
+});
+
+test('public calls to action use discussion language rather than quote or sample promises', () => {
+  const ctaFiles = [
+    'src/components/Header.astro',
+    'src/components/ContactForm.tsx',
+    'src/pages/contact.astro',
+    'src/pages/index.astro',
+    'src/pages/products/[slug].astro',
+    'src/pages/motor-manufacturers.astro',
+  ];
+
+  for (const file of ctaFiles) {
+    const source = read(file);
+    assert.doesNotMatch(source, /Request Quote|Request Samples?|Submit RFQ/i);
+  }
+});
+
+test('motor-manufacturer landing path and inquiry attribution are present', () => {
+  const landing = read('src/pages/motor-manufacturers.astro');
+  const form = read('src/components/ContactForm.tsx');
+
+  assert.match(landing, /Brushed DC Motor Component Matching/i);
+  assert.match(landing, /chinajpq@outlook\.com/);
+  assert.match(landing, /entryContent="motor-manufacturers"/);
+
+  for (const field of ['entry_content', 'utm_source', 'utm_medium', 'utm_campaign']) {
+    assert.match(form, new RegExp(field));
+  }
 });
 
 test('public source avoids standing commercial and compliance claims', () => {

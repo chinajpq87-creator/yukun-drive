@@ -3,7 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import ContactForm from '../components/ContactForm.tsx';
 ---
 
-<BaseLayout title="Contact — Product Matching & Supply Coordination | Yukun" description="Contact Yukun to discuss application requirements, product matching, documentation, availability, and commercial terms.">
+<BaseLayout title="Contact - Product Matching & Supply Coordination | Yukun" description="Contact Yukun to discuss application requirements, product matching, documentation, availability, and commercial terms.">
   <section class="section-padding">
     <div class="max-w-7xl mx-auto">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -19,21 +19,21 @@ import ContactForm from '../components/ContactForm.tsx';
               id="tab-rfq"
               class="px-5 py-2 text-sm font-medium bg-[var(--color-brand)] text-white rounded-lg transition-colors"
             >
-              Request Quote
+              Discuss Requirements
             </button>
             <button
               id="tab-sample"
               class="px-5 py-2 text-sm font-medium bg-[var(--color-bg-card)] text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] rounded-lg border border-[var(--color-border-default)] transition-colors"
             >
-              Request Samples
+              Discuss Sample Needs
             </button>
           </div>
 
           <div id="form-rfq">
-            <ContactForm formType="rfq" client:load />
+            <ContactForm formType="rfq" entryContent="contact" client:load />
           </div>
           <div id="form-sample" class="hidden">
-            <ContactForm formType="sample" client:load />
+            <ContactForm formType="sample" entryContent="contact" client:load />
           </div>
         </div>
 
@@ -44,14 +44,14 @@ import ContactForm from '../components/ContactForm.tsx';
               <h3 class="text-lg font-semibold mb-4">Contact Information</h3>
               <ul class="space-y-3 text-sm">
                 <li class="flex items-center gap-3">
-                  <span class="text-xl">📧</span>
+                  <span class="text-xl">Email</span>
                   <div>
                     <p class="text-[var(--color-text-muted)]">Email</p>
                     <a href="mailto:chinajpq@outlook.com" class="text-[var(--color-brand-light)] hover:text-[var(--color-brand)]">chinajpq@outlook.com</a>
                   </div>
                 </li>
                 <li class="flex items-center gap-3">
-                  <span class="text-xl">🏭</span>
+                  <span class="text-xl">Location</span>
                   <div>
                     <p class="text-[var(--color-text-muted)]">Location</p>
                     <p class="text-[var(--color-text-primary)]">Shenzhen, Guangdong, China</p>
