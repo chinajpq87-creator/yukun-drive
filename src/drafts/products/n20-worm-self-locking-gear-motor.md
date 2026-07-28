@@ -8,6 +8,8 @@ category: "Gear Motor"
 sub_category: "Worm Gear Motor"
 product_code: "N20-W01"
 related_solutions: ["ev-charging-gun-actuator-solution", "smart-lock-micro-motor-solution", "automotive-micro-actuation"]
+draft: true
+archive_reason: "Replaced by display-only public copy"
 status: "⚠️待审核"
 ---
 

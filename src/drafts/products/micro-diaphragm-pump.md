@@ -7,6 +7,8 @@ category: "Pump"
 sub_category: "Diaphragm Pump"
 product_code: "PUMP-DP01"
 related_solutions: ["medical-device-micro-drive-solution"]
+draft: true
+archive_reason: "Replaced by display-only public copy"
 status: "⚠️ Pending Review"
 ---
 

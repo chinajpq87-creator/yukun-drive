@@ -7,6 +7,8 @@ category: "Actuator"
 sub_category: "EV Charging Actuator"
 product_code: "ACT-EV01"
 related_solutions: ["ev-charging-gun-actuator-solution"]
+draft: true
+archive_reason: "Replaced by display-only public copy"
 status: "⚠️ Pending Review"
 ---
 

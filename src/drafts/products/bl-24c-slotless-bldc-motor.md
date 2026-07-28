@@ -8,6 +8,8 @@ category: "DC Motor"
 sub_category: "Brushless DC Motor"
 product_code: "BL-I01"
 related_solutions: ["medical-device-micro-drive-solution", "industrial-automation-drive", "robotics-joint-actuator"]
+draft: true
+archive_reason: "Replaced by display-only public copy"
 status: "⚠️待审核"
 ---
 

@@ -4,6 +4,7 @@ meta_title: "How to Select Micro Gear Motors for Smart Door Locks | Engineer's G
 meta_description: "Engineering guide: selecting gear motors for smart locks. Battery life, noise, anti-tamper, cycle life — the 4 factors that dictate your lock motor choice. N20 series application guide."
 slug: "select-motor-smart-lock"
 category: "Application Guide"
+draft: true
 publish_date: "2026-07-01"
 ---
 

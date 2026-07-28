@@ -4,6 +4,8 @@ meta_title: "Industrial Automation Micro Drive Solutions — Reliable Gear Motor
 meta_description: "Reliable micro drive solutions for industrial automation: gear motors for valve controls, dispensers, small actuators. Wide temperature range, continuous duty rated. 1-week samples."
 slug: "industrial-automation-drive"
 target_industries: ["Industrial Automation", "Process Control", "Manufacturing", "Valve Systems"]
+draft: true
+archive_reason: "Replaced by display-only public copy"
 status: "⚠️待审核"
 ---
 

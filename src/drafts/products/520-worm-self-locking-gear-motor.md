@@ -8,6 +8,7 @@ sub_category: "Worm Gear Motor"
 product_code: "520-W01"
 related_solutions: ["ev-charging-gun-actuator-solution", "industrial-automation-drive"]
 draft: true
+archive_reason: "Replaced by display-only public copy"
 ---
 
 # 520 Worm Self-Locking Gear Motor — 35mm Heavy-Duty Worm Drive

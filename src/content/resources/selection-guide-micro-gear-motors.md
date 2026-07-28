@@ -6,6 +6,7 @@ meta_description: "Step-by-step guide to selecting micro DC gear motors. Covers 
 slug: "how-to-select-micro-gear-motors"
 resource_type: "Selection Guide"
 related_products: ["n20-metal-spur-gear-motor", "n20-worm-self-locking-gear-motor", "370-worm-self-locking-gear-motor", "bl-24c-slotless-brushless-dc-motor"]
+draft: true
 status: "⚠️待审核"
 ---
 

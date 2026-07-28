@@ -1,26 +1,28 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+const disclaimer = 'Product specifications, availability, lead time, and commercial terms are confirmed for each inquiry.';
 ---
 
 <BaseLayout
-  title="Yukun Drive — Solusi Motor Mikro & Pompa Mini | Shenzhen"
-  description="Supplier motor DC mikro, gear motor N20, pompa diafragma mini, micro switch IP67. FOB Shenzhen. Sampel 1 minggu. Melayani pasar Indonesia."
+  lang="id"
+  locale="id_ID"
+  title="Yukun Drive — Solusi Motor Mikro & Komponen Mini | Shenzhen"
+  description="Pemasok motor DC mikro, pompa diafragma mini, micro switch, dan aktuator untuk aplikasi industri. Hubungi kami untuk konsultasi teknis."
 >
 
 <!-- Hero -->
 <section class="py-20 bg-gradient-to-br from-[var(--color-bg-primary)] to-blue-950">
   <div class="max-w-4xl mx-auto px-4 text-center">
-    <p class="text-blue-400 text-sm tracking-widest mb-4">FOB SHENZHEN · SAMPEL 1 MINGGU</p>
     <h1 class="text-4xl md:text-5xl font-bold mb-6">
-      Solusi <span class="text-blue-400">Motor Mikro</span> & Komponen untuk Pasar Indonesia
+      Solusi <span class="text-blue-400">Motor Mikro</span> & Komponen Mini
     </h1>
     <p class="text-lg text-[var(--color-text-secondary)] max-w-2xl mx-auto mb-8">
-      Supplier langsung dari Shenzhen — motor DC gear, pompa mini, micro switch, dan aktuator.
-      Harga pabrik, sampel cepat, siap kirim ke Jakarta & seluruh Indonesia.
+      Pemasok motor DC mikro, pompa diafragma mini, micro switch, dan aktuator.
+      Layanan konsultasi teknis dan pengadaan untuk pelanggan di Indonesia.
     </p>
     <div class="flex gap-4 justify-center flex-wrap">
-      <a href="/contact" class="px-6 py-3 bg-blue-600 hover:bg-blue-500 rounded-lg font-semibold transition">
-        Minta Penawaran →
+      <a href="mailto:chinajpq@outlook.com" class="px-6 py-3 bg-blue-600 hover:bg-blue-500 rounded-lg font-semibold transition">
+        Konsultasi Gratis →
       </a>
       <a href="#produk" class="px-6 py-3 border border-gray-600 hover:border-gray-400 rounded-lg transition">
         Lihat Produk ↓
@@ -35,42 +37,40 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <h2 class="text-2xl font-bold mb-10 text-center">Kenapa Yukun Drive?</h2>
     <div class="grid md:grid-cols-3 gap-8 text-center">
       <div class="p-6 rounded-lg bg-[var(--color-bg-primary)]">
-        <div class="text-3xl mb-3">🏭</div>
-        <h3 class="font-semibold mb-2">Langsung dari Pabrik</h3>
-        <p class="text-sm text-[var(--color-text-secondary)]">Tanpa perantara. Harga FOB Shenzhen. Bisa negosiasi langsung.</p>
+        <div class="text-3xl mb-3">🤝</div>
+        <h3 class="font-semibold mb-2">Konsultasi Langsung</h3>
+        <p class="text-sm text-[var(--color-text-secondary)]">Tanyakan spesifikasi teknis dan kebutuhan Anda. Kami bantu carikan solusi yang tepat.</p>
       </div>
       <div class="p-6 rounded-lg bg-[var(--color-bg-primary)]">
-        <div class="text-3xl mb-3">📦</div>
-        <h3 class="font-semibold mb-2">Sampel 1 Minggu</h3>
-        <p class="text-sm text-[var(--color-text-secondary)]">Kirim sampel dalam 7 hari. Produksi massal 2-4 minggu.</p>
+        <div class="text-3xl mb-3">📋</div>
+        <h3 class="font-semibold mb-2">Custom Sesuai Kebutuhan</h3>
+        <p class="text-sm text-[var(--color-text-secondary)]">Parameter teknis bisa disesuaikan. Kirim spesifikasi Anda untuk konsultasi lebih lanjut.</p>
       </div>
       <div class="p-6 rounded-lg bg-[var(--color-bg-primary)]">
         <div class="text-3xl mb-3">🔧</div>
         <h3 class="font-semibold mb-2">Dukungan Teknis</h3>
-        <p class="text-sm text-[var(--color-text-secondary)]">Datasheet, BOM, diagram teknis tersedia. Bisa custom sesuai kebutuhan.</p>
+        <p class="text-sm text-[var(--color-text-secondary)]">Datasheet dan diagram teknis tersedia. Tim kami siap membantu pertanyaan teknis Anda.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Top Products for Indonesia -->
+<!-- Products -->
 <section id="produk" class="py-16">
   <div class="max-w-4xl mx-auto px-4">
-    <h2 class="text-2xl font-bold mb-2 text-center">Produk Terlaris untuk Indonesia</h2>
-    <p class="text-center text-[var(--color-text-secondary)] mb-10">Kategori paling banyak dicari di Shopee & Tokopedia</p>
+    <h2 class="text-2xl font-bold mb-2 text-center">Produk Populer</h2>
+    <p class="text-center text-[var(--color-text-secondary)] mb-10">Kategori produk yang paling banyak dicari pelanggan dari Indonesia</p>
 
     <div class="grid md:grid-cols-2 gap-6">
       <!-- N20 Motor -->
       <a href="/products/n20-metal-spur-gear-motor" class="block p-6 rounded-lg bg-[var(--color-bg-secondary)] hover:ring-1 hover:ring-blue-500 transition">
         <h3 class="text-lg font-semibold mb-2">N20 Gear Motor — DC 12mm</h3>
         <p class="text-sm text-[var(--color-text-secondary)] mb-3">
-          Motor DC mikro 12mm. Torsi 0.8-2.0 kg·cm. Ratio 30:1 hingga 1000:1.
-          Untuk smart lock, IoT, robot kecil, dan peralatan otomatis.
+          Motor DC mikro untuk smart lock, IoT, robot kecil, dan peralatan otomatis.
+          Berbagai opsi ratio dan torsi tersedia sesuai kebutuhan aplikasi.
         </p>
         <div class="flex gap-3 text-xs">
-          <span class="px-2 py-1 bg-blue-900/50 text-blue-300 rounded">FOB Mulai $2.80</span>
-          <span class="px-2 py-1 bg-green-900/50 text-green-300 rounded">Stok Siap</span>
-          <span class="px-2 py-1 bg-green-900/50 text-green-300 rounded">Custom OK</span>
+          <span class="px-2 py-1 bg-blue-900/50 text-blue-300 rounded">Custom OK</span>
         </div>
       </a>
 
@@ -78,91 +78,83 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <a href="/products/micro-diaphragm-pump" class="block p-6 rounded-lg bg-[var(--color-bg-secondary)] hover:ring-1 hover:ring-blue-500 transition">
         <h3 class="text-lg font-semibold mb-2">Pompa Diafragma Mini — 12V/24V</h3>
         <p class="text-sm text-[var(--color-text-secondary)] mb-3">
-          Pompa mini 0.5-3.0 L/menit. Self-priming, <40dB.
-          Untuk dispenser air, mesin kopi, alat medis, dan akuarium.
+          Pompa mini self-priming untuk dispenser air, mesin kopi, alat medis, dan akuarium.
+          Berbagai ukuran flow rate tersedia sesuai aplikasi Anda.
         </p>
         <div class="flex gap-3 text-xs">
-          <span class="px-2 py-1 bg-blue-900/50 text-blue-300 rounded">FOB Mulai $3.80</span>
-          <span class="px-2 py-1 bg-green-900/50 text-green-300 rounded">Stok Siap</span>
+          <span class="px-2 py-1 bg-blue-900/50 text-blue-300 rounded">Custom OK</span>
         </div>
       </a>
 
       <!-- Micro Switch -->
       <a href="/products/ip67-micro-switch" class="block p-6 rounded-lg bg-[var(--color-bg-secondary)] hover:ring-1 hover:ring-blue-500 transition">
-        <h3 class="text-lg font-semibold mb-2">Micro Switch IP67 — Tahan Air</h3>
+        <h3 class="text-lg font-semibold mb-2">Micro Switch — Tahan Air & Debu</h3>
         <p class="text-sm text-[var(--color-text-secondary)] mb-3">
-          Switch mikro sealed 5A 125VAC. 100.000+ siklus. IP67 waterproof.
-          Untuk otomotif, smart lock, dan peralatan outdoor.
+          Micro switch sealed untuk otomotif, smart lock, dan peralatan outdoor.
+          Tersedia berbagai konfigurasi kontak dan aktuator.
         </p>
         <div class="flex gap-3 text-xs">
-          <span class="px-2 py-1 bg-blue-900/50 text-blue-300 rounded">FOB Mulai $0.45</span>
-          <span class="px-2 py-1 bg-green-900/50 text-green-300 rounded">Stok Siap</span>
-          <span class="px-2 py-1 bg-green-900/50 text-green-300 rounded">IATF16949</span>
+          <span class="px-2 py-1 bg-blue-900/50 text-blue-300 rounded">Custom OK</span>
         </div>
       </a>
 
       <!-- EV Actuator -->
       <a href="/products/ev-charging-gun-actuator" class="block p-6 rounded-lg bg-[var(--color-bg-secondary)] hover:ring-1 hover:ring-blue-500 transition">
-        <h3 class="text-lg font-semibold mb-2">Aktuator Kunci EV — IP55</h3>
+        <h3 class="text-lg font-semibold mb-2">Aktuator Kunci EV</h3>
         <p class="text-sm text-[var(--color-text-secondary)] mb-3">
-          Aktuator pengunci charging gun. 12VDC, IP55, 30.000+ siklus.
-          Kompatibel GB/T, CCS, CHAdeMO. Respon <0.5 detik.
+          Aktuator pengunci untuk charging gun kendaraan listrik.
+          Kompatibel dengan berbagai standar pengisian daya EV.
         </p>
         <div class="flex gap-3 text-xs">
-          <span class="px-2 py-1 bg-blue-900/50 text-blue-300 rounded">FOB Mulai $3.50</span>
-          <span class="px-2 py-1 bg-green-900/50 text-green-300 rounded">Stok Siap</span>
+          <span class="px-2 py-1 bg-blue-900/50 text-blue-300 rounded">Custom OK</span>
         </div>
       </a>
     </div>
   </div>
 </section>
 
-<!-- Shipping & Payment -->
+<!-- How to Order -->
 <section class="py-16 bg-[var(--color-bg-secondary)]">
   <div class="max-w-4xl mx-auto px-4">
-    <h2 class="text-2xl font-bold mb-10 text-center">Pengiriman ke Indonesia</h2>
+    <h2 class="text-2xl font-bold mb-10 text-center">Cara Pemesanan</h2>
     <div class="grid md:grid-cols-2 gap-6">
       <div class="p-6 rounded-lg bg-[var(--color-bg-primary)]">
-        <h3 class="font-semibold mb-3">🚢 Opsi Pengiriman</h3>
+        <h3 class="font-semibold mb-3">📋 Proses</h3>
         <ul class="text-sm text-[var(--color-text-secondary)] space-y-2">
-          <li>• Ekspres (DHL/FedEx): 3-5 hari</li>
-          <li>• Laut LCL ke Jakarta: 18-25 hari</li>
-          <li>• Shopee SLS: 7-12 hari</li>
-          <li>• Gudang Jakarta (segera hadir)</li>
+          <li>1. Kirim spesifikasi produk yang Anda butuhkan</li>
+          <li>2. Tim kami akan memberikan penawaran harga</li>
+          <li>3. Konfirmasi pesanan dan pengaturan pengiriman</li>
+          <li>4. Pemrosesan dan inspeksi kualitas</li>
         </ul>
       </div>
       <div class="p-6 rounded-lg bg-[var(--color-bg-primary)]">
-        <h3 class="font-semibold mb-3">💳 Pembayaran</h3>
-        <ul class="text-sm text-[var(--color-text-secondary)] space-y-2">
-          <li>• Transfer Bank (USD/IDR)</li>
-          <li>• Wise / Payoneer</li>
-          <li>• Western Union</li>
-          <li>• ShopeePay (melalui toko Shopee)</li>
-        </ul>
+        <h3 class="font-semibold mb-3">💬 Mulai Konsultasi</h3>
+        <p class="text-sm text-[var(--color-text-secondary)] mb-4">
+          Jelaskan kebutuhan teknis dan perkiraan kuantitas Anda.
+          Tim kami siap memberikan rekomendasi produk yang sesuai.
+        </p>
+        <a href="mailto:chinajpq@outlook.com" class="inline-block px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded text-sm transition">
+          Email chinajpq@outlook.com →
+        </a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Trust -->
+<!-- CTA -->
 <section class="py-16">
   <div class="max-w-4xl mx-auto px-4 text-center">
-    <h2 class="text-2xl font-bold mb-6">Siap Kirim ke Indonesia?</h2>
+    <h2 class="text-2xl font-bold mb-6">Siap Memulai?</h2>
     <p class="text-[var(--color-text-secondary)] mb-8 max-w-xl mx-auto">
-      Kami sudah melayani pelanggan dari Asia Tenggara.
-      Harga FOB Shenzhen, dokumen lengkap, sampel cepat.
-      Hubungi kami sekarang untuk penawaran khusus pasar Indonesia.
+      Kirim spesifikasi produk yang Anda cari, dan tim kami akan memberikan konsultasi teknis serta penawaran.
     </p>
     <div class="flex gap-4 justify-center flex-wrap">
-      <a href="/contact" class="px-8 py-3 bg-blue-600 hover:bg-blue-500 rounded-lg font-semibold transition">
-        Minta Penawaran →
-      </a>
-      <a href="mailto:info@yukun-drive.com" class="px-8 py-3 border border-gray-600 hover:border-gray-400 rounded-lg transition">
-        Email Kami
+      <a href="mailto:chinajpq@outlook.com" class="px-8 py-3 bg-blue-600 hover:bg-blue-500 rounded-lg font-semibold transition">
+        Hubungi Kami →
       </a>
     </div>
-    <p class="text-xs text-[var(--color-text-secondary)] mt-6">
-      🇮🇩 Melayani Indonesia · Jakarta · Surabaya · Bandung · Medan
+    <p class="text-xs text-[var(--color-text-secondary)] mt-8 max-w-xl mx-auto">
+      ⚠️ {disclaimer}
     </p>
   </div>
 </section>

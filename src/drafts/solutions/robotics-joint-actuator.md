@@ -4,6 +4,8 @@ meta_title: "Robotics Joint Actuator Solutions — Micro Precision Gear Motors f
 meta_description: "Precision micro gear motors for robot joints, grippers, and servo replacements. Low-backlash planetary gears, encoders, and custom shafts. 1-week samples."
 slug: "robotics-joint-actuator"
 target_industries: ["Robotics", "Automation", "Education", "Servo Systems"]
+draft: true
+archive_reason: "Replaced by display-only public copy"
 status: "⚠️待审核"
 ---
 

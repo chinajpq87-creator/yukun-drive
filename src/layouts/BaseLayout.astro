@@ -15,6 +15,8 @@ export interface Props {
   ogImage?: string;
   twitterCard?: 'summary' | 'summary_large_image';
   noIndex?: boolean;
+  lang?: string;
+  locale?: string;
 }
 
 const {
@@ -26,6 +28,8 @@ const {
   ogImage,
   twitterCard = 'summary_large_image',
   noIndex = false,
+  lang = 'en',
+  locale = SITE.locale,
 } = Astro.props;
 
 const pageTitle = title ?? `${SITE.name} — Micro Motion Solutions for Your Product`;
@@ -35,7 +39,7 @@ const pageUrl = canonicalURL ?? new URL(Astro.url.pathname, Astro.site).href;
 ---
 
 <!doctype html>
-<html lang="en" class="dark">
+<html lang={lang} class="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -64,7 +68,7 @@ const pageUrl = canonicalURL ?? new URL(Astro.url.pathname, Astro.site).href;
     <meta property="og:type" content={ogType} />
     <meta property="og:url" content={pageUrl} />
     <meta property="og:site_name" content={SITE.name} />
-    <meta property="og:locale" content={SITE.locale} />
+    <meta property="og:locale" content={locale} />
     {pageImage && (
       <>
         <meta property="og:image" content={pageImage} />

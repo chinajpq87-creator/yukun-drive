@@ -8,6 +8,8 @@ category: "Gear Motor"
 sub_category: "Spur Gear Motor"
 product_code: "N20-M01"
 related_solutions: ["smart-lock-micro-motor-solution", "smart-home-automation", "industrial-automation-drive"]
+draft: true
+archive_reason: "Replaced by display-only public copy"
 status: "⚠️待审核"
 ---
 

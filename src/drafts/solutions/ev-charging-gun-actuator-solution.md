@@ -5,6 +5,8 @@ meta_title: "EV Charging Gun Lock Actuator Motors — N20 Worm Gear + Micro Swit
 meta_description: "Complete micro drive solutions for EV charging gun electronic locking actuators: N20 worm self-locking motors, 370/520 high-torque actuators, micro switch integrated assemblies. IATF16949 options. 1-week samples."
 slug: "ev-charging-gun-actuator-solution"
 target_industries: ["Electric Vehicle", "EV Charging Infrastructure", "Automotive Electronics", "New Energy"]
+draft: true
+archive_reason: "Replaced by display-only public copy"
 status: "⚠️待审核"
 ---
 

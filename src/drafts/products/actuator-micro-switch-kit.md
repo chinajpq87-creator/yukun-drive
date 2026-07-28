@@ -7,6 +7,8 @@ category: "Solution Kit"
 sub_category: "EV Charging Kit"
 product_code: "KIT-EV01"
 related_solutions: ["ev-charging-gun-actuator-solution"]
+draft: true
+archive_reason: "Replaced by display-only public copy"
 status: "⚠️ Pending Review"
 ---
 

@@ -94,7 +94,29 @@ test('contact flow is email-first and does not embed a Web3Forms key', () => {
 });
 
 test('public source avoids standing commercial and compliance claims', () => {
-  assert.deepEqual(scanClaims(publicSourceFiles()), []);
+  const files = publicSourceFiles();
+  assert.deepEqual(scanClaims(files), []);
+  for (const file of files) {
+    assert.doesNotMatch(readFileSync(file, 'utf8'), /info@yukun-drive\.com/i);
+  }
+});
+
+test('public product and solution pages include inquiry safeguards', () => {
+  const contentRoots = [
+    join(root, 'src', 'content', 'products'),
+    join(root, 'src', 'content', 'solutions'),
+  ];
+  const files = contentRoots
+    .flatMap(walk)
+    .filter((file) => file.endsWith('.md'))
+    .filter((file) => !/^draft:\s*true\s*$/im.test(readFileSync(file, 'utf8')));
+
+  assert.ok(files.length > 0);
+  for (const file of files) {
+    const content = readFileSync(file, 'utf8');
+    assert.match(content, new RegExp(approvedDisclaimer.replaceAll('.', '\\.')));
+    assert.match(content, new RegExp(publicEmail.replace('.', '\\.')));
+  }
 });
 
 test('built output excludes drafts and standing claims when dist exists', () => {

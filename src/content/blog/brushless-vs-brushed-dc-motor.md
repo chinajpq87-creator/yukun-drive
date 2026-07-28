@@ -4,6 +4,7 @@ meta_title: "Brushless vs Brushed DC Motor — The Complete Engineer's Compariso
 meta_description: "BLDC vs brushed DC motor: life, noise, cost, EMI, and control trade-offs. Decision matrix for medical, smart lock, drone, and industrial applications. Choose the right motor type."
 slug: "brushless-vs-brushed-dc-motor"
 category: "Motor Selection"
+draft: true
 publish_date: "2026-07-01"
 ---
 

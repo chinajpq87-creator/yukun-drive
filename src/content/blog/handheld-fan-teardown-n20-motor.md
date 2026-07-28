@@ -4,6 +4,7 @@ meta_title: "Handheld Fan Teardown — N20 Motor Teardown & Replacement Guide | 
 meta_description: "We tear down a portable handheld fan to analyze the N20 DC gear motor, micro switch, gear train, and noise sources. BOM inside. Engineers: get the upgrade motor, quieter planetary gearbox, and IP67 switch."
 slug: "handheld-fan-teardown-n20-motor"
 category: "Teardown"
+draft: true
 date: 2026-07-01
 status: "published"
 image: "/images/teardowns/fan-teardown-hero.jpg"

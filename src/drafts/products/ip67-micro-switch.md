@@ -7,6 +7,8 @@ category: "Switch"
 sub_category: "Micro Switch"
 product_code: "SW-IP67-01"
 related_solutions: ["smart-lock-micro-motor-solution", "ev-charging-gun-actuator-solution"]
+draft: true
+archive_reason: "Replaced by display-only public copy"
 status: "⚠️ Pending Review"
 ---
 

@@ -5,6 +5,8 @@ meta_title: "Medical Device Micro Motor Solutions — Precision DC Gear Motors &
 meta_description: "Complete micro drive solutions for medical devices: precision gear motors, brushless DC motors, and micro pumps. ISO 9001 certified, custom configurations, 1-week samples. Explore our medical drive solutions."
 slug: "medical-device-micro-drive-solution"
 target_industries: ["Medical Devices", "Laboratory Instruments", "In-Vitro Diagnostics", "Portable Medical"]
+draft: true
+archive_reason: "Replaced by display-only public copy"
 status: "⚠️待审核"
 ---
 

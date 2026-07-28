@@ -4,6 +4,8 @@ meta_title: "Smart Home Automation Micro Drive Solutions — Compact Motors for 
 meta_description: "Micro drive solutions for smart home automation: compact gear motors for motorized curtains, smart valves, adjustable furniture, and IoT devices. Low-noise, battery-optimized. 1-week samples."
 slug: "smart-home-automation"
 target_industries: ["Smart Home", "IoT", "Consumer Electronics", "Home Automation"]
+draft: true
+archive_reason: "Replaced by display-only public copy"
 status: "⚠️待审核"
 ---
 

@@ -7,6 +7,8 @@ category: "Gear Motor"
 sub_category: "Planetary Gear Motor"
 product_code: "N20-P01"
 related_solutions: ["smart-lock-micro-motor-solution", "medical-device-micro-drive-solution", "robotics-joint-actuator"]
+draft: true
+archive_reason: "Replaced by display-only public copy"
 ---
 
 # N20 Planetary Gear Motor — 12mm Precision Micro Drive

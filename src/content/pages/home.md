@@ -4,6 +4,7 @@ title: "Yukun — Micro Motion Solutions for Your Product"
 meta_title: "Yukun | Global Micro Motor Sourcing & Solutions Platform"
 meta_description: "Your global platform for micro DC gear motors, brushless motors, micro pumps, and switches. Solution-driven selection, engineer-first content, 1-week samples. FOB Shenzhen. Explore our micro motion solutions."
 slug: "home"
+draft: true
 status: "⚠️待审核"
 ---
 

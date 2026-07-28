@@ -7,6 +7,8 @@ category: "BLDC Motor"
 sub_category: "Slotless BLDC"
 product_code: "BL-28SL01"
 related_solutions: ["medical-device-micro-drive-solution"]
+draft: true
+archive_reason: "Replaced by display-only public copy"
 status: "⚠️ Pending Review"
 ---
 

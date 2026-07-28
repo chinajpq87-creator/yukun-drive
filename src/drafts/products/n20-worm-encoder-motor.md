@@ -7,6 +7,8 @@ category: "Gear Motor"
 sub_category: "Worm Gear Motor with Encoder"
 product_code: "N20-WE01"
 related_solutions: ["smart-lock-micro-motor-solution"]
+draft: true
+archive_reason: "Replaced by display-only public copy"
 status: "⚠️ Pending Review"
 ---
 

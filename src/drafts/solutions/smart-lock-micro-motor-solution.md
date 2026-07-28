@@ -5,6 +5,8 @@ meta_title: "Smart Door Lock Micro Gear Motors — Precision N20 Series Drive So
 meta_description: "Complete micro drive solutions for smart door locks: N20 planetary, spur, and worm gear motors. IATF16949 certified, custom configurations, 1-week samples. Explore our smart lock motor solutions."
 slug: "smart-lock-micro-motor-solution"
 target_industries: ["Smart Home", "Security Systems", "Access Control", "IoT Devices"]
+draft: true
+archive_reason: "Replaced by display-only public copy"
 status: "⚠️待审核"
 ---
 
