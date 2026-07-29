@@ -204,12 +204,21 @@ test('public product and solution pages include inquiry safeguards', () => {
 test('built output excludes drafts and standing claims when dist exists', () => {
   const dist = join(root, 'dist');
   if (!existsSync(dist)) return;
+  const htmlFiles = walk(dist).filter((file) => file.endsWith('.html'));
 
   assert.equal(
     existsSync(join(dist, 'products', 'pawvibe-pet-interactive-ball', 'index.html')),
     false
   );
-  assert.deepEqual(scanClaims(walk(dist).filter((file) => file.endsWith('.html'))), []);
+  assert.deepEqual(scanClaims(htmlFiles), []);
+  for (const file of htmlFiles) {
+    const html = readFileSync(file, 'utf8');
+    assert.doesNotMatch(html, /linkedin\.com\/company\/yukun-drive/i);
+    assert.doesNotMatch(html, /youtube\.com\/@YukunDrive/i);
+    assert.doesNotMatch(html, /x\.com\/YukunDrive/i);
+    assert.doesNotMatch(html, /tiktok\.com\/@yukundrive/i);
+    assert.doesNotMatch(html, /@YukunDrive/i);
+  }
 });
 
 test('global.css defines the six shared Engineering Trust tokens', () => {

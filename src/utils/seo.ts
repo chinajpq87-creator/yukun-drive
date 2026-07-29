@@ -8,15 +8,10 @@ export const SITE = {
   ogImageWidth: 1200,
   ogImageHeight: 630,
   locale: 'en_US',
-  twitterHandle: '@YukunDrive',
+  twitterHandle: '',
   description:
     'Product matching and supply coordination for compact motion applications, including gear motors, brushless motors, micro pumps, and switches.',
-  sameAs: [
-    'https://linkedin.com/company/yukun-drive',
-    'https://youtube.com/@YukunDrive',
-    'https://x.com/YukunDrive',
-    'https://tiktok.com/@yukundrive',
-  ],
+  sameAs: [],
   themeColor: '#0066cc',
 } as const;
 
