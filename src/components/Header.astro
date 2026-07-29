@@ -2,7 +2,11 @@
 // Responsive header with mobile hamburger menu
 const navItems = [
   {
-    label: 'Solutions',
+    label: 'Products',
+    href: '/products',
+  },
+  {
+    label: 'Applications',
     href: '/solutions',
     children: [
       { label: 'Medical Devices', href: '/solutions/medical-device-micro-drive' },
@@ -16,17 +20,7 @@ const navItems = [
     ],
   },
   {
-    label: 'Products',
-    href: '/products',
-    children: [
-      { label: 'Gear Motors', href: '/products/gear-motors' },
-      { label: 'DC Motors', href: '/products/dc-motors' },
-      { label: 'Pumps', href: '/products/pumps' },
-      { label: 'Switches', href: '/products/switches' },
-    ],
-  },
-  {
-    label: 'Resources',
+    label: 'Insights',
     href: '/resources',
     children: [
       { label: 'Selection Guides', href: '/resources/selection-guides' },
@@ -35,20 +29,18 @@ const navItems = [
       { label: 'FAQ', href: '/resources/faq' },
     ],
   },
-  { label: 'Blog', href: '/blog' },
-  { label: 'Motor Manufacturers', href: '/motor-manufacturers' },
   { label: 'About', href: '/about' },
   { label: 'Contact', href: '/contact' },
 ];
 ---
 
-<header class="sticky top-0 z-50 bg-[var(--color-bg-primary)]/95 backdrop-blur-sm border-b border-[var(--color-border-default)]">
+<header class="sticky top-0 z-50 bg-[var(--color-navy-surface)]/95 backdrop-blur-sm border-b border-[var(--color-navy-border)]">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16">
       <!-- Logo -->
       <a href="/" class="flex items-center gap-2 font-bold text-xl tracking-tight">
-        <span class="text-[var(--color-brand-light)]">⬡</span>
-        <span>Yukun</span>
+        <span class="text-[var(--color-technical)]">&#x2B21;</span>
+        <span class="text-[var(--color-navy-ink)]">Yukun</span>
       </a>
 
       <!-- Desktop Nav -->
@@ -57,20 +49,20 @@ const navItems = [
           <div class="relative group">
             <a
               href={item.href}
-              class="px-3 py-2 text-sm font-medium text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] rounded-md hover:bg-[var(--color-bg-card)] transition-colors"
+              class="px-3 py-2 text-sm font-medium text-[var(--color-navy-ink-muted)] hover:text-[var(--color-navy-ink)] rounded-md hover:bg-[var(--color-navy-elevated)] transition-colors"
             >
               {item.label}
               {item.children && (
-                <span class="ml-1 text-xs opacity-50">▼</span>
+                <span class="ml-1 text-xs opacity-50">&#x25BE;</span>
               )}
             </a>
             {item.children && (
-              <div class="absolute top-full left-0 mt-1 w-56 bg-[var(--color-bg-card)] border border-[var(--color-border-default)] rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+              <div class="absolute top-full left-0 mt-1 w-56 bg-[var(--color-navy-elevated)] border border-[var(--color-navy-border)] rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
                 <div class="p-2">
                   {item.children.map((child) => (
                     <a
                       href={child.href}
-                      class="block px-3 py-2 text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)] rounded-md transition-colors"
+                      class="block px-3 py-2 text-sm text-[var(--color-navy-ink-muted)] hover:text-[var(--color-navy-ink)] hover:bg-[var(--color-navy-elevated)] rounded-md transition-colors"
                     >
                       {child.label}
                     </a>
@@ -86,7 +78,7 @@ const navItems = [
       <div class="hidden lg:block">
         <a
           href="/contact"
-          class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-[var(--color-brand)] hover:bg-[var(--color-brand-light)] rounded-lg transition-colors"
+          class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-[var(--color-action)] hover:bg-[var(--color-action-hover)] rounded-lg transition-colors"
         >
           Discuss Your Application
         </a>
@@ -95,7 +87,7 @@ const navItems = [
       <!-- Mobile hamburger -->
       <button
         id="mobile-menu-btn"
-        class="lg:hidden p-2 text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]"
+        class="lg:hidden p-2 text-[var(--color-navy-ink-muted)] hover:text-[var(--color-navy-ink)]"
         aria-label="Toggle menu"
       >
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -107,13 +99,13 @@ const navItems = [
   </div>
 
   <!-- Mobile menu -->
-  <div id="mobile-menu" class="hidden lg:hidden bg-[var(--color-bg-secondary)] border-t border-[var(--color-border-default)]">
+  <div id="mobile-menu" class="hidden lg:hidden bg-[var(--color-navy-surface)] border-t border-[var(--color-navy-border)]">
     <div class="px-4 py-3 space-y-1">
       {navItems.map((item) => (
         <div>
           <a
             href={item.href}
-            class="block px-3 py-2 text-base font-medium text-[var(--color-text-primary)] hover:bg-[var(--color-bg-card)] rounded-md"
+            class="block px-3 py-2 text-base font-medium text-[var(--color-navy-ink)] hover:bg-[var(--color-navy-elevated)] rounded-md"
           >
             {item.label}
           </a>
@@ -122,7 +114,7 @@ const navItems = [
               {item.children.map((child) => (
                 <a
                   href={child.href}
-                  class="block px-3 py-1.5 text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] rounded-md"
+                  class="block px-3 py-1.5 text-sm text-[var(--color-navy-ink-muted)] hover:text-[var(--color-navy-ink)] rounded-md"
                 >
                   {child.label}
                 </a>
@@ -134,7 +126,7 @@ const navItems = [
       <div class="pt-3">
         <a
           href="/contact"
-          class="block w-full text-center px-4 py-2.5 text-sm font-medium text-white bg-[var(--color-brand)] rounded-lg"
+          class="block w-full text-center px-4 py-2.5 text-sm font-medium text-white bg-[var(--color-action)] rounded-lg"
         >
           Discuss Your Application
         </a>

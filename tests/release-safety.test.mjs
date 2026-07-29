@@ -36,8 +36,8 @@ const prohibitedClaims = [
   ['minimum order', /\bMOQ\b/i],
   ['displayed price', /(?:\$\s*\d|\bUSD\b|\bunit price\b|\bpricing\b|\bprice\s+(?:from|reference|range))/i],
   ['fixed response time', /\bwithin\s+\d+\s*(?:hours?|business days?)\b/i],
-  ['fixed sample time', /\b(?:samples?|sample request).{0,40}\b\d+\s*[-–]?\s*(?:days?|weeks?)\b/i],
-  ['fixed delivery time', /\b(?:ships?|shipping|production|delivery).{0,40}\b\d+\s*[-–]?\s*(?:days?|weeks?)\b/i],
+  ['fixed sample time', /\b(?:samples?|sample request).{0,40}\b\d+\s*[-\u2013]?\s*(?:days?|weeks?)\b/i],
+  ['fixed delivery time', /\b(?:ships?|shipping|production|delivery).{0,40}\b\d+\s*[-\u2013]?\s*(?:days?|weeks?)\b/i],
   ['named certification', /\b(?:ISO\s*\d+|IATF\s*\d+|RoHS|REACH|FDA|CE\/UL)\b/i],
   ['certification assertion', /\bcertified\s+(?:factory|facility|production|lines?)\b/i],
   ['factory ownership', /\b(?:our own factory|our factory|our manufacturing facility|vertically integrated)\b/i],
@@ -126,6 +126,55 @@ test('motor-manufacturer landing path and inquiry attribution are present', () =
   }
 });
 
+test('navigation and footer guard rails', () => {
+  const header = read('src/components/Header.astro');
+  const footer = read('src/components/Footer.astro');
+
+  // Header main nav: strict set of approved labels and paths
+  assert.match(header, /label:\s*'Products'/);
+  assert.match(header, /href:\s*'\/products'/);
+  assert.match(header, /label:\s*'Applications'/);
+  assert.match(header, /href:\s*'\/solutions'/);
+  assert.match(header, /label:\s*'Insights'/);
+  assert.match(header, /href:\s*'\/resources'/);
+  assert.match(header, /label:\s*'About'/);
+  assert.match(header, /href:\s*'\/about'/);
+  assert.match(header, /label:\s*'Contact'/);
+  assert.match(header, /href:\s*'\/contact'/);
+
+  // Header: no Motor Manufacturers as a top-level nav item
+  assert.doesNotMatch(header, /Motor Manufacturers/);
+
+  // Header: no banned internal product sub-routes
+  assert.doesNotMatch(header, /\/products\/gear-motors/);
+  assert.doesNotMatch(header, /\/products\/dc-motors/);
+  assert.doesNotMatch(header, /\/products\/pumps/);
+  assert.doesNotMatch(header, /\/products\/switches/);
+
+  // Header: global CTA preserved
+  assert.match(header, /Discuss Your Application/);
+
+  // Footer: no banned internal product sub-routes
+  assert.doesNotMatch(footer, /\/products\/gear-motors/);
+  assert.doesNotMatch(footer, /\/products\/dc-motors/);
+  assert.doesNotMatch(footer, /\/products\/pumps/);
+  assert.doesNotMatch(footer, /\/products\/switches/);
+
+  // Footer: no unverified social media outbound links
+  assert.doesNotMatch(footer, /linkedin\.com\/company\/yukun-drive/);
+  assert.doesNotMatch(footer, /youtube\.com\/@YukunDrive/);
+  assert.doesNotMatch(footer, /x\.com\/YukunDrive/);
+  assert.doesNotMatch(footer, /tiktok\.com\/@yukundrive/);
+
+  // Footer: sole public email preserved
+  assert.match(footer, /chinajpq@outlook\.com/);
+
+  // A brokered text proposal must preserve valid public UTF-8 symbols and closing tags.
+  assert.doesNotMatch(header + footer, /(?:\u922B|\u732C|\u9983|\u923B)/);
+  assert.match(footer, /All Solutions &rarr;<\/a>/);
+  assert.match(footer, /All Products &rarr;<\/a>/);
+});
+
 test('public source avoids standing commercial and compliance claims', () => {
   const files = publicSourceFiles();
   assert.deepEqual(scanClaims(files), []);
@@ -161,4 +210,30 @@ test('built output excludes drafts and standing claims when dist exists', () => 
     false
   );
   assert.deepEqual(scanClaims(walk(dist).filter((file) => file.endsWith('.html'))), []);
+});
+
+test('global.css defines the six shared Engineering Trust tokens', () => {
+  const css = read('src/styles/global.css');
+  assert.match(css, /--color-surface\s*:/);
+  assert.match(css, /--color-surface-muted\s*:/);
+  assert.match(css, /--color-ink\s*:/);
+  assert.match(css, /--color-ink-muted\s*:/);
+  assert.match(css, /--color-action\s*:/);
+  assert.match(css, /--color-technical\s*:/);
+});
+
+test('global.css preserves legacy token aliases used by existing public pages', () => {
+  const css = read('src/styles/global.css');
+  for (const token of [
+    '--color-brand', '--color-brand-light', '--color-bg-primary', '--color-bg-secondary',
+    '--color-bg-card', '--color-bg-elevated', '--color-text-primary', '--color-text-secondary',
+    '--color-text-muted', '--color-border-default', '--color-accent-green', '--color-accent-red',
+  ]) {
+    assert.match(css, new RegExp(`${token}\\s*:`));
+  }
+});
+
+test('BaseLayout does not force class="dark" on html root', () => {
+  const layout = read('src/layouts/BaseLayout.astro');
+  assert.doesNotMatch(layout, /<html[^>]*class="dark"/);
 });

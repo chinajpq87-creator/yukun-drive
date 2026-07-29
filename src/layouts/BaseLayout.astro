@@ -1,5 +1,5 @@
 ---
-// Base layout — used by all pages
+// Base layout - used by all pages
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { SITE } from '../utils/seo';
@@ -32,14 +32,14 @@ const {
   locale = SITE.locale,
 } = Astro.props;
 
-const pageTitle = title ?? `${SITE.name} — Micro Motion Solutions for Your Product`;
+const pageTitle = title ?? `${SITE.name} - Micro Motion Solutions for Your Product`;
 const pageDescription = description ?? SITE.description;
 const pageImage = ogImage ?? image ?? `${SITE.url}${SITE.ogImage}`;
 const pageUrl = canonicalURL ?? new URL(Astro.url.pathname, Astro.site).href;
 ---
 
 <!doctype html>
-<html lang={lang} class="dark">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -102,14 +102,14 @@ const pageUrl = canonicalURL ?? new URL(Astro.url.pathname, Astro.site).href;
       gtag('config', 'G-TF923QKFYJ');
     </script>
   </head>
-  <body class="min-h-screen flex flex-col bg-[var(--color-bg-primary)] text-[var(--color-text-primary)]">
+  <body class="min-h-screen flex flex-col bg-[var(--color-surface)] text-[var(--color-ink)]">
     <Header />
     <main class="flex-1">
       <slot />
     </main>
     <Footer />
 
-    <!-- Structured Data slot — inject JSON-LD scripts from child pages -->
+    <!-- Structured Data slot - inject JSON-LD scripts from child pages -->
     <slot name="structured-data" />
   </body>
 </html>
