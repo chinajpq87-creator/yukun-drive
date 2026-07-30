@@ -126,6 +126,35 @@ test('motor-manufacturer landing path and inquiry attribution are present', () =
   }
 });
 
+test('engineering lab phase one pages expose the intended lab structure', () => {
+  const home = read('src/pages/index.astro');
+  const products = read('src/pages/products/index.astro');
+  const motorManufacturers = read('src/pages/motor-manufacturers.astro');
+
+  assert.match(home, /Yukun Drive Motion System Lab/);
+  assert.match(home, /Motion System Review/);
+  assert.match(home, /LabComponentMap/);
+  assert.match(home, /Commutator/);
+  assert.match(home, /Carbon Brush Assembly/);
+  assert.match(home, /Waterproof Micro Switch/);
+  assert.match(home, /Discuss Your Application/);
+  assert.match(home, /Email Your Requirements/);
+
+  assert.match(products, /Component Map/);
+  assert.match(products, /Core Components/);
+  assert.match(products, /Motion Platforms/);
+  assert.match(products, /Waterproof Micro Switches/);
+  assert.match(products, /Commutators/);
+  assert.match(products, /Carbon Brush Assemblies/);
+  assert.match(products, /Terminal \/ Contact Components/);
+
+  assert.match(motorManufacturers, /Motor Component Review Desk/);
+  assert.match(motorManufacturers, /Component review scope/);
+  assert.match(motorManufacturers, /Common engineering signals/);
+  assert.match(motorManufacturers, /What to share before inquiry/);
+  assert.match(motorManufacturers, /Product specifications, availability, lead time, and commercial terms are confirmed for each inquiry\./);
+});
+
 test('navigation and footer guard rails', () => {
   const header = read('src/components/Header.astro');
   const footer = read('src/components/Footer.astro');
