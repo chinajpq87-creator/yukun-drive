@@ -79,3 +79,24 @@ test('approved acquisition sources avoid unverified capability claims', async ()
     assert.doesNotMatch(copy, new RegExp(claim));
   }
 });
+
+test('cornerstone feeder guide is review-ready but excluded from publication', async () => {
+  const article = await read('../src/content/blog/pet-tech-feeder-drive-system.md');
+
+  assert.match(article, /^---[\s\S]*?draft:\s*true[\s\S]*?status:\s*["']?draft["']?[\s\S]*?---/);
+  assert.match(article, /title:\s*["']Smart Pet Feeder Mechanical Drive System: Motor Selection, Gearbox Design and BOM Analysis["']/);
+  assert.match(article, /⚠️ Pending Review/);
+  assert.match(article, /## Direct answer/i);
+
+  for (const section of ['Motor', 'Gearbox', 'Screw mechanism', 'Position detection', 'Housing', 'Control system']) {
+    assert.match(article, new RegExp(`##[^\\n]*${section}`, 'i'), `missing article section: ${section}`);
+  }
+
+  assert.match(article, /## BOM decision table/i);
+  assert.match(article, /## DFM questions/i);
+  assert.match(article, /## Evidence sources/i);
+  assert.match(article, /https:\/\//);
+  assert.match(article, /\/products/);
+  assert.match(article, /\/contact\?entry=pet-feeder-guide/);
+  assert.match(article, /Start a Project Fit Check/);
+});
