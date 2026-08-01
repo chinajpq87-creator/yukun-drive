@@ -126,18 +126,19 @@ test('motor-manufacturer landing path and inquiry attribution are present', () =
   }
 });
 
-test('engineering lab phase one pages expose the intended lab structure', () => {
+test('homepage exposes the Pet Tech NPI entry while engineering pages retain their lab structure', () => {
   const home = read('src/pages/index.astro');
   const products = read('src/pages/products/index.astro');
   const motorManufacturers = read('src/pages/motor-manufacturers.astro');
 
-  assert.match(home, /Yukun Drive Motion System Lab/);
-  assert.match(home, /Motion System Review/);
+  assert.match(home, /Hardware NPI and Managed China Sourcing/);
+  assert.match(home, /Turn Your Pet Tech Design Into a Manufacturable Product/);
+  assert.match(home, /Project Evidence Review/);
   assert.match(home, /LabComponentMap/);
-  assert.match(home, /Commutator/);
-  assert.match(home, /Carbon Brush Assembly/);
-  assert.match(home, /Waterproof Micro Switch/);
-  assert.match(home, /Discuss Your Application/);
+  assert.match(home, /Build in China/);
+  assert.match(home, /Source in China/);
+  assert.match(home, /Scale in China/);
+  assert.match(home, /Start a Project Fit Check/);
   assert.match(home, /Email Your Requirements/);
 
   assert.match(products, /Component Map/);

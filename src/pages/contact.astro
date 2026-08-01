@@ -3,15 +3,16 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import ContactForm from '../components/ContactForm.tsx';
 ---
 
-<BaseLayout title="Contact - Product Matching & Supply Coordination | Yukun" description="Contact Yukun to discuss application requirements, product matching, documentation, availability, and commercial terms.">
+<BaseLayout title="Free Project Fit Check | Yukun" description="Share your Pet Tech project stage, engineering evidence, target market, and production goals for a free Project Fit Check.">
   <section class="section-padding">
     <div class="max-w-7xl mx-auto">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
         <!-- Left: Form -->
         <div>
-          <h1 class="text-4xl font-bold mb-4">Get in Touch</h1>
+          <p class="tech-mono text-xs uppercase tracking-[0.18em] text-[var(--color-technical)] mb-3">Project Fit Check</p>
+          <h1 class="text-4xl font-bold mb-4">Start With a Free Project Fit Check</h1>
           <p class="text-lg text-[var(--color-text-secondary)] mb-8">
-            Email your application and technical requirements to <a href="mailto:chinajpq@outlook.com" class="text-[var(--color-brand-light)] hover:underline">chinajpq@outlook.com</a>. The optional form below is available when online submission is configured.
+            Share the evidence you already have so we can review fit, missing information, and the next practical step. The free Project Fit Check confirms whether Yukun should review the project further. It does not include a full design, supplier list, formal quotation, or compliance opinion.
           </p>
 
           <div class="flex gap-4 mb-8">
@@ -19,7 +20,7 @@ import ContactForm from '../components/ContactForm.tsx';
               id="tab-rfq"
               class="px-5 py-2 text-sm font-medium bg-[var(--color-brand)] text-white rounded-lg transition-colors"
             >
-              Discuss Requirements
+              Start a Project Fit Check
             </button>
             <button
               id="tab-sample"
@@ -30,7 +31,7 @@ import ContactForm from '../components/ContactForm.tsx';
           </div>
 
           <div id="form-rfq">
-            <ContactForm formType="rfq" entryContent="contact" client:load />
+            <ContactForm formType="rfq" entryContent="project-fit-check" client:load />
           </div>
           <div id="form-sample" class="hidden">
             <ContactForm formType="sample" entryContent="contact" client:load />
@@ -65,19 +66,19 @@ import ContactForm from '../components/ContactForm.tsx';
               <ol class="space-y-3 text-sm">
                 <li class="flex gap-3">
                   <span class="flex-shrink-0 w-6 h-6 rounded-full bg-[var(--color-brand)]/20 text-[var(--color-brand-light)] flex items-center justify-center text-xs font-bold">1</span>
-                  <p class="text-[var(--color-text-secondary)]">We review your requirements and match to our product database.</p>
+                  <p class="text-[var(--color-text-secondary)]">We review project fit, development stage, and the evidence you can share.</p>
                 </li>
                 <li class="flex gap-3">
                   <span class="flex-shrink-0 w-6 h-6 rounded-full bg-[var(--color-brand)]/20 text-[var(--color-brand-light)] flex items-center justify-center text-xs font-bold">2</span>
-                  <p class="text-[var(--color-text-secondary)]">We review suitable product options and the documentation required for your application.</p>
+                  <p class="text-[var(--color-text-secondary)]">We identify missing information and decide whether a focused discussion would be useful.</p>
                 </li>
                 <li class="flex gap-3">
                   <span class="flex-shrink-0 w-6 h-6 rounded-full bg-[var(--color-brand)]/20 text-[var(--color-brand-light)] flex items-center justify-center text-xs font-bold">3</span>
-                  <p class="text-[var(--color-text-secondary)]">Availability, lead time, and commercial terms are confirmed for your specific inquiry.</p>
+                  <p class="text-[var(--color-text-secondary)]">If the project is in scope, we suggest the next practical Build, Source, or Scale step.</p>
                 </li>
                 <li class="flex gap-3">
                   <span class="flex-shrink-0 w-6 h-6 rounded-full bg-[var(--color-brand)]/20 text-[var(--color-brand-light)] flex items-center justify-center text-xs font-bold">4</span>
-                  <p class="text-[var(--color-text-secondary)]">You evaluate the proposed option and share feedback for the next coordination step.</p>
+                  <p class="text-[var(--color-text-secondary)]">Specifications, availability, lead time, and commercial terms are confirmed only for a specific inquiry.</p>
                 </li>
               </ol>
             </div>
