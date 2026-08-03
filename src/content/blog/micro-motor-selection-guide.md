@@ -155,9 +155,9 @@ During NPI, a manufacturing partner helps connect the product requirement → en
 
 ---
 
-## About GMIP
+## About Global Manufacturing Integration Partner (GMIP)
 
-GMIP is a hardware manufacturing integration partner helping overseas companies develop products through China's supply chain ecosystem.
+Global Manufacturing Integration Partner (GMIP) helps overseas hardware companies bridge the gap between product development and China's manufacturing ecosystem.
 
 Our focus areas include micro motor systems, motion components, hardware NPI management, and prototype-to-production support.
 
