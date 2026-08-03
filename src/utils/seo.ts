@@ -10,7 +10,7 @@ export const SITE = {
   locale: 'en_US',
   twitterHandle: '',
   description:
-    'Product matching and supply coordination for compact motion applications, including gear motors, brushless motors, micro pumps, and switches.',
+    'Global Manufacturing Integration Partner (GMIP). Helping overseas hardware teams bring products from prototype to mass production in China — motion system engineering, supplier coordination, and hardware NPI management.',
   sameAs: [],
   themeColor: '#0066cc',
 } as const;
