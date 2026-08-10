@@ -1,0 +1,71 @@
+---
+interface Props {
+  title?: string;
+  subtitle?: string;
+  highlightCore?: boolean;
+}
+
+const {
+  title = 'Motion System Review',
+  subtitle = 'Start from the application, then review the motor platform and the components that affect switching, contact, wear, and integration.',
+  highlightCore = true,
+} = Astro.props;
+
+const coreComponents = [
+  { label: 'Commutator', note: 'current transfer / wear interface' },
+  { label: 'Carbon Brush Assembly', note: 'contact pressure / fit review' },
+  { label: 'Waterproof Micro Switch', note: 'position feedback / limit signal' },
+  { label: 'Terminal / Contact Component', note: 'electrical interface / assembly fit' },
+];
+
+const motionPlatforms = [
+  { label: 'Micro DC Motor', note: 'brushed motor platform' },
+  { label: 'Pump', note: 'fluid movement application' },
+  { label: 'Actuator', note: 'locking / linear motion application' },
+];
+---
+
+<aside class="relative overflow-hidden rounded-2xl border border-[var(--color-navy-border)] bg-[var(--color-navy-surface)] p-5 md:p-6 shadow-2xl shadow-black/20">
+  <div class="absolute inset-0 bg-[linear-gradient(rgba(6,182,212,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(6,182,212,0.06)_1px,transparent_1px)] bg-[size:22px_22px]"></div>
+  <div class="relative">
+    <div class="flex items-start justify-between gap-4 border-b border-[var(--color-navy-border)] pb-4">
+      <div>
+        <p class="tech-mono text-[11px] uppercase tracking-[0.18em] text-[var(--color-technical-light)]">Engineering Lab</p>
+        <h3 class="mt-2 text-xl font-semibold text-white">{title}</h3>
+      </div>
+      <span class="tech-mono rounded-full border border-[var(--color-technical)]/40 px-3 py-1 text-[11px] text-[var(--color-technical-light)]">
+        Inquiry-led
+      </span>
+    </div>
+    <p class="mt-4 text-sm leading-relaxed text-[var(--color-navy-ink-muted)]">{subtitle}</p>
+
+    <div class="mt-6 grid gap-4 lg:grid-cols-[1fr_auto_1.15fr] lg:items-center">
+      <div class="space-y-3">
+        <p class="tech-mono text-[11px] uppercase tracking-[0.16em] text-[var(--color-navy-ink-muted)]">Motion Platforms</p>
+        {motionPlatforms.map((item) => (
+          <div class="rounded-xl border border-[var(--color-navy-border)] bg-[var(--color-navy-elevated)] p-4">
+            <p class="font-semibold text-white">{item.label}</p>
+            <p class="mt-1 text-xs text-[var(--color-navy-ink-muted)]">{item.note}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="hidden h-px w-12 bg-[var(--color-technical)]/70 lg:block"></div>
+
+      <div class="space-y-3">
+        <p class="tech-mono text-[11px] uppercase tracking-[0.16em] text-[var(--color-navy-ink-muted)]">Core Components</p>
+        {coreComponents.map((item) => (
+          <div class:list={[
+            'rounded-xl border p-4',
+            highlightCore
+              ? 'border-[var(--color-technical)]/50 bg-[var(--color-technical)]/10'
+              : 'border-[var(--color-navy-border)] bg-[var(--color-navy-elevated)]',
+          ]}>
+            <p class="font-semibold text-white">{item.label}</p>
+            <p class="mt-1 text-xs text-[var(--color-navy-ink-muted)]">{item.note}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</aside>

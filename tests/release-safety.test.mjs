@@ -126,6 +126,37 @@ test('motor-manufacturer landing path and inquiry attribution are present', () =
   }
 });
 
+test('homepage exposes the Pet Tech NPI entry while engineering pages retain their lab structure', () => {
+  const home = read('src/pages/index.astro');
+  const products = read('src/pages/products/index.astro');
+  const motorManufacturers = read('src/pages/motor-manufacturers.astro');
+
+  assert.match(home, /Global Manufacturing Integration Partner \(GMIP\)/);
+  assert.match(home, /Bring Your Hardware Product From Prototype to Mass Production in China/);
+  assert.match(home, /Pet Tech Brands/);
+  assert.match(home, /Project Evidence Review/);
+  assert.match(home, /LabComponentMap/);
+  assert.match(home, /Build in China/);
+  assert.match(home, /Source in China/);
+  assert.match(home, /Scale in China/);
+  assert.match(home, /Start a Project Fit Check/);
+  assert.match(home, /Email Your Requirements/);
+
+  assert.match(products, /Component Map/);
+  assert.match(products, /Core Components/);
+  assert.match(products, /Motion Platforms/);
+  assert.match(products, /Waterproof Micro Switches/);
+  assert.match(products, /Commutators/);
+  assert.match(products, /Carbon Brush Assemblies/);
+  assert.match(products, /Terminal \/ Contact Components/);
+
+  assert.match(motorManufacturers, /Motor Component Review Desk/);
+  assert.match(motorManufacturers, /Component review scope/);
+  assert.match(motorManufacturers, /Common engineering signals/);
+  assert.match(motorManufacturers, /What to share before inquiry/);
+  assert.match(motorManufacturers, /Product specifications, availability, lead time, and commercial terms are confirmed for each inquiry\./);
+});
+
 test('navigation and footer guard rails', () => {
   const header = read('src/components/Header.astro');
   const footer = read('src/components/Footer.astro');

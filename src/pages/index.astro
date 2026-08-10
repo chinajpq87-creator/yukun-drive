@@ -3,6 +3,8 @@
 // 1.Solutions 2.Applications 3.Motion Components 4.Why Yukun 5.Engineering Resources 6.Get Engineering Support
 import BaseLayout from '../layouts/BaseLayout.astro';
 import OrganizationSchema from '../components/seo/OrganizationSchema.astro';
+import LabComponentMap from '../components/lab/LabComponentMap.astro';
+import LabSectionHeader from '../components/lab/LabSectionHeader.astro';
 import { getCollection } from 'astro:content';
 
 // ── 数据查询 ──
@@ -49,12 +51,11 @@ const solutionMeta: Record<string, { icon: string; short: string; industries: st
 
 // ── 应用场景分类 ──
 const applicationCategories = [
-  { icon: '🏥', name: 'Medical Devices', desc: 'Ventilators, infusion pumps, surgical robots, lab instruments', href: '/solutions/medical-device-micro-drive-solution' },
-  { icon: '🔐', name: 'Smart Lock & Security', desc: 'Fingerprint locks, electronic deadbolts, access control systems', href: '/solutions/smart-lock-micro-motor-solution' },
-  { icon: '⚡', name: 'EV & Automotive', desc: 'Charging gun actuators, HVAC flap actuators, mirror fold motors', href: '/solutions/ev-charging-gun-actuator-solution' },
-  { icon: '🏭', name: 'Industrial Automation', desc: 'Valve controls, dispensers, small actuators, conveyor systems', href: '/solutions/industrial-automation-drive' },
-  { icon: '🤖', name: 'Robotics', desc: 'Robot joints, grippers, educational robots, servo replacements', href: '/solutions/robotics-joint-actuator' },
-  { icon: '🏠', name: 'Smart Home & IoT', desc: 'Motorized curtains, smart valves, adjustable furniture, connected devices', href: '/solutions/smart-home-automation' },
+  { icon: '🍽️', name: 'Motorized Pet Feeders', desc: 'Drive torque, gearbox, screw geometry, sensing, housing, and serviceability questions', href: '/contact?entry=pet-feeder' },
+  { icon: '💧', name: 'Pet Water Fountains', desc: 'Pump, flow path, acoustic, sealing, cleaning, and replacement questions', href: '/contact?entry=pet-fountain' },
+  { icon: '🧹', name: 'Automatic Litter Systems', desc: 'Motion architecture, jam detection, guarding, cleaning, and risk review', href: '/contact?entry=automatic-litter' },
+  { icon: '🚪', name: 'Smart Pet Doors', desc: 'Compact actuation, position sensing, enclosure, and access-control interfaces', href: '/contact?entry=smart-pet-door' },
+  { icon: '🎾', name: 'Interactive Pet Toys', desc: 'Motion behavior, noise, durability, charging, enclosure, and production tradeoffs', href: '/contact?entry=interactive-pet-toy' },
 ];
 
 // ── 产品生态分类 ──
@@ -99,44 +100,70 @@ const featuredProducts = featuredSlugs
   .filter(Boolean);
 ---
 
-<BaseLayout ogType="website">
+<BaseLayout title="Global Manufacturing Integration Partner for Hardware NPI & Motion Systems | Yukun" description="Yukun helps overseas hardware teams bring products from prototype to mass production in China. Motion system engineering, supplier coordination, and manufacturing integration for hardware companies." ogType="website">
   <!-- ═══════════════════════════════════════════════ -->
   <!-- HERO -->
   <!-- ═══════════════════════════════════════════════ -->
-  <section class="relative overflow-hidden bg-gradient-to-b from-[var(--color-bg-primary)] to-[var(--color-bg-secondary)]">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28">
-      <div class="max-w-3xl">
-        <div class="inline-flex items-center gap-2 text-xs px-3 py-1.5 bg-[var(--color-brand)]/10 text-[var(--color-brand-light)] rounded-full font-medium mb-6">
-          <span class="w-2 h-2 rounded-full bg-[var(--color-accent-green)]"></span>
-          Engineering-Led Selection · Supply Coordination · Global Customer Support
-        </div>
-        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
-          Micro Motion.<br />
-          <span class="text-[var(--color-brand-light)]">Engineered for Your Product.</span>
-        </h1>
-        <p class="text-xl text-[var(--color-text-secondary)] mb-8 max-w-2xl leading-relaxed">
-          From smart locks to surgical robots — precision micro gear motors, BLDC motors, and micro pumps. Engineering-led product selection and supply coordination for global teams.
-        </p>
-        <div class="flex flex-col sm:flex-row gap-4">
-          <a href="/products" class="inline-flex items-center justify-center px-8 py-3.5 text-base font-semibold text-white bg-[var(--color-brand)] hover:bg-[var(--color-brand-light)] rounded-lg transition-colors shadow-lg shadow-[var(--color-brand)]/20">
-            Browse Motion Components →
-          </a>
-          <a href="/solutions" class="inline-flex items-center justify-center px-8 py-3.5 text-base font-medium text-[var(--color-text-primary)] border border-[var(--color-border-default)] hover:border-[var(--color-brand)] rounded-lg transition-colors hover:bg-[var(--color-bg-card)]">
-            Explore by Application →
-          </a>
-        </div>
-        <div class="mt-8 border border-[var(--color-border-default)] bg-[var(--color-bg-card)] rounded-xl p-5 max-w-2xl">
-          <p class="text-sm font-semibold text-[var(--color-text-primary)] mb-2">
-            For brushed DC motor manufacturers
+  <section class="relative overflow-hidden bg-[var(--color-navy)]">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(8,145,178,0.18),transparent_30%),linear-gradient(135deg,rgba(11,26,48,1),rgba(15,31,58,1))]"></div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+      <div class="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+        <div>
+          <p class="tech-mono text-xs uppercase tracking-[0.2em] text-[var(--color-technical-light)]">
+            Global Manufacturing Integration Partner (GMIP)
           </p>
-          <p class="text-sm text-[var(--color-text-secondary)] mb-4">
-            Review commutator, carbon brush assembly, and terminal/contact component requirements for second-source, BOM coordination, or custom-interface discussions.
+          <h1 class="mt-5 text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white">
+            Bring Your Hardware Product From Prototype to Mass Production in China
+          </h1>
+          <p class="mt-6 max-w-2xl text-lg md:text-xl leading-relaxed text-[var(--color-navy-ink-muted)]">
+            For teams with a design, prototype, CAD, or BOM — Yukun helps bridge engineering requirements with China's manufacturing ecosystem through motion system expertise, supplier coordination, and NPI management.
           </p>
-          <a href="/motor-manufacturers" class="text-sm font-semibold text-[var(--color-brand-light)] hover:text-[var(--color-brand)]">
-            Discuss Your Application →
-          </a>
+          <div class="mt-8 flex flex-col sm:flex-row gap-4">
+            <a href="/contact?entry=project-fit-check" class="inline-flex items-center justify-center rounded-lg bg-[var(--color-action)] px-7 py-3.5 text-base font-semibold text-white shadow-lg shadow-black/20 transition-colors hover:bg-[var(--color-action-hover)]">
+              Start a Project Fit Check
+            </a>
+            <a href="mailto:chinajpq@outlook.com" class="inline-flex items-center justify-center rounded-lg border border-[var(--color-navy-border)] px-7 py-3.5 text-base font-semibold text-[var(--color-navy-ink)] transition-colors hover:border-[var(--color-technical)]">
+              Email Your Requirements
+            </a>
+          </div>
+          <div class="mt-8 grid gap-3 sm:grid-cols-3">
+            {['Pet Tech Brands', 'Product Teams', 'Engineering Firms'].map((label) => (
+              <div class="rounded-xl border border-[var(--color-navy-border)] bg-white/5 p-4">
+                <p class="tech-mono text-[11px] uppercase tracking-[0.14em] text-[var(--color-technical-light)]">For</p>
+                <p class="mt-1 text-sm font-semibold text-white">{label}</p>
+              </div>
+            ))}
+          </div>
         </div>
+        <LabComponentMap
+          title="Project Evidence Review"
+          subtitle="Bring the product definition, CAD, BOM, prototype evidence, target quantity, market, and unresolved manufacturing questions you already have."
+        />
       </div>
+    </div>
+  </section>
+
+  <section class="bg-[var(--color-surface)] border-b border-[var(--color-border-default)]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div class="max-w-3xl mb-10">
+        <p class="tech-mono text-xs uppercase tracking-[0.18em] text-[var(--color-technical)]">Choose the right project route</p>
+        <h2 class="mt-3 text-3xl md:text-4xl font-bold">From engineering evidence to controlled execution</h2>
+      </div>
+      <div class="grid gap-6 md:grid-cols-3">
+        <article class="rounded-xl border border-[var(--color-border-default)] bg-[var(--color-bg-card)] p-6">
+          <h3 class="text-xl font-semibold">Build in China</h3>
+          <p class="mt-3 text-sm leading-relaxed text-[var(--color-text-secondary)]">For teams with a design or working prototype that need manufacturing-feasibility review, DFM coordination, samples, tooling preparation, and pilot-production planning.</p>
+        </article>
+        <article class="rounded-xl border border-[var(--color-border-default)] bg-[var(--color-bg-card)] p-6">
+          <h3 class="text-xl font-semibold">Source in China</h3>
+          <p class="mt-3 text-sm leading-relaxed text-[var(--color-text-secondary)]">For teams with sufficiently clear specifications that need independent supplier research, comparable capability evidence, structured RFQ coordination, and follow-up.</p>
+        </article>
+        <article class="rounded-xl border border-[var(--color-border-default)] bg-[var(--color-bg-card)] p-6">
+          <h3 class="text-xl font-semibold">Scale in China</h3>
+          <p class="mt-3 text-sm leading-relaxed text-[var(--color-text-secondary)]">For teams with a validated sample or existing product that need ongoing order, quality, delivery, change, and multi-supplier coordination.</p>
+        </article>
+      </div>
+      <p class="mt-8 text-sm text-[var(--color-text-muted)]">Every service starts with evidence review and a Project Fit Check. Product specifications, availability, lead time, and commercial terms are confirmed for each inquiry.</p>
     </div>
   </section>
 
@@ -191,9 +218,9 @@ const featuredProducts = featuredSlugs
   <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
     <div class="text-center mb-12">
       <span class="text-xs font-semibold text-[var(--color-brand-light)] uppercase tracking-widest">Applications</span>
-        <h2 class="text-3xl md:text-4xl font-bold mt-3 mb-4">Applications We Can Discuss</h2>
+        <h2 class="text-3xl md:text-4xl font-bold mt-3 mb-4">First Learning Path: Pet Tech</h2>
       <p class="text-lg text-[var(--color-text-secondary)] max-w-2xl mx-auto">
-          From laboratory equipment to smart locks and industrial mechanisms, each application starts with a structured requirement review.
+          Start with the product mechanism and available evidence. High-risk or safety-sensitive projects may be declined after review.
       </p>
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -219,12 +246,13 @@ const featuredProducts = featuredSlugs
   <!-- ═══════════════════════════════════════════════ -->
   <section class="bg-[var(--color-bg-secondary)] border-y border-[var(--color-border-default)]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-      <div class="text-center mb-12">
-        <span class="text-xs font-semibold text-[var(--color-brand-light)] uppercase tracking-widest">Motion Components</span>
-        <h2 class="text-3xl md:text-4xl font-bold mt-3 mb-4">Core Product Ecosystem</h2>
-        <p class="text-lg text-[var(--color-text-secondary)] max-w-2xl mx-auto">
-          A growing platform of micro drive components — from the essential gear motor families to expanding pump and switch lines.
-        </p>
+      <div class="mb-12">
+        <LabSectionHeader
+          eyebrow="Component Map"
+          title="Core Components and Motion Platforms"
+          description="Use the map below to separate conversion-focused motor components from broader motion platforms used for application context and discovery."
+          align="center"
+        />
       </div>
 
       <!-- Product category cards -->

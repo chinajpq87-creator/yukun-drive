@@ -14,17 +14,60 @@ const grouped = products.reduce(
   },
   {} as Record<string, typeof products>
 );
+
+const componentMap = [
+  {
+    group: 'Core Components',
+    summary: 'Conversion-focused components for motor manufacturers and compact motion applications.',
+    items: [
+      { title: 'Waterproof Micro Switches', need: 'Share actuation direction, contact form, mounting space, operating environment, and wiring constraints.', href: '/contact' },
+      { title: 'Commutators', need: 'Share motor frame, winding interface, material expectations, drawing status, and failure or second-source context.', href: '/motor-manufacturers' },
+      { title: 'Carbon Brush Assemblies', need: 'Share brush size, holder interface, spring/contact pressure context, operating duty, and wear observations.', href: '/motor-manufacturers' },
+      { title: 'Terminal / Contact Components', need: 'Share assembly interface, current path, connection method, space limits, and drawing or sample status.', href: '/motor-manufacturers' },
+    ],
+  },
+  {
+    group: 'Motion Platforms',
+    summary: 'Application-entry categories used to understand the system before component matching.',
+    items: [
+      { title: 'Micro DC Gear Motors', need: 'Share voltage, load, speed, torque, size envelope, noise limit, and control requirement.', href: '/products' },
+      { title: 'Brushless DC Motors', need: 'Share speed range, control method, size envelope, duty profile, and integration constraints.', href: '/products' },
+      { title: 'Micro Pumps', need: 'Share flow target, media, pressure context, duty cycle, noise limit, and tubing constraints.', href: '/solutions/medical-device-micro-drive-solution' },
+      { title: 'Actuator Assemblies', need: 'Share stroke or locking motion, load condition, feedback needs, mounting space, and environment.', href: '/solutions/ev-charging-gun-actuator-solution' },
+    ],
+  },
+];
 ---
 
 <BaseLayout title="Products — Compact Motion Categories | Yukun" description="Explore compact gear motor, brushless motor, pump, actuator, and switch categories for product-matching inquiries.">
   <section class="section-padding">
     <div class="max-w-7xl mx-auto">
-      <div class="mb-12">
-        <h1 class="text-4xl font-bold mb-4">Products</h1>
-        <p class="text-lg text-[var(--color-text-secondary)] max-w-2xl">
-          Explore compact motion categories and the information needed for product matching.
-          Available specifications, drawings, documentation, and configuration options are confirmed for each inquiry.
+      <div class="mb-12 max-w-3xl">
+        <p class="tech-mono text-xs uppercase tracking-[0.18em] text-[var(--color-technical)]">Component Map</p>
+        <h1 class="mt-3 text-4xl font-bold">Products</h1>
+        <p class="mt-4 text-lg text-[var(--color-ink-muted)]">
+          Review core motor components and broader motion platforms through an application-first inquiry path.
+          Specifications, drawings, documentation, and configuration options are confirmed for each inquiry.
         </p>
+      </div>
+
+      <div class="mb-16 grid gap-6 lg:grid-cols-2">
+        {componentMap.map((group) => (
+          <section class="rounded-2xl border border-[var(--color-border)] bg-white p-6 shadow-sm">
+            <div class="border-b border-[var(--color-border)] pb-4">
+              <h2 class="text-2xl font-semibold text-[var(--color-ink)]">{group.group}</h2>
+              <p class="mt-2 text-sm leading-relaxed text-[var(--color-ink-muted)]">{group.summary}</p>
+            </div>
+            <div class="mt-5 space-y-4">
+              {group.items.map((item) => (
+                <a href={item.href} class="block rounded-xl border border-[var(--color-border)] bg-[var(--color-surface-muted)] p-4 transition-colors hover:border-[var(--color-technical)] hover:bg-white">
+                  <h3 class="text-base font-semibold text-[var(--color-ink)]">{item.title}</h3>
+                  <p class="mt-2 text-sm leading-relaxed text-[var(--color-ink-muted)]">{item.need}</p>
+                </a>
+              ))}
+            </div>
+          </section>
+        ))}
       </div>
 
       {products.length === 0 ? (

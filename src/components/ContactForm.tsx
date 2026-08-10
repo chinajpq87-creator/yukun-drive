@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 interface ContactFormProps {
   formType?: 'rfq' | 'sample';
@@ -9,8 +9,29 @@ export default function ContactForm({ formType = 'rfq', entryContent }: ContactF
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const hasStarted = useRef(false);
   const isRFQ = formType === 'rfq';
   const accessKey = import.meta.env.PUBLIC_WEB3FORMS_ACCESS_KEY?.trim();
+
+  const attribution = () => {
+    const params = new URLSearchParams(window.location.search);
+    return {
+      entry_content: params.get('entry')?.trim() || entryContent || 'contact',
+      utm_source: params.get('utm_source')?.trim() || undefined,
+      utm_medium: params.get('utm_medium')?.trim() || undefined,
+      utm_campaign: params.get('utm_campaign')?.trim() || undefined,
+    };
+  };
+
+  const trackFitCheckStart = () => {
+    if (hasStarted.current) return;
+    hasStarted.current = true;
+    window.gtag?.('event', 'fit_check_start', { form_type: formType, ...attribution() });
+  };
+
+  const trackEmailRequirementClick = () => {
+    window.gtag?.('event', 'email_requirement_click', { form_type: formType, ...attribution() });
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -30,11 +51,12 @@ export default function ContactForm({ formType = 'rfq', entryContent }: ContactF
       ? `RFQ from ${formData.get('company') || formData.get('name')}`
       : `Sample Request from ${formData.get('company') || formData.get('name')}`);
 
-    const params = new URLSearchParams(window.location.search);
-    const entryContentValue = entryContent ?? 'contact';
-    const utmSource = params.get('utm_source')?.trim() ?? '';
-    const utmMedium = params.get('utm_medium')?.trim() ?? '';
-    const utmCampaign = params.get('utm_campaign')?.trim() ?? '';
+    const {
+      entry_content: entryContentValue,
+      utm_source: utmSource,
+      utm_medium: utmMedium,
+      utm_campaign: utmCampaign,
+    } = attribution();
 
     if (entryContentValue) formData.append('entry_content', entryContentValue);
     if (utmSource) formData.append('utm_source', utmSource);
@@ -45,12 +67,19 @@ export default function ContactForm({ formType = 'rfq', entryContent }: ContactF
       const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: formData });
       const data = await res.json();
       if (data.success) {
+        window.gtag?.('event', 'fit_check_submit', {
+          form_type: formType,
+          entry_content: entryContentValue,
+          utm_source: utmSource,
+          utm_medium: utmMedium,
+          utm_campaign: utmCampaign,
+        });
         window.gtag?.('event', 'generate_lead', {
           form_type: formType,
           entry_content: entryContentValue,
-          utm_source: utmSource || undefined,
-          utm_medium: utmMedium || undefined,
-          utm_campaign: utmCampaign || undefined,
+          utm_source: utmSource,
+          utm_medium: utmMedium,
+          utm_campaign: utmCampaign,
         });
         setSubmitted(true);
         form.reset();
@@ -73,14 +102,14 @@ export default function ContactForm({ formType = 'rfq', entryContent }: ContactF
           Your inquiry has been received. Product specifications, availability, lead time, and commercial terms are confirmed for each inquiry.
         </p>
         <p className="text-sm text-[var(--color-text-muted)]">
-          You can also email: <a href="mailto:chinajpq@outlook.com" className="text-[var(--color-brand-light)]">chinajpq@outlook.com</a>
+          You can also email: <a href="mailto:chinajpq@outlook.com" onClick={trackEmailRequirementClick} className="text-[var(--color-brand-light)]">chinajpq@outlook.com</a>
         </p>
       </div>
     );
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit} onFocus={trackFitCheckStart} className="space-y-6">
       {error && (
         <div className="bg-[var(--color-accent-red)]/10 border border-[var(--color-accent-red)]/30 rounded-lg p-4 text-sm text-[var(--color-accent-red)]">{error}</div>
       )}
@@ -105,24 +134,33 @@ export default function ContactForm({ formType = 'rfq', entryContent }: ContactF
         </div>
       </div>
       <div>
-        <label htmlFor="product_interest" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1.5">Product Interest</label>
-        <select id="product_interest" name="product_interest" className="w-full px-4 py-2.5 bg-[var(--color-bg-secondary)] border border-[var(--color-border-default)] rounded-lg text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-brand)] focus:ring-1 focus:ring-[var(--color-brand)] transition-colors">
-          <option value="">Select product category</option>
-          <option value="Gear Motors">Gear Motors (N20, 370, 520)</option>
-          <option value="BLDC Motors">BLDC Motors</option>
-          <option value="Micro Pumps">Micro Pumps (TF30A, TM30A)</option>
-          <option value="Micro Switches">Micro Switches</option>
-          <option value="Custom Solution">Custom Solution</option>
-          <option value="Multiple">Multiple Products</option>
-        </select>
+        <label htmlFor="product_summary" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1.5">Product summary *</label>
+        <textarea id="product_summary" name="product_summary" required rows={4} className="w-full px-4 py-2.5 bg-[var(--color-bg-secondary)] border border-[var(--color-border-default)] rounded-lg text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)] focus:outline-none focus:border-[var(--color-brand)] focus:ring-1 focus:ring-[var(--color-brand)] transition-colors resize-y" placeholder="What are you building, who will use it, and what must move, pump, switch, or sense?" />
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label htmlFor="development_stage" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1.5">Development stage *</label>
+          <select id="development_stage" name="development_stage" required className="w-full px-4 py-2.5 bg-[var(--color-bg-secondary)] border border-[var(--color-border-default)] rounded-lg text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-brand)] focus:ring-1 focus:ring-[var(--color-brand)] transition-colors"><option value="">Select stage</option><option>Concept</option><option>Engineering design</option><option>Prototype</option><option>Pilot build</option><option>Production transfer</option></select>
+        </div>
+        <div><label htmlFor="target_market" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1.5">Target market *</label><input type="text" id="target_market" name="target_market" required className="w-full px-4 py-2.5 bg-[var(--color-bg-secondary)] border border-[var(--color-border-default)] rounded-lg text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-brand)] focus:ring-1 focus:ring-[var(--color-brand)] transition-colors" placeholder="United States" /></div>
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div><label htmlFor="cad_available" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1.5">CAD available?</label><select id="cad_available" name="cad_available" className="w-full px-4 py-2.5 bg-[var(--color-bg-secondary)] border border-[var(--color-border-default)] rounded-lg text-[var(--color-text-primary)]"><option value="">Select</option><option>Yes</option><option>No</option><option>In progress</option></select></div>
+        <div><label htmlFor="bom_available" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1.5">BOM available?</label><select id="bom_available" name="bom_available" className="w-full px-4 py-2.5 bg-[var(--color-bg-secondary)] border border-[var(--color-border-default)] rounded-lg text-[var(--color-text-primary)]"><option value="">Select</option><option>Yes</option><option>No</option><option>In progress</option></select></div>
+        <div><label htmlFor="prototype_available" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1.5">Prototype available?</label><select id="prototype_available" name="prototype_available" className="w-full px-4 py-2.5 bg-[var(--color-bg-secondary)] border border-[var(--color-border-default)] rounded-lg text-[var(--color-text-primary)]"><option value="">Select</option><option>Yes</option><option>No</option><option>In progress</option></select></div>
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div><label htmlFor="target_quantity" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1.5">Target quantity</label><input type="text" id="target_quantity" name="target_quantity" className="w-full px-4 py-2.5 bg-[var(--color-bg-secondary)] border border-[var(--color-border-default)] rounded-lg text-[var(--color-text-primary)]" placeholder="Prototype and annual estimate" /></div>
+        <div><label htmlFor="budget_range" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1.5">Working budget range</label><input type="text" id="budget_range" name="budget_range" className="w-full px-4 py-2.5 bg-[var(--color-bg-secondary)] border border-[var(--color-border-default)] rounded-lg text-[var(--color-text-primary)]" placeholder="Optional; helps route the next step" /></div>
+        <div><label htmlFor="target_date" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1.5">Target date</label><input type="date" id="target_date" name="target_date" className="w-full px-4 py-2.5 bg-[var(--color-bg-secondary)] border border-[var(--color-border-default)] rounded-lg text-[var(--color-text-primary)]" /></div>
       </div>
       <div>
-        <label htmlFor="message" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1.5">{isRFQ ? 'Your Requirements *' : 'Sample Details *'}</label>
-        <textarea id="message" name="message" required rows={5} className="w-full px-4 py-2.5 bg-[var(--color-bg-secondary)] border border-[var(--color-border-default)] rounded-lg text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)] focus:outline-none focus:border-[var(--color-brand)] focus:ring-1 focus:ring-[var(--color-brand)] transition-colors resize-y" placeholder={isRFQ ? 'Please describe your application, required torque, speed, voltage, quantity, and target lead time...' : 'Which product(s)? Quantity needed? Ship to which country?'} />
+        <label htmlFor="message" className="block text-sm font-medium text-[var(--color-text-primary)] mb-1.5">Constraints or questions</label>
+        <textarea id="message" name="message" rows={4} className="w-full px-4 py-2.5 bg-[var(--color-bg-secondary)] border border-[var(--color-border-default)] rounded-lg text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)] focus:outline-none focus:border-[var(--color-brand)] focus:ring-1 focus:ring-[var(--color-brand)] transition-colors resize-y" placeholder="Share technical constraints, known risks, or the decision you need help making." />
       </div>
       <div className="hidden" aria-hidden="true"><input type="checkbox" name="botcheck" /></div>
       <button type="submit" disabled={loading} className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-3.5 text-base font-semibold text-white bg-[var(--color-brand)] hover:bg-[var(--color-brand-light)] rounded-lg transition-colors shadow-lg shadow-[var(--color-brand)]/20 disabled:opacity-50 disabled:cursor-not-allowed">
-        {loading ? 'Submitting...' : isRFQ ? 'Email Your Requirements ->' : 'Discuss Sample Needs ->'}
+        {loading ? 'Submitting...' : isRFQ ? 'Start a Project Fit Check ->' : 'Discuss Sample Needs ->'}
       </button>
       <p className="text-xs text-[var(--color-text-muted)]">We respect your privacy. Your information will only be used to respond to your inquiry.</p>
     </form>
