@@ -131,8 +131,9 @@ test('homepage exposes the Pet Tech NPI entry while engineering pages retain the
   const products = read('src/pages/products/index.astro');
   const motorManufacturers = read('src/pages/motor-manufacturers.astro');
 
-  assert.match(home, /Hardware NPI and Managed China Sourcing/);
-  assert.match(home, /Turn Your Pet Tech Design Into a Manufacturable Product/);
+  assert.match(home, /Global Manufacturing Integration Partner \(GMIP\)/);
+  assert.match(home, /Bring Your Hardware Product From Prototype to Mass Production in China/);
+  assert.match(home, /Pet Tech Brands/);
   assert.match(home, /Project Evidence Review/);
   assert.match(home, /LabComponentMap/);
   assert.match(home, /Build in China/);
