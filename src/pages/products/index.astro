@@ -20,20 +20,20 @@ const componentMap = [
     group: 'Core Components',
     summary: 'Conversion-focused components for motor manufacturers and compact motion applications.',
     items: [
-      { title: 'Waterproof Micro Switches', need: 'Share actuation direction, contact form, mounting space, operating environment, and wiring constraints.', href: '/contact' },
-      { title: 'Commutators', need: 'Share motor frame, winding interface, material expectations, drawing status, and failure or second-source context.', href: '/motor-manufacturers' },
-      { title: 'Carbon Brush Assemblies', need: 'Share brush size, holder interface, spring/contact pressure context, operating duty, and wear observations.', href: '/motor-manufacturers' },
-      { title: 'Terminal / Contact Components', need: 'Share assembly interface, current path, connection method, space limits, and drawing or sample status.', href: '/motor-manufacturers' },
+      { title: 'Waterproof Micro Switches', need: 'Share actuation direction, contact form, mounting space, operating environment, and wiring constraints.', href: '/contact/' },
+      { title: 'Commutators', need: 'Share motor frame, winding interface, material expectations, drawing status, and failure or second-source context.', href: '/motor-manufacturers/' },
+      { title: 'Carbon Brush Assemblies', need: 'Share brush size, holder interface, spring/contact pressure context, operating duty, and wear observations.', href: '/motor-manufacturers/' },
+      { title: 'Terminal / Contact Components', need: 'Share assembly interface, current path, connection method, space limits, and drawing or sample status.', href: '/motor-manufacturers/' },
     ],
   },
   {
     group: 'Motion Platforms',
     summary: 'Application-entry categories used to understand the system before component matching.',
     items: [
-      { title: 'Micro DC Gear Motors', need: 'Share voltage, load, speed, torque, size envelope, noise limit, and control requirement.', href: '/products' },
-      { title: 'Brushless DC Motors', need: 'Share speed range, control method, size envelope, duty profile, and integration constraints.', href: '/products' },
-      { title: 'Micro Pumps', need: 'Share flow target, media, pressure context, duty cycle, noise limit, and tubing constraints.', href: '/solutions/medical-device-micro-drive-solution' },
-      { title: 'Actuator Assemblies', need: 'Share stroke or locking motion, load condition, feedback needs, mounting space, and environment.', href: '/solutions/ev-charging-gun-actuator-solution' },
+      { title: 'Micro DC Gear Motors', need: 'Share voltage, load, speed, torque, size envelope, noise limit, and control requirement.', href: '/products/' },
+      { title: 'Brushless DC Motors', need: 'Share speed range, control method, size envelope, duty profile, and integration constraints.', href: '/products/' },
+      { title: 'Micro Pumps', need: 'Share flow target, media, pressure context, duty cycle, noise limit, and tubing constraints.', href: '/solutions/medical-device-micro-drive-solution/' },
+      { title: 'Actuator Assemblies', need: 'Share stroke or locking motion, load condition, feedback needs, mounting space, and environment.', href: '/solutions/ev-charging-gun-actuator-solution/' },
     ],
   },
 ];
@@ -73,7 +73,7 @@ const componentMap = [
       {products.length === 0 ? (
         <div class="text-center py-20">
           <p class="text-[var(--color-text-muted)] text-lg">Product pages coming soon.</p>
-          <a href="/contact" class="inline-block mt-4 text-[var(--color-brand-light)] hover:text-[var(--color-brand)] font-medium">
+          <a href="/contact/" class="inline-block mt-4 text-[var(--color-brand-light)] hover:text-[var(--color-brand)] font-medium">
             Request product information →
           </a>
         </div>
@@ -86,7 +86,7 @@ const componentMap = [
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {items.map((p) => (
                 <a
-                  href={`/products/${p.data.slug}`}
+                  href={`/products/${p.data.slug}/`}
                   class="group block bg-[var(--color-bg-card)] border border-[var(--color-border-default)] hover:border-[var(--color-brand)] rounded-xl p-6 transition-all duration-300"
                 >
                   <div class="flex items-center justify-between mb-3">

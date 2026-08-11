@@ -163,15 +163,15 @@ test('navigation and footer guard rails', () => {
 
   // Header main nav: strict set of approved labels and paths
   assert.match(header, /label:\s*'Products'/);
-  assert.match(header, /href:\s*'\/products'/);
+  assert.match(header, /href:\s*'\/products\/'/);
   assert.match(header, /label:\s*'Applications'/);
-  assert.match(header, /href:\s*'\/solutions'/);
+  assert.match(header, /href:\s*'\/solutions\/'/);
   assert.match(header, /label:\s*'Insights'/);
-  assert.match(header, /href:\s*'\/resources'/);
+  assert.match(header, /href:\s*'\/resources\/'/);
   assert.match(header, /label:\s*'About'/);
-  assert.match(header, /href:\s*'\/about'/);
+  assert.match(header, /href:\s*'\/about\/'/);
   assert.match(header, /label:\s*'Contact'/);
-  assert.match(header, /href:\s*'\/contact'/);
+  assert.match(header, /href:\s*'\/contact\/'/);
 
   // Header: no Motor Manufacturers as a top-level nav item
   assert.doesNotMatch(header, /Motor Manufacturers/);
@@ -204,6 +204,28 @@ test('navigation and footer guard rails', () => {
   assert.doesNotMatch(header + footer, /(?:\u922B|\u732C|\u9983|\u923B)/);
   assert.match(footer, /All Solutions &rarr;<\/a>/);
   assert.match(footer, /All Products &rarr;<\/a>/);
+});
+
+test('static internal page links use canonical trailing-slash URLs', () => {
+  const files = publicSourceFiles();
+  const routeLiteral = /(?:href:\s*|href=)(['"`])\/(?!\/|cdn-cgi\/)([^'"`#]*)\1/g;
+  const failures = [];
+
+  for (const file of files) {
+    const source = readFileSync(file, 'utf8');
+    for (const match of source.matchAll(routeLiteral)) {
+      const rawPath = `/${match[2]}`;
+      const [pathname] = rawPath.split('?');
+
+      if (pathname === '/') continue;
+      if (/\.[a-z0-9]+$/i.test(pathname)) continue;
+      if (!pathname.endsWith('/')) {
+        failures.push(`${relative(root, file)}: ${rawPath}`);
+      }
+    }
+  }
+
+  assert.deepEqual(failures, []);
 });
 
 test('public source avoids standing commercial and compliance claims', () => {

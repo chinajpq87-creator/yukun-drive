@@ -19,7 +19,7 @@ const solutions = await getCollection('solutions', ({ data }) => !data.draft);
       {solutions.length === 0 ? (
         <div class="text-center py-20">
           <p class="text-[var(--color-text-muted)] text-lg">Solution pages coming soon.</p>
-          <a href="/contact" class="inline-block mt-4 text-[var(--color-brand-light)] hover:text-[var(--color-brand)] font-medium">
+          <a href="/contact/" class="inline-block mt-4 text-[var(--color-brand-light)] hover:text-[var(--color-brand)] font-medium">
             Contact us for your specific application →
           </a>
         </div>
@@ -27,7 +27,7 @@ const solutions = await getCollection('solutions', ({ data }) => !data.draft);
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {solutions.map((s) => (
             <a
-              href={`/solutions/${s.data.slug}`}
+              href={`/solutions/${s.data.slug}/`}
               class="group block bg-[var(--color-bg-card)] border border-[var(--color-border-default)] hover:border-[var(--color-brand)] rounded-xl p-6 transition-all duration-300"
             >
               <div class="text-3xl mb-4">📐</div>

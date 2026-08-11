@@ -13,7 +13,7 @@ export async function getStaticPaths() {
 const { slug } = Astro.params;
 const solutions = await getCollection('solutions', ({ data }) => !data.draft);
 const solution = solutions.find((s) => s.data.slug === slug);
-if (!solution) return Astro.redirect('/solutions');
+if (!solution) return Astro.redirect('/solutions/');
 
 const { data, body } = solution;
 const allProducts = await getCollection('products', ({ data }) => !data.draft);
@@ -21,7 +21,7 @@ const relatedProducts = allProducts.filter((p) =>
   p.data.related_solutions?.includes(slug)
 );
 
-const pageUrl = new URL(`/solutions/${data.slug}`, Astro.site).href;
+const pageUrl = new URL(`/solutions/${data.slug}/`, Astro.site).href;
 const solutionTitle = data.title?.split('|')[0]?.trim() ?? data.title;
 ---
 
@@ -31,7 +31,7 @@ const solutionTitle = data.title?.split('|')[0]?.trim() ?? data.title;
     <nav class="flex text-sm text-[var(--color-text-muted)]">
       <a href="/" class="hover:text-[var(--color-text-primary)]">Home</a>
       <span class="mx-2">›</span>
-      <a href="/solutions" class="hover:text-[var(--color-text-primary)]">Solutions</a>
+      <a href="/solutions/" class="hover:text-[var(--color-text-primary)]">Solutions</a>
       <span class="mx-2">›</span>
       <span class="text-[var(--color-text-primary)]">{solutionTitle}</span>
     </nav>
@@ -53,7 +53,7 @@ const solutionTitle = data.title?.split('|')[0]?.trim() ?? data.title;
           </div>
         )}
         <div class="flex flex-col sm:flex-row gap-4">
-          <a href="/contact" class="inline-flex items-center justify-center px-8 py-3.5 text-base font-semibold text-white bg-[var(--color-brand)] hover:bg-[var(--color-brand-light)] rounded-lg transition-colors">
+          <a href="/contact/" class="inline-flex items-center justify-center px-8 py-3.5 text-base font-semibold text-white bg-[var(--color-brand)] hover:bg-[var(--color-brand-light)] rounded-lg transition-colors">
             Discuss This Application →
           </a>
           <a href="#related-products" class="inline-flex items-center justify-center px-8 py-3.5 text-base font-medium text-[var(--color-text-primary)] border border-[var(--color-border-default)] hover:border-[var(--color-brand)] rounded-lg transition-colors">
@@ -90,7 +90,7 @@ const solutionTitle = data.title?.split('|')[0]?.trim() ?? data.title;
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {relatedProducts.map((p) => (
             <a
-              href={`/products/${p.data.slug}`}
+              href={`/products/${p.data.slug}/`}
               class="group block bg-[var(--color-bg-card)] border border-[var(--color-border-default)] hover:border-[var(--color-brand)] rounded-xl p-6 transition-all duration-300"
             >
               <div class="flex items-center gap-3 mb-3">
@@ -115,9 +115,9 @@ const solutionTitle = data.title?.split('|')[0]?.trim() ?? data.title;
     title="Need a Custom Configuration?"
     subtitle="Our engineering team will help you select the optimal motor, gear ratio, and custom options for your specific application."
     primaryLabel="Request Engineering Consultation →"
-    primaryHref="/contact"
+    primaryHref="/contact/"
     secondaryLabel="Request Evaluation Samples"
-    secondaryHref="/contact"
+    secondaryHref="/contact/"
   />
 
   <!-- Structured Data -->
@@ -125,7 +125,7 @@ const solutionTitle = data.title?.split('|')[0]?.trim() ?? data.title;
     slot="structured-data"
     items={[
       { name: 'Home', url: new URL('/', Astro.site).href },
-      { name: 'Solutions', url: new URL('/solutions', Astro.site).href },
+      { name: 'Solutions', url: new URL('/solutions/', Astro.site).href },
       { name: solutionTitle, url: pageUrl },
     ]}
   />

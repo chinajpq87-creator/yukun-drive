@@ -29,6 +29,7 @@ const checks = [
   ['canonical URL', /<link\b[^>]*\brel=["']canonical["'][^>]*\bhref=["']https?:\/\/[^"']+["'][^>]*>/i],
 ];
 const draftMarkers = /\bdraft:\s*true\b|pending review|unpublished engineering draft/i;
+const internalHrefPattern = /href=["']\/(?!\/|cdn-cgi\/)([^"'#]*)["']/g;
 const failures = [];
 
 for (const file of htmlFiles) {
@@ -40,6 +41,17 @@ for (const file of htmlFiles) {
   }
 
   if (draftMarkers.test(html)) failures.push(`${label}: draft content is publicly rendered`);
+
+  for (const match of html.matchAll(internalHrefPattern)) {
+    const rawPath = `/${match[1]}`;
+    const [pathname] = rawPath.split('?');
+
+    if (pathname === '/') continue;
+    if (/\.[a-z0-9]+$/i.test(pathname)) continue;
+    if (!pathname.endsWith('/')) {
+      failures.push(`${label}: internal link is not canonical trailing-slash URL: ${rawPath}`);
+    }
+  }
 }
 
 if (failures.length > 0) {

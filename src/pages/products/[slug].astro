@@ -15,7 +15,7 @@ export async function getStaticPaths() {
 const { slug } = Astro.params;
 const products = await getCollection('products', ({ data }) => !data.draft);
 const product = products.find((p) => p.data.slug === slug);
-if (!product) return Astro.redirect('/products');
+if (!product) return Astro.redirect('/products/');
 
 const { data, body } = product;
 
@@ -24,7 +24,7 @@ const relatedSolutions = allSolutions.filter((s) =>
   data.related_solutions?.includes(s.data.slug)
 );
 
-const pageUrl = new URL(`/products/${data.slug}`, Astro.site).href;
+const pageUrl = new URL(`/products/${data.slug}/`, Astro.site).href;
 const productName = data.title?.split('|')[0]?.trim() ?? data.title;
 ---
 
@@ -39,11 +39,11 @@ const productName = data.title?.split('|')[0]?.trim() ?? data.title;
     <nav class="flex text-sm text-[var(--color-text-muted)]">
       <a href="/" class="hover:text-[var(--color-text-primary)]">Home</a>
       <span class="mx-2">›</span>
-      <a href="/products" class="hover:text-[var(--color-text-primary)]">Products</a>
+      <a href="/products/" class="hover:text-[var(--color-text-primary)]">Products</a>
       <span class="mx-2">›</span>
       {data.category && (
         <>
-          <a href={`/products`} class="hover:text-[var(--color-text-primary)]">{data.category}</a>
+          <a href={`/products/`} class="hover:text-[var(--color-text-primary)]">{data.category}</a>
           <span class="mx-2">›</span>
         </>
       )}
@@ -68,7 +68,7 @@ const productName = data.title?.split('|')[0]?.trim() ?? data.title;
             <a href="mailto:chinajpq@outlook.com" class="inline-flex items-center justify-center px-8 py-3.5 text-base font-semibold text-white bg-[var(--color-brand)] hover:bg-[var(--color-brand-light)] rounded-lg transition-colors shadow-lg shadow-[var(--color-brand)]/20">
               Email Your Requirements →
             </a>
-            <a href="/contact" class="inline-flex items-center justify-center px-8 py-3.5 text-base font-medium text-[var(--color-text-primary)] border border-[var(--color-border-default)] hover:border-[var(--color-brand)] rounded-lg transition-colors">
+            <a href="/contact/" class="inline-flex items-center justify-center px-8 py-3.5 text-base font-medium text-[var(--color-text-primary)] border border-[var(--color-border-default)] hover:border-[var(--color-brand)] rounded-lg transition-colors">
               Discuss Sample Needs →
             </a>
           </div>
@@ -115,7 +115,7 @@ const productName = data.title?.split('|')[0]?.trim() ?? data.title;
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {relatedSolutions.map((s) => (
             <a
-              href={`/solutions/${s.data.slug}`}
+              href={`/solutions/${s.data.slug}/`}
               class="group block bg-[var(--color-bg-card)] border border-[var(--color-border-default)] hover:border-[var(--color-brand)] rounded-xl p-5 transition-all duration-300"
             >
               <div class="text-xl mb-2">📐</div>
@@ -137,7 +137,7 @@ const productName = data.title?.split('|')[0]?.trim() ?? data.title;
     primaryLabel="Email Your Requirements"
     primaryHref="mailto:chinajpq@outlook.com"
     secondaryLabel="Download Datasheet"
-    secondaryHref="/resources"
+    secondaryHref="/resources/"
   />
 
   <!-- Structured Data -->
@@ -154,8 +154,8 @@ const productName = data.title?.split('|')[0]?.trim() ?? data.title;
     <BreadcrumbSchema
       items={[
         { name: 'Home', url: new URL('/', Astro.site).href },
-        { name: 'Products', url: new URL('/products', Astro.site).href },
-        { name: data.category ?? 'Products', url: new URL('/products', Astro.site).href },
+        { name: 'Products', url: new URL('/products/', Astro.site).href },
+        { name: data.category ?? 'Products', url: new URL('/products/', Astro.site).href },
         { name: data.product_code, url: pageUrl },
       ]}
     />
