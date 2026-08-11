@@ -1,4 +1,4 @@
-import { readdirSync, readFileSync, statSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import { resolve, join, relative } from 'node:path';
 
 const args = process.argv.slice(2);
@@ -21,6 +21,16 @@ function walk(directory) {
 const htmlFiles = walk(root).filter((file) => file.endsWith('.html'));
 if (htmlFiles.length === 0) {
   throw new Error(`No HTML files found in ${root}`);
+}
+
+const sitemapAlias = join(root, 'sitemap.xml');
+if (!existsSync(sitemapAlias)) {
+  throw new Error('Missing sitemap.xml alias for Search Console compatibility');
+}
+
+const sitemapXml = readFileSync(sitemapAlias, 'utf8');
+if (!/^<\?xml\s/i.test(sitemapXml.trim()) || !/<sitemapindex\b/i.test(sitemapXml)) {
+  throw new Error('sitemap.xml must be a valid XML sitemap index');
 }
 
 const checks = [
