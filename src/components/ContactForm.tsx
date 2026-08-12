@@ -13,6 +13,10 @@ export default function ContactForm({ formType = 'rfq', entryContent }: ContactF
   const isRFQ = formType === 'rfq';
   const accessKey = import.meta.env.PUBLIC_WEB3FORMS_ACCESS_KEY?.trim();
 
+  const trackFitCheckEvent = (eventName: string, parameters: Record<string, string | undefined>) => {
+    window.dataLayer?.push(['event', eventName, parameters]);
+  };
+
   const attribution = () => {
     const params = new URLSearchParams(window.location.search);
     return {
@@ -26,11 +30,11 @@ export default function ContactForm({ formType = 'rfq', entryContent }: ContactF
   const trackFitCheckStart = () => {
     if (hasStarted.current) return;
     hasStarted.current = true;
-    window.gtag?.('event', 'fit_check_start', { form_type: formType, ...attribution() });
+    trackFitCheckEvent('fit_check_start', { form_type: formType, ...attribution() });
   };
 
   const trackEmailRequirementClick = () => {
-    window.gtag?.('event', 'email_requirement_click', { form_type: formType, ...attribution() });
+    trackFitCheckEvent('email_requirement_click', { form_type: formType, ...attribution() });
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -67,14 +71,14 @@ export default function ContactForm({ formType = 'rfq', entryContent }: ContactF
       const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: formData });
       const data = await res.json();
       if (data.success) {
-        window.gtag?.('event', 'fit_check_submit', {
+        trackFitCheckEvent('fit_check_submit', {
           form_type: formType,
           entry_content: entryContentValue,
           utm_source: utmSource,
           utm_medium: utmMedium,
           utm_campaign: utmCampaign,
         });
-        window.gtag?.('event', 'generate_lead', {
+        trackFitCheckEvent('generate_lead', {
           form_type: formType,
           entry_content: entryContentValue,
           utm_source: utmSource,

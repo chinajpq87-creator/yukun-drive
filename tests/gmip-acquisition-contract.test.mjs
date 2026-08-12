@@ -60,6 +60,14 @@ test('Fit Check analytics use non-PII lifecycle events', async () => {
   }
 });
 
+test('Fit Check conversion events reach the page data layer after a successful submission', async () => {
+  const contactForm = await read('../src/components/ContactForm.tsx');
+
+  assert.match(contactForm, /dataLayer\?\.push\(\['event', eventName, parameters\]\)/);
+  assert.match(contactForm, /trackFitCheckEvent\('fit_check_submit'/);
+  assert.match(contactForm, /trackFitCheckEvent\('generate_lead'/);
+});
+
 test('approved acquisition sources avoid unverified capability claims', async () => {
   const approvedSources = await Promise.all([
     read('../src/pages/index.astro'),
