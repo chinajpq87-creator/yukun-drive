@@ -97,6 +97,18 @@ test('contact flow is email-first and does not embed a Web3Forms key', () => {
   assert.match(form, /utm_campaign/);
 });
 
+test('product media fallback avoids unverified placeholder imagery and contact cards use navy contrast tokens', () => {
+  const productPage = read('src/pages/products/[slug].astro');
+  const contactPage = read('src/pages/contact.astro');
+
+  assert.match(productPage, /data\.image\s*\?/);
+  assert.match(productPage, /Configuration reviewed per inquiry/);
+  assert.doesNotMatch(productPage, /Product image coming soon/);
+  assert.match(contactPage, /text-\[var\(--color-navy-ink\)\]/);
+  assert.match(contactPage, /text-\[var\(--color-navy-ink-muted\)\]/);
+  assert.match(contactPage, /text-\[var\(--color-technical-light\)\]/);
+});
+
 test('public calls to action use discussion language rather than quote or sample promises', () => {
   const ctaFiles = [
     'src/components/Header.astro',
