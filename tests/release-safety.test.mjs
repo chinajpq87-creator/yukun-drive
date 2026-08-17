@@ -207,6 +207,8 @@ test('editorial page CTAs preserve attributable GA4 intent events and operationa
   assert.match(analytics, /event_timeout/);
   assert.match(analytics, /event\.preventDefault\(\)/);
   assert.match(analytics, /window\.location\.assign/);
+  assert.match(analytics, /let minimumDelayElapsed = false/);
+  assert.match(analytics, /window\.setTimeout\(\(\) => \{\s*minimumDelayElapsed = true;/);
   assert.match(home, /project_review_cta_click/);
   assert.match(products, /product_review_cta_click/);
   assert.match(solutions, /application_review_cta_click/);
