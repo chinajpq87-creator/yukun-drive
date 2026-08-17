@@ -6,14 +6,23 @@ const solutions = await getCollection('solutions', ({ data }) => !data.draft);
 ---
 
 <BaseLayout title="Solutions — Compact Motion Applications | Yukun" description="Explore product-matching considerations for smart locks, charging equipment, robotics, laboratory equipment, and automation.">
+  <section class="industrial-hero">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
+      <p class="tech-mono text-xs uppercase tracking-[0.18em] text-[var(--color-technical)]">Application-first review</p>
+      <h1 class="mt-3 max-w-3xl text-4xl md:text-5xl font-bold text-[var(--color-ink)]">Solutions by Application</h1>
+      <p class="mt-4 max-w-3xl text-lg leading-relaxed text-[var(--color-ink-muted)]">Use the product context to identify the mechanism, operating conditions, integration constraints, and evidence needed before component matching.</p>
+      <a href="/contact/?entry=application-review" data-analytics-event="application_review_cta_click" data-analytics-location="solutions_hero" data-analytics-label="Discuss an application" class="mt-7 inline-flex border border-[var(--color-ink)] bg-[var(--color-ink)] px-5 py-3 text-sm font-semibold text-white transition-colors hover:border-[var(--color-action)] hover:bg-[var(--color-action)]">Discuss an application</a>
+    </div>
+  </section>
+
   <section class="section-padding">
     <div class="max-w-7xl mx-auto">
-      <div class="mb-12">
-        <h1 class="text-4xl font-bold mb-4">Solutions by Application</h1>
-        <p class="text-lg text-[var(--color-text-secondary)] max-w-2xl">
-          Start with what you are building rather than a part number. Each page highlights
-          relevant product categories, selection inputs, and questions to include in an inquiry.
-        </p>
+      <div class="mb-12 grid gap-6 border border-[var(--color-border)] bg-[var(--color-surface-muted)] p-6 md:grid-cols-[.75fr_1.25fr] md:items-center">
+        <div>
+          <p class="tech-mono text-xs uppercase tracking-[0.18em] text-[var(--color-technical)]">Application review lens</p>
+          <h2 class="mt-3 text-3xl font-bold text-[var(--color-ink)]">Define the system before selecting the part</h2>
+        </div>
+        <p class="text-base leading-relaxed text-[var(--color-ink-muted)]">Each route should start with the movement required, load path, environment, control and sensing, product architecture, and validation questions. The page is a discussion framework — final components and specifications are confirmed per inquiry.</p>
       </div>
 
       {solutions.length === 0 ? (
@@ -28,19 +37,19 @@ const solutions = await getCollection('solutions', ({ data }) => !data.draft);
           {solutions.map((s) => (
             <a
               href={`/solutions/${s.data.slug}/`}
-              class="group block bg-[var(--color-bg-card)] border border-[var(--color-border-default)] hover:border-[var(--color-brand)] rounded-xl p-6 transition-all duration-300"
+              class="group block border border-[var(--color-border)] bg-white p-6 transition-colors hover:border-[var(--color-technical)]"
             >
               <div class="text-3xl mb-4">📐</div>
-              <h2 class="text-lg font-semibold text-[var(--color-text-primary)] group-hover:text-[var(--color-brand-light)] transition-colors mb-2">
+              <h2 class="text-lg font-semibold text-[var(--color-ink)] group-hover:text-[var(--color-technical)] transition-colors mb-2">
                 {s.data.title?.split('|')[0]?.trim()}
               </h2>
-              <p class="text-sm text-[var(--color-text-secondary)] line-clamp-3 mb-4">
+              <p class="text-sm text-[var(--color-ink-muted)] line-clamp-3 mb-4">
                 {s.data.meta_description}
               </p>
               {s.data.target_industries && s.data.target_industries.length > 0 && (
                 <div class="flex flex-wrap gap-1.5">
                   {s.data.target_industries.map((ind: string) => (
-                    <span class="text-xs px-2 py-0.5 bg-[var(--color-bg-elevated)] text-[var(--color-text-muted)] rounded-full">
+                    <span class="text-xs border border-[var(--color-border)] px-2 py-0.5 text-[var(--color-ink-muted)]">
                       {ind}
                     </span>
                   ))}

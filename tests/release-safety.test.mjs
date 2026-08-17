@@ -138,20 +138,19 @@ test('motor-manufacturer landing path and inquiry attribution are present', () =
   }
 });
 
-test('homepage exposes the Pet Tech NPI entry while engineering pages retain their lab structure', () => {
+test('homepage retains the GMIP entry while engineering pages retain their lab structure', () => {
   const home = read('src/pages/index.astro');
   const products = read('src/pages/products/index.astro');
   const motorManufacturers = read('src/pages/motor-manufacturers.astro');
 
   assert.match(home, /Global Manufacturing Integration Partner \(GMIP\)/);
-  assert.match(home, /Bring Your Hardware Product From Prototype to Mass Production in China/);
+  assert.match(home, /From product definition to controlled execution in China/);
   assert.match(home, /Pet Tech Brands/);
-  assert.match(home, /Project Evidence Review/);
-  assert.match(home, /LabComponentMap/);
+  assert.match(home, /EngineeringBrief/);
   assert.match(home, /Build in China/);
   assert.match(home, /Source in China/);
   assert.match(home, /Scale in China/);
-  assert.match(home, /Start a Project Fit Check/);
+  assert.match(home, /Start a project review/);
   assert.match(home, /Email Your Requirements/);
 
   assert.match(products, /Component Map/);
@@ -167,6 +166,83 @@ test('homepage exposes the Pet Tech NPI entry while engineering pages retain the
   assert.match(motorManufacturers, /Common engineering signals/);
   assert.match(motorManufacturers, /What to share before inquiry/);
   assert.match(motorManufacturers, /Product specifications, availability, lead time, and commercial terms are confirmed for each inquiry\./);
+});
+
+test('industrial editorial homepage uses honest review inputs and preserves product/application structure', () => {
+  const home = read('src/pages/index.astro');
+  const products = read('src/pages/products/index.astro');
+  const solutions = read('src/pages/solutions/index.astro');
+
+  assert.match(home, /EngineeringBrief/);
+  assert.match(home, /Define/);
+  assert.match(home, /Review/);
+  assert.match(home, /Execute/);
+  assert.match(home, /Parameters are confirmed during project review/);
+  assert.match(products, /Selection inputs to prepare/);
+  assert.match(solutions, /Application review lens/);
+});
+
+test('industrial editorial homepage test avoids generated imagery and asserted performance values', () => {
+  const home = read('src/pages/index.astro');
+
+  assert.doesNotMatch(home, /gmip-smart-feeder-cutaway\.png|gmip-motion-validation-concept\.png/);
+  assert.match(home, /From product definition to controlled execution in China/);
+  assert.match(read('src/components/home/EngineeringBrief.astro'), /Engineering Brief/);
+  assert.match(read('src/components/home/EngineeringBrief.astro'), /Review inputs/);
+  assert.doesNotMatch(home, /\b(?:IP\d+|\d+\s*(?:N|mm|V|rpm|°C))\b/);
+});
+
+test('editorial page CTAs preserve attributable GA4 intent events and operational baselines', () => {
+  const layout = read('src/layouts/BaseLayout.astro');
+  const analytics = read('src/components/analytics/CtaAnalytics.astro');
+  const home = read('src/pages/index.astro');
+  const products = read('src/pages/products/index.astro');
+  const solutions = read('src/pages/solutions/index.astro');
+
+  assert.match(layout, /CtaAnalytics/);
+  assert.match(analytics, /window\.gtag\?\.\('event'/);
+  assert.match(analytics, /cta_location/);
+  assert.match(analytics, /cta_label/);
+  assert.match(home, /project_review_cta_click/);
+  assert.match(products, /product_review_cta_click/);
+  assert.match(solutions, /application_review_cta_click/);
+  assert.equal(existsSync(join(root, 'docs/gmip/ga4-industrial-editorial-baseline.md')), true);
+  assert.equal(existsSync(join(root, 'docs/gmip/real-asset-collection-standard.md')), true);
+});
+
+test('contact page leads with a concise project invitation rather than an evidence gate', () => {
+  const contact = read('src/pages/contact.astro');
+
+  assert.match(contact, /Tell us about your hardware project\./);
+  assert.match(contact, /Share what you know today/);
+  assert.match(contact, /contact-intro__title/);
+  assert.doesNotMatch(contact, /Start with the project evidence you have/);
+});
+
+test('legacy Search Console URLs have dedicated redirect routes instead of falling back to the homepage', () => {
+  const legacyRoutes = [
+    ['src/pages/products/switches.astro', '/products/'],
+    [
+      'src/pages/solutions/smart-lock-micro-motor.astro',
+      '/solutions/smart-lock-micro-motor-solution/',
+    ],
+  ];
+
+  for (const [file, destination] of legacyRoutes) {
+    assert.equal(existsSync(join(root, file)), true, `${file} must exist`);
+    const source = read(file);
+    assert.match(source, new RegExp(`Astro\\.redirect\\(['\"]${destination}`));
+    assert.match(source, /301/);
+  }
+});
+
+test('generated sitemap excludes redirect-only legacy URLs when dist exists', () => {
+  const sitemap = join(root, 'dist', 'sitemap-0.xml');
+  if (!existsSync(sitemap)) return;
+
+  const xml = readFileSync(sitemap, 'utf8');
+  assert.doesNotMatch(xml, /https:\/\/yukun-drive\.com\/products\/switches\//);
+  assert.doesNotMatch(xml, /https:\/\/yukun-drive\.com\/solutions\/smart-lock-micro-motor\//);
 });
 
 test('navigation and footer guard rails', () => {

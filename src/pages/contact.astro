@@ -3,46 +3,54 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import ContactForm from '../components/ContactForm.tsx';
 ---
 
-<BaseLayout title="Free Project Fit Check | Yukun" description="Share your Pet Tech project stage, engineering evidence, target market, and production goals for a free Project Fit Check.">
-  <section class="section-padding">
+<BaseLayout title="Project Review | Yukun" description="Tell Yukun about your hardware project, development stage, and key requirements to determine the next practical review step.">
+  <section class="industrial-hero">
     <div class="max-w-7xl mx-auto">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+      <div class="grid grid-cols-1 gap-12 py-16 md:py-20 lg:grid-cols-2">
         <!-- Left: Form -->
         <div>
           <p class="tech-mono text-xs uppercase tracking-[0.18em] text-[var(--color-technical)] mb-3">Project Fit Check</p>
-          <h1 class="text-4xl font-bold mb-4">Start With a Free Project Fit Check</h1>
-          <p class="text-lg text-[var(--color-text-secondary)] mb-8">
-            Share the evidence you already have so we can review fit, missing information, and the next practical step. The free Project Fit Check confirms whether Yukun should review the project further. It does not include a full design, supplier list, formal quotation, or compliance opinion.
+          <h1 class="contact-intro__title">Tell us about your hardware project.</h1>
+          <p class="contact-intro__summary">
+            Share what you know today &mdash; product, stage, and key requirements. We will confirm whether a focused project review is the right next step.
           </p>
+          <p class="contact-intro__note">CAD, a BOM, a prototype, or test evidence is useful when available, but not required to start the conversation.</p>
 
-          <div class="flex gap-4 mb-8">
+          <div class="contact-tabs" role="tablist" aria-label="Inquiry type">
             <button
               id="tab-rfq"
-              class="px-5 py-2 text-sm font-medium bg-[var(--color-brand)] text-white rounded-lg transition-colors"
+              class="contact-tab contact-tab--active"
+              role="tab"
+              aria-controls="form-rfq"
+              aria-selected="true"
             >
-              Start a Project Fit Check
+              Project review
             </button>
             <button
               id="tab-sample"
-              class="px-5 py-2 text-sm font-medium bg-[var(--color-bg-card)] text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] rounded-lg border border-[var(--color-border-default)] transition-colors"
+              class="contact-tab"
+              role="tab"
+              aria-controls="form-sample"
+              aria-selected="false"
             >
               Discuss Sample Needs
             </button>
           </div>
 
-          <div id="form-rfq">
+          <div id="form-rfq" role="tabpanel" aria-labelledby="tab-rfq">
             <ContactForm formType="rfq" entryContent="project-fit-check" client:load />
           </div>
-          <div id="form-sample" class="hidden">
+          <div id="form-sample" class="hidden" role="tabpanel" aria-labelledby="tab-sample">
             <ContactForm formType="sample" entryContent="contact" client:load />
           </div>
         </div>
 
         <!-- Right: Contact Info -->
-        <div class="lg:pl-12">
+        <aside class="lg:pl-12" aria-label="Project review guidance">
           <div class="sticky top-24 space-y-8">
-            <div class="bg-[var(--color-bg-card)] border border-[var(--color-border-default)] rounded-xl p-6 text-[var(--color-navy-ink)]">
-              <h3 class="text-lg font-semibold mb-4 text-[var(--color-navy-ink)]">Contact Information</h3>
+            <div class="bg-[var(--color-navy)] border border-[var(--color-navy)] p-6 text-[var(--color-navy-ink)]">
+              <p class="tech-mono text-xs uppercase tracking-[0.16em] text-[var(--color-technical-light)] mb-3">Direct contact</p>
+              <h2 class="text-2xl font-semibold mb-5 text-[var(--color-navy-ink)]">Start with a working discussion.</h2>
               <ul class="space-y-3 text-sm">
                 <li class="flex items-center gap-3">
                   <span class="text-xl">Email</span>
@@ -61,29 +69,30 @@ import ContactForm from '../components/ContactForm.tsx';
               </ul>
             </div>
 
-            <div class="bg-[var(--color-bg-card)] border border-[var(--color-border-default)] rounded-xl p-6 text-[var(--color-navy-ink)]">
-              <h3 class="text-lg font-semibold mb-4 text-[var(--color-navy-ink)]">What Happens Next?</h3>
+            <div class="bg-white border border-[var(--color-border)] p-6 text-[var(--color-ink)]">
+              <p class="tech-mono text-xs uppercase tracking-[0.16em] text-[var(--color-technical)] mb-3">Review sequence</p>
+              <h2 class="text-2xl font-semibold mb-5 text-[var(--color-ink)]">What happens after you submit?</h2>
               <ol class="space-y-3 text-sm">
                 <li class="flex gap-3">
-                  <span class="flex-shrink-0 w-6 h-6 rounded-full bg-[var(--color-brand)]/20 text-[var(--color-technical-light)] flex items-center justify-center text-xs font-bold">1</span>
-                  <p class="text-[var(--color-navy-ink-muted)]">We review project fit, development stage, and the evidence you can share.</p>
+                  <span class="flex-shrink-0 w-6 h-6 border border-[var(--color-ink)] text-[var(--color-ink)] flex items-center justify-center text-xs font-bold">1</span>
+                  <p class="text-[var(--color-ink-muted)]">We review project fit, development stage, and the evidence you can share.</p>
                 </li>
                 <li class="flex gap-3">
-                  <span class="flex-shrink-0 w-6 h-6 rounded-full bg-[var(--color-brand)]/20 text-[var(--color-technical-light)] flex items-center justify-center text-xs font-bold">2</span>
-                  <p class="text-[var(--color-navy-ink-muted)]">We identify missing information and decide whether a focused discussion would be useful.</p>
+                  <span class="flex-shrink-0 w-6 h-6 border border-[var(--color-ink)] text-[var(--color-ink)] flex items-center justify-center text-xs font-bold">2</span>
+                  <p class="text-[var(--color-ink-muted)]">We identify missing information and decide whether a focused discussion would be useful.</p>
                 </li>
                 <li class="flex gap-3">
-                  <span class="flex-shrink-0 w-6 h-6 rounded-full bg-[var(--color-brand)]/20 text-[var(--color-technical-light)] flex items-center justify-center text-xs font-bold">3</span>
-                  <p class="text-[var(--color-navy-ink-muted)]">If the project is in scope, we suggest the next practical Build, Source, or Scale step.</p>
+                  <span class="flex-shrink-0 w-6 h-6 border border-[var(--color-ink)] text-[var(--color-ink)] flex items-center justify-center text-xs font-bold">3</span>
+                  <p class="text-[var(--color-ink-muted)]">If the project is in scope, we suggest the next practical Build, Source, or Scale step.</p>
                 </li>
                 <li class="flex gap-3">
-                  <span class="flex-shrink-0 w-6 h-6 rounded-full bg-[var(--color-brand)]/20 text-[var(--color-technical-light)] flex items-center justify-center text-xs font-bold">4</span>
-                  <p class="text-[var(--color-navy-ink-muted)]">Specifications, availability, lead time, and commercial terms are confirmed only for a specific inquiry.</p>
+                  <span class="flex-shrink-0 w-6 h-6 border border-[var(--color-ink)] text-[var(--color-ink)] flex items-center justify-center text-xs font-bold">4</span>
+                  <p class="text-[var(--color-ink-muted)]">Specifications, availability, lead time, and commercial terms are confirmed only for a specific inquiry.</p>
                 </li>
               </ol>
             </div>
           </div>
-        </div>
+        </aside>
       </div>
     </div>
   </section>
@@ -97,15 +106,19 @@ import ContactForm from '../components/ContactForm.tsx';
   const formSample = document.getElementById('form-sample');
 
   tabRFQ?.addEventListener('click', () => {
-    tabRFQ.className = 'px-5 py-2 text-sm font-medium bg-[var(--color-brand)] text-white rounded-lg transition-colors';
-    tabSample.className = 'px-5 py-2 text-sm font-medium bg-[var(--color-bg-card)] text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] rounded-lg border border-[var(--color-border-default)] transition-colors';
+    tabRFQ.className = 'contact-tab contact-tab--active';
+    tabSample.className = 'contact-tab';
+    tabRFQ.setAttribute('aria-selected', 'true');
+    tabSample.setAttribute('aria-selected', 'false');
     formRFQ?.classList.remove('hidden');
     formSample?.classList.add('hidden');
   });
 
   tabSample?.addEventListener('click', () => {
-    tabSample.className = 'px-5 py-2 text-sm font-medium bg-[var(--color-brand)] text-white rounded-lg transition-colors';
-    tabRFQ.className = 'px-5 py-2 text-sm font-medium bg-[var(--color-bg-card)] text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] rounded-lg border border-[var(--color-border-default)] transition-colors';
+    tabSample.className = 'contact-tab contact-tab--active';
+    tabRFQ.className = 'contact-tab';
+    tabSample.setAttribute('aria-selected', 'true');
+    tabRFQ.setAttribute('aria-selected', 'false');
     formSample?.classList.remove('hidden');
     formRFQ?.classList.add('hidden');
   });

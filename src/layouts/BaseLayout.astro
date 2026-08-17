@@ -2,6 +2,7 @@
 // Base layout - used by all pages
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import CtaAnalytics from '../components/analytics/CtaAnalytics.astro';
 import { SITE } from '../utils/seo';
 import '../styles/global.css';
 
@@ -109,6 +110,7 @@ const pageUrl = canonicalURL ?? new URL(Astro.url.pathname, Astro.site).href;
       <slot />
     </main>
     <Footer />
+    <CtaAnalytics />
 
     <!-- Structured Data slot - inject JSON-LD scripts from child pages -->
     <slot name="structured-data" />

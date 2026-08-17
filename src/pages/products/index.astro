@@ -40,27 +40,68 @@ const componentMap = [
 ---
 
 <BaseLayout title="Products — Compact Motion Categories | Yukun" description="Explore compact gear motor, brushless motor, pump, actuator, and switch categories for product-matching inquiries.">
+  <section class="industrial-hero">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid gap-8 py-16 md:py-20 lg:grid-cols-[.92fr_1.08fr] lg:items-center">
+      <div>
+        <p class="tech-mono text-xs uppercase tracking-[0.18em] text-[var(--color-technical)]">Motion platforms and component interfaces</p>
+        <h1 class="mt-3 text-4xl md:text-5xl font-bold text-[var(--color-ink)]">Products</h1>
+        <p class="mt-4 max-w-2xl text-lg leading-relaxed text-[var(--color-ink-muted)]">Start with the mechanism and interfaces. Product matching uses your engineering inputs, not a catalogue image or a category label alone.</p>
+        <a href="/contact/?entry=product-review" data-analytics-event="product_review_cta_click" data-analytics-location="products_hero" data-analytics-label="Discuss a product review" class="mt-7 inline-flex border border-[var(--color-ink)] bg-[var(--color-ink)] px-5 py-3 text-sm font-semibold text-white transition-colors hover:border-[var(--color-action)] hover:bg-[var(--color-action)]">Discuss a product review</a>
+      </div>
+      <div class="product-brief border border-[var(--color-ink)] bg-[#fcfbf8] p-6">
+        <p class="tech-mono text-xs uppercase tracking-[0.16em] text-[var(--color-ink)]">Selection brief</p>
+        <div class="mt-6 grid grid-cols-2 gap-0 border border-[var(--color-border)]">
+          {[
+            ['01', 'Function', 'What must move, switch, pump, or sense?'],
+            ['02', 'Interfaces', 'Mechanical, electrical, control, and installation constraints.'],
+            ['03', 'Evidence', 'Drawings, samples, CAD, BOM, test observations, and open questions.'],
+            ['04', 'Route', 'Product matching and next-step scope confirmed per inquiry.'],
+          ].map(([number, title, text]) => (
+            <div class="border-b border-r border-[var(--color-border)] p-4 even:border-r-0 last:border-b-0">
+              <p class="tech-mono text-xs text-[var(--color-technical)]">{number}</p>
+              <h2 class="mt-2 text-base font-semibold text-[var(--color-ink)]">{title}</h2>
+              <p class="mt-2 text-sm leading-relaxed text-[var(--color-ink-muted)]">{text}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="section-padding">
     <div class="max-w-7xl mx-auto">
       <div class="mb-12 max-w-3xl">
         <p class="tech-mono text-xs uppercase tracking-[0.18em] text-[var(--color-technical)]">Component Map</p>
-        <h1 class="mt-3 text-4xl font-bold">Products</h1>
+        <h2 class="mt-3 text-3xl font-bold">Selection inputs to prepare</h2>
         <p class="mt-4 text-lg text-[var(--color-ink-muted)]">
           Review core motor components and broader motion platforms through an application-first inquiry path.
           Specifications, drawings, documentation, and configuration options are confirmed for each inquiry.
         </p>
       </div>
 
+      <div class="mb-12 grid gap-0 border border-[var(--color-border)] md:grid-cols-3">
+        {[
+          ['Mechanical', 'Load, torque, speed, shaft, mounting, size envelope, and duty profile.'],
+          ['Electrical', 'Input, control method, wiring, feedback, current path, and connector interface.'],
+          ['Application', 'Operating environment, acoustic limit, target market, validation needs, and available evidence.'],
+        ].map(([title, text]) => (
+          <article class="border-b border-[var(--color-border)] bg-[var(--color-surface-muted)] p-5 last:border-b-0 md:border-b-0 md:border-r md:last:border-r-0">
+            <h3 class="text-lg font-semibold text-[var(--color-ink)]">{title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-[var(--color-ink-muted)]">{text}</p>
+          </article>
+        ))}
+      </div>
+
       <div class="mb-16 grid gap-6 lg:grid-cols-2">
         {componentMap.map((group) => (
-          <section class="rounded-2xl border border-[var(--color-border)] bg-white p-6 shadow-sm">
+          <section class="border border-[var(--color-border)] bg-white p-6">
             <div class="border-b border-[var(--color-border)] pb-4">
               <h2 class="text-2xl font-semibold text-[var(--color-ink)]">{group.group}</h2>
               <p class="mt-2 text-sm leading-relaxed text-[var(--color-ink-muted)]">{group.summary}</p>
             </div>
             <div class="mt-5 space-y-4">
               {group.items.map((item) => (
-                <a href={item.href} class="block rounded-xl border border-[var(--color-border)] bg-[var(--color-surface-muted)] p-4 transition-colors hover:border-[var(--color-technical)] hover:bg-white">
+                <a href={item.href} class="block border border-[var(--color-border)] bg-[var(--color-surface-muted)] p-4 transition-colors hover:border-[var(--color-technical)] hover:bg-white">
                   <h3 class="text-base font-semibold text-[var(--color-ink)]">{item.title}</h3>
                   <p class="mt-2 text-sm leading-relaxed text-[var(--color-ink-muted)]">{item.need}</p>
                 </a>

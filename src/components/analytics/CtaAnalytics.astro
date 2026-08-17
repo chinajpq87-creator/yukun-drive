@@ -1,0 +1,12 @@
+<script>
+  document.addEventListener('click', (event) => {
+    const target = (event.target as Element | null)?.closest<HTMLElement>('[data-analytics-event]');
+    if (!target) return;
+
+    window.gtag?.('event', target.dataset.analyticsEvent!, {
+      cta_location: target.dataset.analyticsLocation || 'unknown',
+      cta_label: target.dataset.analyticsLabel || target.textContent?.trim() || 'unknown',
+      entry_content: new URLSearchParams(window.location.search).get('entry') || undefined,
+    });
+  });
+</script>
