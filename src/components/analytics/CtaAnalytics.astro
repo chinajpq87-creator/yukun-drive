@@ -1,12 +1,44 @@
 <script>
+  const isSameTabNavigation = (target: HTMLElement, event: MouseEvent) =>
+    target instanceof HTMLAnchorElement &&
+    event.button === 0 &&
+    !event.defaultPrevented &&
+    !event.metaKey &&
+    !event.ctrlKey &&
+    !event.shiftKey &&
+    !event.altKey &&
+    !target.hasAttribute('download') &&
+    (!target.target || target.target === '_self') &&
+    target.origin === window.location.origin;
+
   document.addEventListener('click', (event) => {
     const target = (event.target as Element | null)?.closest<HTMLElement>('[data-analytics-event]');
     if (!target) return;
 
-    window.gtag?.('event', target.dataset.analyticsEvent!, {
+    const payload = {
       cta_location: target.dataset.analyticsLocation || 'unknown',
       cta_label: target.dataset.analyticsLabel || target.textContent?.trim() || 'unknown',
       entry_content: new URLSearchParams(window.location.search).get('entry') || undefined,
+    };
+
+    if (!isSameTabNavigation(target, event) || typeof window.gtag !== 'function') {
+      window.gtag?.('event', target.dataset.analyticsEvent!, payload);
+      return;
+    }
+
+    event.preventDefault();
+    let navigated = false;
+    const navigate = () => {
+      if (navigated) return;
+      navigated = true;
+      window.location.assign(target.href);
+    };
+
+    window.gtag('event', target.dataset.analyticsEvent!, {
+      ...payload,
+      event_callback: navigate,
+      event_timeout: 800,
     });
+    window.setTimeout(navigate, 850);
   });
 </script>
