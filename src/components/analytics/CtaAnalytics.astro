@@ -28,17 +28,30 @@
 
     event.preventDefault();
     let navigated = false;
+    let eventProcessed = false;
+    let minimumDelayElapsed = false;
     const navigate = () => {
-      if (navigated) return;
+      if (navigated || !eventProcessed || !minimumDelayElapsed) return;
       navigated = true;
       window.location.assign(target.href);
     };
 
     window.gtag('event', target.dataset.analyticsEvent!, {
       ...payload,
-      event_callback: navigate,
+      event_callback: () => {
+        eventProcessed = true;
+        navigate();
+      },
       event_timeout: 800,
     });
-    window.setTimeout(navigate, 850);
+    window.setTimeout(() => {
+      minimumDelayElapsed = true;
+      navigate();
+    }, 200);
+    window.setTimeout(() => {
+      eventProcessed = true;
+      minimumDelayElapsed = true;
+      navigate();
+    }, 850);
   });
 </script>
