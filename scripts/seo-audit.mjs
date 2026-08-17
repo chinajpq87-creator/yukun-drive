@@ -45,8 +45,12 @@ const failures = [];
 for (const file of htmlFiles) {
   const html = readFileSync(file, 'utf8');
   const label = relative(root, file);
+  const isNoindexRedirectFallback =
+    /<meta\b[^>]*\bname=["']robots["'][^>]*\bcontent=["'][^"']*\bnoindex\b[^"']*["'][^>]*>/i.test(html) &&
+    /<meta\b[^>]*\bhttp-equiv=["']refresh["'][^>]*>/i.test(html);
 
   for (const [name, pattern] of checks) {
+    if (isNoindexRedirectFallback && name === 'meta description') continue;
     if (!pattern.test(html)) failures.push(`${label}: missing ${name}`);
   }
 
