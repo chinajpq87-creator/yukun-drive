@@ -203,6 +203,10 @@ test('editorial page CTAs preserve attributable GA4 intent events and operationa
   assert.match(analytics, /window\.gtag\?\.\('event'/);
   assert.match(analytics, /cta_location/);
   assert.match(analytics, /cta_label/);
+  assert.match(analytics, /event_callback/);
+  assert.match(analytics, /event_timeout/);
+  assert.match(analytics, /event\.preventDefault\(\)/);
+  assert.match(analytics, /window\.location\.assign/);
   assert.match(home, /project_review_cta_click/);
   assert.match(products, /product_review_cta_click/);
   assert.match(solutions, /application_review_cta_click/);
