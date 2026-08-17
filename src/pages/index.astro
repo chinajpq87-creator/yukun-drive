@@ -5,6 +5,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import OrganizationSchema from '../components/seo/OrganizationSchema.astro';
 import LabComponentMap from '../components/lab/LabComponentMap.astro';
 import LabSectionHeader from '../components/lab/LabSectionHeader.astro';
+import EngineeringBrief from '../components/home/EngineeringBrief.astro';
 import { getCollection } from 'astro:content';
 
 // ── 数据查询 ──
@@ -104,42 +105,85 @@ const featuredProducts = featuredSlugs
   <!-- ═══════════════════════════════════════════════ -->
   <!-- HERO -->
   <!-- ═══════════════════════════════════════════════ -->
-  <section class="relative overflow-hidden bg-[var(--color-navy)]">
-    <div class="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(8,145,178,0.18),transparent_30%),linear-gradient(135deg,rgba(11,26,48,1),rgba(15,31,58,1))]"></div>
-    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
-      <div class="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+  <section class="industrial-hero">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+      <div class="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
         <div>
-          <p class="tech-mono text-xs uppercase tracking-[0.2em] text-[var(--color-technical-light)]">
+          <p class="tech-mono text-xs uppercase tracking-[0.2em] text-[var(--color-technical)]">
             Global Manufacturing Integration Partner (GMIP)
           </p>
-          <h1 class="mt-5 text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white">
-            Bring Your Hardware Product From Prototype to Mass Production in China
+          <h1 class="mt-5 text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-[var(--color-ink)]">
+            From product definition to controlled execution in China
           </h1>
-          <p class="mt-6 max-w-2xl text-lg md:text-xl leading-relaxed text-[var(--color-navy-ink-muted)]">
-            For teams with a design, prototype, CAD, or BOM — Yukun helps bridge engineering requirements with China's manufacturing ecosystem through motion system expertise, supplier coordination, and NPI management.
+          <p class="mt-6 max-w-2xl text-lg md:text-xl leading-relaxed text-[var(--color-ink-muted)]">
+            For teams with a design, prototype, CAD, or BOM — Yukun helps turn product evidence into an engineering, sourcing, and execution route that can be reviewed before commitment.
           </p>
           <div class="mt-8 flex flex-col sm:flex-row gap-4">
-            <a href="/contact/?entry=project-fit-check" class="inline-flex items-center justify-center rounded-lg bg-[var(--color-action)] px-7 py-3.5 text-base font-semibold text-white shadow-lg shadow-black/20 transition-colors hover:bg-[var(--color-action-hover)]">
-              Start a Project Fit Check
+            <a href="/contact/?entry=project-fit-check" data-analytics-event="project_review_cta_click" data-analytics-location="homepage_hero" data-analytics-label="Start a project review" class="inline-flex items-center justify-center border border-[var(--color-ink)] bg-[var(--color-ink)] px-7 py-3.5 text-base font-semibold text-white transition-colors hover:bg-[var(--color-action)] hover:border-[var(--color-action)]">
+              Start a project review
             </a>
-            <a href="mailto:chinajpq@outlook.com" class="inline-flex items-center justify-center rounded-lg border border-[var(--color-navy-border)] px-7 py-3.5 text-base font-semibold text-[var(--color-navy-ink)] transition-colors hover:border-[var(--color-technical)]">
+            <a href="mailto:chinajpq@outlook.com" class="inline-flex items-center justify-center border border-[var(--color-border)] px-7 py-3.5 text-base font-semibold text-[var(--color-ink)] transition-colors hover:border-[var(--color-ink)]">
               Email Your Requirements
             </a>
           </div>
           <div class="mt-8 grid gap-3 sm:grid-cols-3">
             {['Pet Tech Brands', 'Product Teams', 'Engineering Firms'].map((label) => (
-              <div class="rounded-xl border border-[var(--color-navy-border)] bg-white/5 p-4">
-                <p class="tech-mono text-[11px] uppercase tracking-[0.14em] text-[var(--color-technical-light)]">For</p>
-                <p class="mt-1 text-sm font-semibold text-white">{label}</p>
+              <div class="border-t border-[var(--color-ink)] pt-3">
+                <p class="tech-mono text-[11px] uppercase tracking-[0.14em] text-[var(--color-technical)]">For</p>
+                <p class="mt-1 text-sm font-semibold text-[var(--color-ink)]">{label}</p>
               </div>
             ))}
           </div>
         </div>
-        <LabComponentMap
-          title="Project Evidence Review"
-          subtitle="Bring the product definition, CAD, BOM, prototype evidence, target quantity, market, and unresolved manufacturing questions you already have."
-        />
+        <EngineeringBrief />
       </div>
+    </div>
+  </section>
+
+  <section class="bg-[var(--color-surface-muted)] border-y border-[var(--color-border)]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
+      <div class="max-w-3xl">
+        <p class="tech-mono text-xs uppercase tracking-[0.18em] text-[var(--color-technical)]">Project review</p>
+        <h2 class="mt-3 text-3xl md:text-4xl font-bold text-[var(--color-ink)]">A clear review path for a complex physical product</h2>
+        <p class="mt-4 text-lg leading-relaxed text-[var(--color-ink-muted)]">We identify which product, engineering, sourcing, documentation, and execution questions need an answer before the work is scoped.</p>
+      </div>
+      <div class="mt-10 grid gap-0 border border-[var(--color-border)] md:grid-cols-3">
+        {[
+          ['01', 'Define', 'Capture the product evidence, constraints, market context, and unresolved questions.'],
+          ['02', 'Review', 'Assess the mechanism, interfaces, validation needs, and execution route.'],
+          ['03', 'Execute', 'Coordinate the agreed scope, supplier inputs, and change control.'],
+        ].map(([number, title, text]) => (
+          <article class="border-b border-[var(--color-border)] bg-white p-6 last:border-b-0 md:border-b-0 md:border-r md:last:border-r-0">
+            <p class="tech-mono text-3xl text-[var(--color-navy)]">{number}</p>
+            <h3 class="mt-4 text-xl font-semibold text-[var(--color-ink)]">{title}</h3>
+            <p class="mt-3 text-sm leading-relaxed text-[var(--color-ink-muted)]">{text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-[var(--color-border)] bg-[var(--color-surface-muted)]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div class="max-w-3xl">
+        <p class="tech-mono text-xs uppercase tracking-[0.18em] text-[var(--color-technical)]">Parameter and application context</p>
+        <h2 class="mt-3 text-3xl font-bold text-[var(--color-ink)]">What defines a workable motion-system brief</h2>
+        <p class="mt-4 text-lg text-[var(--color-ink-muted)]">Share what is known. The remaining values are reviewed with the product architecture rather than guessed from a category name.</p>
+      </div>
+      <div class="mt-9 grid gap-0 border border-[var(--color-border)] md:grid-cols-2 lg:grid-cols-4">
+        {[
+          ['Motion and load', 'Torque, speed, load profile, duty cycle, and failure modes.'],
+          ['Product envelope', 'Size, mounting, wiring, ingress, acoustic, and service constraints.'],
+          ['Control and sensing', 'Power source, feedback, controller interface, sensing, and safety logic.'],
+          ['Market use case', 'Application, target user, destination market, volume context, and documentation needs.'],
+        ].map(([title, text]) => (
+          <article class="border-b border-[var(--color-border)] bg-white p-5 last:border-b-0 md:border-b-0 md:border-r md:last:border-r-0">
+            <h3 class="text-lg font-semibold text-[var(--color-ink)]">{title}</h3>
+            <p class="mt-3 text-sm leading-relaxed text-[var(--color-ink-muted)]">{text}</p>
+          </article>
+        ))}
+      </div>
+      <p class="mt-6 text-sm text-[var(--color-ink-muted)]">Parameters are confirmed during project review. No generic image or category page substitutes for drawings, samples, testing, or compliance assessment.</p>
     </div>
   </section>
 

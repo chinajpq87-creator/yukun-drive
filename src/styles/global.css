@@ -126,12 +126,12 @@ table tr:hover td {
 }
 
 /* ===== Links ===== */
-a {
+a:not([class]) {
   color: var(--color-technical);
   transition: color 0.2s;
 }
 
-a:hover {
+a:not([class]):hover {
   color: var(--color-technical-light);
 }
 
@@ -149,6 +149,250 @@ pre {
   padding: 5rem 1.5rem;
 }
 
+.industrial-hero {
+  background:
+    linear-gradient(90deg, rgba(11, 26, 48, 0.035) 1px, transparent 1px),
+    linear-gradient(rgba(11, 26, 48, 0.035) 1px, transparent 1px),
+    #fbfaf7;
+  background-size: 2rem 2rem;
+}
+
+.contact-intro__title {
+  max-width: 14ch;
+  margin: 0;
+  color: var(--color-ink);
+  font-size: clamp(2.4rem, 4.2vw, 4.4rem);
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -0.045em;
+  text-wrap: balance;
+}
+
+.contact-intro__summary {
+  max-width: 38rem;
+  margin: 1.5rem 0 0;
+  color: var(--color-ink-muted);
+  font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+  line-height: 1.58;
+}
+
+.contact-intro__note {
+  max-width: 38rem;
+  margin: 1rem 0 1.75rem;
+  padding-left: 0.875rem;
+  border-left: 2px solid var(--color-technical);
+  color: var(--color-ink-muted);
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.contact-tabs {
+  display: inline-flex;
+  gap: 0;
+  margin: 0 0 2rem;
+  border: 1px solid var(--color-border);
+  background: #fff;
+}
+
+.contact-tab {
+  padding: 0.7rem 1rem;
+  border: 0;
+  border-right: 1px solid var(--color-border);
+  background: transparent;
+  color: var(--color-ink-muted);
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.18s, color 0.18s;
+}
+
+.contact-tab:last-child { border-right: 0; }
+.contact-tab:hover { color: var(--color-ink); }
+.contact-tab--active { background: var(--color-ink); color: #fff; }
+
+@media (max-width: 480px) {
+  .contact-tabs { display: grid; width: 100%; grid-template-columns: 1fr; }
+  .contact-tab { border-right: 0; border-bottom: 1px solid var(--color-border); }
+  .contact-tab:last-child { border-bottom: 0; }
+}
+
+.engineering-brief {
+  border: 1px solid var(--color-ink);
+  background: #fcfbf8;
+  color: var(--color-ink);
+}
+
+.engineering-brief__heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--color-ink);
+  font-family: 'JetBrains Mono', 'Consolas', monospace;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.engineering-brief__status {
+  color: var(--color-ink-muted);
+  font-size: 0.625rem;
+  letter-spacing: 0.05em;
+}
+
+.engineering-brief__body {
+  display: grid;
+  grid-template-columns: 1.35fr 0.85fr;
+}
+
+.engineering-brief__component,
+.engineering-brief__materials,
+.engineering-brief__inputs,
+.engineering-brief__sequence {
+  padding: 1.25rem;
+}
+
+.engineering-brief__component,
+.engineering-brief__inputs {
+  border-right: 1px solid var(--color-border);
+}
+
+.engineering-brief__component,
+.engineering-brief__materials {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.engineering-brief__label {
+  margin: 0;
+  color: var(--color-ink);
+  font-family: 'JetBrains Mono', 'Consolas', monospace;
+  font-size: 0.625rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.engineering-brief svg {
+  width: 100%;
+  height: auto;
+  margin-top: 1.25rem;
+  fill: none;
+  stroke: var(--color-ink);
+  stroke-width: 1.2;
+}
+
+.engineering-brief .engineering-brief__axis {
+  stroke: var(--color-technical);
+  stroke-dasharray: 4 4;
+}
+
+.engineering-brief__note {
+  margin: 0.75rem 0 0;
+  color: var(--color-ink-muted);
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+
+.engineering-brief__swatches {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+.engineering-brief__swatches span {
+  color: var(--color-ink-muted);
+  font-size: 0.625rem;
+}
+
+.engineering-brief__swatches i {
+  display: block;
+  aspect-ratio: 1;
+  margin-bottom: 0.35rem;
+  border: 1px solid var(--color-ink);
+}
+
+.swatch-hatch { background: repeating-linear-gradient(135deg, #fff, #fff 3px, #4b5563 3px, #4b5563 4px); }
+.swatch-dots { background-image: radial-gradient(#4b5563 0.75px, transparent 0.75px); background-size: 4px 4px; }
+.swatch-lines { background: repeating-linear-gradient(0deg, #fff, #fff 3px, #9ca3af 3px, #9ca3af 4px); }
+.swatch-grid { background-image: linear-gradient(#9ca3af 1px, transparent 1px), linear-gradient(90deg, #9ca3af 1px, transparent 1px); background-size: 5px 5px; }
+
+.engineering-brief__inputs ul,
+.engineering-brief__sequence ol {
+  margin: 1rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.engineering-brief__inputs li {
+  padding: 0.45rem 0;
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-ink-muted);
+  font-size: 0.75rem;
+  line-height: 1.35;
+}
+
+.engineering-brief__inputs li:last-child { border-bottom: 0; }
+
+.engineering-brief__sequence li {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0;
+  color: var(--color-ink);
+  font-size: 0.8rem;
+}
+
+.engineering-brief__sequence b {
+  display: inline-grid;
+  width: 1.8rem;
+  height: 1.8rem;
+  place-items: center;
+  border: 1px solid var(--color-ink);
+  border-radius: 50%;
+  font-family: 'JetBrains Mono', 'Consolas', monospace;
+  font-size: 0.625rem;
+  font-weight: 500;
+}
+
+/* Visual workflow cue: a lightweight substitute for promotional video when no licensed footage exists. */
+.engineering-flow {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  height: 0.35rem;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #dbe5ea;
+}
+
+.engineering-flow span {
+  border-radius: inherit;
+  background: #8ccadd;
+}
+
+.engineering-flow i {
+  position: absolute;
+  inset: 0 auto 0 -34%;
+  width: 34%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, transparent, var(--color-action), transparent);
+  animation: engineering-flow 3.4s ease-in-out infinite;
+}
+
+@keyframes engineering-flow {
+  0%, 18% { transform: translateX(0); opacity: .25; }
+  46% { opacity: 1; }
+  82%, 100% { transform: translateX(400%); opacity: .25; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .engineering-flow i { animation: none; transform: translateX(200%); }
+}
+
 @media (max-width: 768px) {
   .section-padding {
     padding: 3rem 1rem;
@@ -160,5 +404,19 @@ pre {
 
   h2 {
     font-size: 1.5rem;
+  }
+
+  .engineering-brief__body {
+    grid-template-columns: 1fr;
+  }
+
+  .engineering-brief__component,
+  .engineering-brief__inputs {
+    border-right: 0;
+  }
+
+  .engineering-brief__materials,
+  .engineering-brief__inputs {
+    border-bottom: 1px solid var(--color-border);
   }
 }
