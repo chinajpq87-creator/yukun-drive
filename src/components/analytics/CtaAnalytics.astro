@@ -1,4 +1,6 @@
 <script>
+  const pendingCtaEventKey = 'yukun_pending_cta_event';
+
   const isSameTabNavigation = (target: HTMLElement, event: MouseEvent) =>
     target instanceof HTMLAnchorElement &&
     event.button === 0 &&
@@ -11,6 +13,23 @@
     (!target.target || target.target === '_self') &&
     target.origin === window.location.origin;
 
+  const emitPendingCtaEvent = () => {
+    try {
+      const serializedEvent = sessionStorage.getItem(pendingCtaEventKey);
+      if (!serializedEvent) return;
+
+      sessionStorage.removeItem(pendingCtaEventKey);
+      const pendingEvent = JSON.parse(serializedEvent);
+      if (typeof pendingEvent.name !== 'string' || typeof pendingEvent.payload !== 'object') return;
+
+      window.gtag?.('event', pendingEvent.name, pendingEvent.payload);
+    } catch {
+      // Storage may be unavailable; normal navigation must still continue.
+    }
+  };
+
+  emitPendingCtaEvent();
+
   document.addEventListener('click', (event) => {
     const target = (event.target as Element | null)?.closest<HTMLElement>('[data-analytics-event]');
     if (!target) return;
@@ -21,37 +40,18 @@
       entry_content: new URLSearchParams(window.location.search).get('entry') || undefined,
     };
 
-    if (!isSameTabNavigation(target, event) || typeof window.gtag !== 'function') {
-      window.gtag?.('event', target.dataset.analyticsEvent!, payload);
-      return;
+    if (isSameTabNavigation(target, event)) {
+      try {
+        sessionStorage.setItem(
+          pendingCtaEventKey,
+          JSON.stringify({ name: target.dataset.analyticsEvent, payload })
+        );
+        return;
+      } catch {
+        // Fall through to best-effort source-page tracking when storage is unavailable.
+      }
     }
 
-    event.preventDefault();
-    let navigated = false;
-    let eventProcessed = false;
-    let minimumDelayElapsed = false;
-    const navigate = () => {
-      if (navigated || !eventProcessed || !minimumDelayElapsed) return;
-      navigated = true;
-      window.location.assign(target.href);
-    };
-
-    window.gtag('event', target.dataset.analyticsEvent!, {
-      ...payload,
-      event_callback: () => {
-        eventProcessed = true;
-        navigate();
-      },
-      event_timeout: 800,
-    });
-    window.setTimeout(() => {
-      minimumDelayElapsed = true;
-      navigate();
-    }, 200);
-    window.setTimeout(() => {
-      eventProcessed = true;
-      minimumDelayElapsed = true;
-      navigate();
-    }, 850);
+    window.gtag?.('event', target.dataset.analyticsEvent!, payload);
   });
 </script>
