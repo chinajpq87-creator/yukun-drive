@@ -7,6 +7,7 @@ import {
   statSync,
 } from 'node:fs';
 import { join, relative, resolve } from 'node:path';
+import { execFileSync } from 'node:child_process';
 
 const root = resolve(import.meta.dirname, '..');
 const publicEmail = 'chinajpq@outlook.com';
@@ -248,6 +249,29 @@ test('generated sitemap excludes redirect-only legacy URLs when dist exists', ()
   const xml = readFileSync(sitemap, 'utf8');
   assert.doesNotMatch(xml, /https:\/\/yukun-drive\.com\/products\/switches\//);
   assert.doesNotMatch(xml, /https:\/\/yukun-drive\.com\/solutions\/smart-lock-micro-motor\//);
+});
+
+test('Cloudflare Pages build output carries permanent redirects for legacy Search Console URLs', () => {
+  const redirectManifest = join(root, 'dist', '_redirects');
+
+  assert.equal(existsSync(redirectManifest), true, 'build output must include a Pages redirect manifest');
+
+  const rules = readFileSync(redirectManifest, 'utf8');
+  assert.match(rules, /^\/products\/switches\/?\s+\/products\/\s+301$/m);
+  assert.match(
+    rules,
+    /^\/solutions\/smart-lock-micro-motor\/?\s+\/solutions\/smart-lock-micro-motor-solution\/\s+301$/m
+  );
+});
+
+test('SEO audit accepts noindex redirect fallbacks while checking indexable pages', () => {
+  assert.doesNotThrow(() =>
+    execFileSync(process.execPath, ['scripts/seo-audit.mjs', '--dir', 'dist'], {
+      cwd: root,
+      encoding: 'utf8',
+      stdio: 'pipe',
+    })
+  );
 });
 
 test('navigation and footer guard rails', () => {

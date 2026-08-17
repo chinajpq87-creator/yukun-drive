@@ -1,0 +1,5 @@
+# Legacy Search Console URLs: permanent canonical destinations.
+/products/switches /products/ 301
+/products/switches/ /products/ 301
+/solutions/smart-lock-micro-motor /solutions/smart-lock-micro-motor-solution/ 301
+/solutions/smart-lock-micro-motor/ /solutions/smart-lock-micro-motor-solution/ 301
